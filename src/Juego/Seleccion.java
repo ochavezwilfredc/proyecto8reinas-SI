@@ -14,84 +14,87 @@ import static Juego.OchoReinas.MAX_SELECCION;
  *
  * @author mendoza
  */
-public class Seleccion implements Icondiciones{
+public class Seleccion implements Icondiciones {
+
+    int tamPoblacion;
+    double genTotal = 0.0;
+    double selTotal;
+    int maximoSeleccionar;
+    double seleccionar;
+    Cromosoma cromosoma, comosomaTemp;
+    boolean terminado;
     Recursos recursos;
 
     public Seleccion() {
         this.recursos = new Recursos();
     }
-        
+
     // Seleccion de cromosomas de la generacion
     public void ruletaSeleccion() {
-        
-        int j;
-        int tamPoblacion = poblacion.size();
-        double genTotal = 0.0;
-        double selTotal;
-        int maximoSeleccionar = recursos.getAleatorio(MIN_SELECCION, MAX_SELECCION);
-        double seleccionar;
-        Cromosoma cromosoma, comosomaTemp;
-        boolean terminado = false;
-        
+        int elemenP;//Elemento(cromosoma) de la población
+        tamPoblacion = poblacion.size();
+        genTotal = 0.0;
+        maximoSeleccionar = recursos.getAleatorio(MIN_SELECCION, MAX_SELECCION);
+        terminado = false;
+
         // se almacena en la variable genTotal donde contendra la suma del fitness de toda la poblacion
         //obtiene la actitud total
-        
         for (int i = 0; i < tamPoblacion; i++) {
             cromosoma = poblacion.get(i);
             genTotal += cromosoma.getFitness();
         }
-        
+
         // se multiplica por el 0.01 que genera redondeo
         genTotal *= 0.01;
 
         //  se multiplica por el 0.01 que genera intervalos de 0/1
         for (int i = 0; i < tamPoblacion; i++) {
             cromosoma = poblacion.get(i);
-            
+
             // establecer la probabilidad de selección. cuanto más se ajuste, mejor será la probabilidad de selección
-            cromosoma.setSelectionProbability(cromosoma.getFitness() / genTotal);
+            cromosoma.setSeleccionProbabilidad(cromosoma.getFitness() / genTotal);
         }
 
         // seleccionar padres
         for (int i = 0; i < maximoSeleccionar; i++) {
-            
+
             // el azar a seleccionar es solo hasta 99 porque la suma de las probabilidades de los cromosomas 
             // es hasta 99.9999999999999999999 y no llega a 100 como para que rompa la condicion
             seleccionar = recursos.getAleatorio(0, 99);
             terminado = false;
-            j = 0;
+            elemenP = 0;
             selTotal = 0;
-            
+
             while (!terminado) {
-                
+
                 // empieza con la poblacion desde el iondividuo n° 1 hasta el ultimo
-                cromosoma = poblacion.get(j);
-                
+                cromosoma = poblacion.get(elemenP);
+
                 // aqui se almacena el total de la probabilidad de seleccion la cual llega a un 99.9999...
-                selTotal += cromosoma.getSelectionProbability();
+                selTotal += cromosoma.getSeleccionProbabilidad();
                 //System.out.println("El selTotal es ( "+selTotal+" ) y seleccionar es  ( "+seleccionar+" )");
-                
+
                 if (selTotal >= seleccionar) {
-                    
-                    if (j == 0) {
+
+                    if (elemenP == 0) {
                         // toma el primero
-                        comosomaTemp = poblacion.get(j);
-                    } else if (j >= tamPoblacion - 1) {
+                        comosomaTemp = poblacion.get(elemenP);
+                    } else if (elemenP >= tamPoblacion - 1) {
                         // toma el ultimo
                         comosomaTemp = poblacion.get(tamPoblacion - 1);
                     } else {
                         // toma en una posicion determinada
-                        comosomaTemp = poblacion.get(j - 1);
+                        comosomaTemp = poblacion.get(elemenP - 1);
                     }
-                    
-                    comosomaTemp.setSelected(true);
+
+                    comosomaTemp.setSeleccionado(true);
                     terminado = true;
-                
+
                 } else {
-                    j++;
+                    elemenP++;
                 }
             }
         }
     }
-    
+
 }

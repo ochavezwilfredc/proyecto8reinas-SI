@@ -13,7 +13,7 @@ import static Juego.OchoReinas.poblacion;
  */
 public class Fitness {
 
-    // Buscar la mejor acttud 
+    // Buscar la mejor aptud 
     public void evaluar() {
 
         // se busca el Menor error = 100%, Mayor Error = 0%
@@ -22,22 +22,23 @@ public class Fitness {
         double mejor, peor, optimo;
 
         // La peor puntuación seá el que tiene la mayor numero de conflictos , y el mejor el más bajo.
-        peor = poblacion.get(Maximo()).getConflicts();
+        peor = poblacion.get(this.maximo()).getConflictos();
 
         // el mejor 
-        mejor = poblacion.get(Minimo()).getConflicts();
-
+        mejor = poblacion.get(this.minimo()).getConflictos();
+        
+        //se cálcula la posición obtima
         optimo = peor - mejor;
 
         for (int i = 0; i < tamPoblacion; i++) {
             cromosoma = poblacion.get(i);
-            cromosoma.setFitness((peor - cromosoma.getConflicts()) * 100.0 / optimo);
+            cromosoma.setFitness((peor - cromosoma.getConflictos()) * 100.0 / optimo);
             //System.out.println("El fitness de la población "+i+" es: "+cromosoma.getFitness());
         }
     }
 
     // ahora toca ver el maximo a obtener el cromosoma 
-    public int Maximo() {
+    public int maximo() {
 
         // Devuelve el indice de una matriz.
         int tamPoblacion;
@@ -58,7 +59,7 @@ public class Fitness {
                     cromosoma = poblacion.get(i);
                     comosomaTemp = poblacion.get(ganador);
 
-                    if (cromosoma.getConflicts() > comosomaTemp.getConflicts()) {
+                    if (cromosoma.getConflictos() > comosomaTemp.getConflictos()) {
                         ganador = i;
                         nuevoGanador = true;
 
@@ -76,7 +77,7 @@ public class Fitness {
     }
 
     // ahora toca ver el minimo a obtener el cromosoma 
-    public int Minimo() {
+    public int minimo() {
 
         // Devuelve el indice de una matriz.
         int tamPoblacion;
@@ -99,7 +100,7 @@ public class Fitness {
                     cromosoma = poblacion.get(i);
                     comosomaTemp = poblacion.get(ganador);
 
-                    if (cromosoma.getConflicts() < comosomaTemp.getConflicts()) {
+                    if (cromosoma.getConflictos() < comosomaTemp.getConflictos()) {
 
                         ganador = i;
                         nuevoGanador = true;

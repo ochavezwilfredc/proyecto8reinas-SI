@@ -40,9 +40,6 @@ public class Cromosoma {
      */
     public void calcularConflictos() {
 
-        // Esta linea mustra los cromosomas
-        System.out.println(Arrays.toString(this.vec_solucion));
-
         int x, y, tempX, tempY, numeroConflictos;
         numeroConflictos = 0;
 
@@ -109,15 +106,14 @@ public class Cromosoma {
         // establecer conflictos de este cromosoma  
         this.conflictos = numeroConflictos;
 
+
     }
 
-    // Obtiene el gen / datos en un índice especificado.
-    public int getGene(int index) {
+    public int getVecSolucion(int index) {
         return this.vec_solucion[index];
     }
 
-    // Establece el gen / datos en un índice especificado.
-    public void setGene(int index, int position) {
+    public void setVecSolucion(int index, int position) {
         this.vec_solucion[index] = position;
     }
 
@@ -132,12 +128,12 @@ public class Cromosoma {
     }
 
     // Obtiene los conflictos del cromosoma.
-    public int getConflicts() {
+    public int getConflictos() {
         return conflictos;
     }
 
     // Establece los conflictos del cromosoma.
-    public void setConflicts(int conflictos) {
+    public void setConflictos(int conflictos) {
         this.conflictos = conflictos;
     }
 
@@ -146,18 +142,17 @@ public class Cromosoma {
         return seleccionado;
     }
 
-    //Obtiene si el cromosoma está seleccionado.
-    public void setSelected(boolean seleccionado) {
+    public void setSeleccionado(boolean seleccionado) {
         this.seleccionado = seleccionado;
     }
 
     // Obtiene la probabilidad de selección del cromosoma.
-    public double getSelectionProbability() {
+    public double getSeleccionProbabilidad() {
         return probSeleccion;
     }
 
     // establece la probabilidad de selección del cromosoma.
-    public void setSelectionProbability(double probSeleccion) {
+    public void setSeleccionProbabilidad(double probSeleccion) {
         this.probSeleccion = probSeleccion;
     }
 
@@ -173,8 +168,6 @@ public class Cromosoma {
     public int[] getVec_genes() {
         return vec_solucion;
     }
-    
-    
 
     @Override
     public String toString() {

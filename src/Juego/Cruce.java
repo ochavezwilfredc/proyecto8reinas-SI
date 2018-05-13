@@ -50,43 +50,43 @@ public class Cruce implements Icondiciones {
 
         // Copia los genes de padres a hijos.
         for (int i = 0; i < ANCHO_TABLERO; i++) {
-            newChromo1.setGene(i, cromosomaAux1.getGene(i));
-            newChromo2.setGene(i, cromosomaAux2.getGene(i));
+            newChromo1.setVecSolucion(i, cromosomaAux1.getVecSolucion(i));
+            newChromo2.setVecSolucion(i, cromosomaAux2.getVecSolucion(i));
         }
 
         for (int i = crossPoint1; i <= crossPoint2; i++) {
             // Obtener los dos elementos que intercambian.
-            item1 = cromosomaAux1.getGene(i);
-            item2 = cromosomaAux2.getGene(i);
+            item1 = cromosomaAux1.getVecSolucion(i);
+            item2 = cromosomaAux2.getVecSolucion(i);
 
             // Obtiene los items, posiciones en la descendencia.
             for (j = 0; j < ANCHO_TABLERO; j++) {
-                if (newChromo1.getGene(j) == item1) {
+                if (newChromo1.getVecSolucion(j) == item1) {
                     pos1 = j;
-                } else if (newChromo1.getGene(j) == item2) {
+                } else if (newChromo1.getVecSolucion(j) == item2) {
                     pos2 = j;
                 }
             }
 
             // Intercambiar.
             if (item1 != item2) {
-                newChromo1.setGene(pos1, item2);
-                newChromo1.setGene(pos2, item1);
+                newChromo1.setVecSolucion(pos1, item2);
+                newChromo1.setVecSolucion(pos2, item1);
             }
 
             // Obtiene los items, posiciones en la descendencia.
             for (j = 0; j < ANCHO_TABLERO; j++) {
-                if (newChromo2.getGene(j) == item2) {
+                if (newChromo2.getVecSolucion(j) == item2) {
                     pos1 = j;
-                } else if (newChromo2.getGene(j) == item1) {
+                } else if (newChromo2.getVecSolucion(j) == item1) {
                     pos2 = j;
                 }
             }
 
             // Intercambiar.
             if (item1 != item2) {
-                newChromo2.setGene(pos1, item1);
-                newChromo2.setGene(pos2, item2);
+                newChromo2.setVecSolucion(pos1, item1);
+                newChromo2.setVecSolucion(pos2, item2);
             }
 
         }
@@ -127,19 +127,19 @@ public class Cruce implements Icondiciones {
         for (int i = 0; i < ANCHO_TABLERO; i++) {
             matchFound = false;
             for (int j = 0; j < numPoints; j++) {
-                if (comosomaAux.getGene(i) == cromosoma.getGene(crossPoints[j])) {
+                if (comosomaAux.getVecSolucion(i) == cromosoma.getVecSolucion(crossPoints[j])) {
                     matchFound = true;
                 }
             } // j
             if (matchFound == false) {
-                tempArray1[k] = comosomaAux.getGene(i);
+                tempArray1[k] = comosomaAux.getVecSolucion(i);
                 k++;
             }
         } // i
 
         // Insertar elegido al hijo 1.
         for (int i = 0; i < numPoints; i++) {
-            newChromo1.setGene(crossPoints[i], cromosoma.getGene(crossPoints[i]));
+            newChromo1.setVecSolucion(crossPoints[i], cromosoma.getVecSolucion(crossPoints[i]));
         }
 
         // Rellene no elegidos para hijos 1.
@@ -152,7 +152,7 @@ public class Cruce implements Icondiciones {
                 }
             } // j
             if (matchFound == false) {
-                newChromo1.setGene(i, tempArray1[k]);
+                newChromo1.setVecSolucion(i, tempArray1[k]);
                 k++;
             }
         } // i
@@ -162,19 +162,19 @@ public class Cruce implements Icondiciones {
         for (int i = 0; i < ANCHO_TABLERO; i++) {
             matchFound = false;
             for (int j = 0; j < numPoints; j++) {
-                if (cromosoma.getGene(i) == comosomaAux.getGene(crossPoints[j])) {
+                if (cromosoma.getVecSolucion(i) == comosomaAux.getVecSolucion(crossPoints[j])) {
                     matchFound = true;
                 }
             } // j
             if (matchFound == false) {
-                tempArray2[k] = cromosoma.getGene(i);
+                tempArray2[k] = cromosoma.getVecSolucion(i);
                 k++;
             }
         } // i
 
         // Inserte elegido en hijos 2.
         for (int i = 0; i < numPoints; i++) {
-            newChromo2.setGene(crossPoints[i], comosomaAux.getGene(crossPoints[i]));
+            newChromo2.setVecSolucion(crossPoints[i], comosomaAux.getVecSolucion(crossPoints[i]));
         }
 
         // Rellene no elegidos para hijos 2.
@@ -187,7 +187,7 @@ public class Cruce implements Icondiciones {
                 }
             } // j
             if (matchFound == false) {
-                newChromo2.setGene(i, tempArray2[k]);
+                newChromo2.setVecSolucion(i, tempArray2[k]);
                 k++;
             }
         } // i

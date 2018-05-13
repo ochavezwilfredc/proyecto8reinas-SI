@@ -57,7 +57,7 @@ public class OchoReinas implements Icondiciones {
         // setea en numero de mutaciones a 0 
         numMutaciones = 0;
 
-        // setea un valor random para la mutacion que se debe de dar
+        // setea un valor random para la siguiente mutación a relaizar
         sigMutacion = recursos.getAleatorio(0, (int) Math.round(1.0 / TASA_MUTACION));
 
         while (!terminado) {
@@ -66,7 +66,7 @@ public class OchoReinas implements Icondiciones {
                 cromosoma = poblacion.get(i);
 
                 // si el conflicto == 0 es porque ese es el ganador y la solucion
-                if (cromosoma.getConflicts() == 0) {
+                if (cromosoma.getConflictos() == 0) {
                     terminado = true;
                 }
             }
@@ -82,20 +82,24 @@ public class OchoReinas implements Icondiciones {
 
             //Selecciona los hijos de la siguiente generación
             this.prepararSiguienteGeneracion();
-
+            
             generacion++;
-
-            System.out.println("===== Generación " + generacion + " =====\n");
+            
+            //Imprime una generación completa
+            this.recursos.imprimirGeneracion(poblacion, generacion);
+            
 
         }
 
         for (int i = 0; i < poblacion.size(); i++) {
             cromosoma = poblacion.get(i);
-            if (cromosoma.getConflicts() == 0) {
+            if (cromosoma.getConflictos() == 0) {
                 this.c_result = cromosoma;
-                System.out.println("\nCromosoma Solucion:\n"
-                        + Arrays.toString(cromosoma.getVec_genes()));
-                ImprimirSolucion(cromosoma);
+                System.out.println("\nCromosoma Solución:\n"
+                        + Arrays.toString(cromosoma.getVec_genes())+
+                        " Fitness: "+cromosoma.fitness +
+                        " #Coliciones: "+cromosoma.conflictos);
+                this.recursos.imprimirSolucionFinal(cromosoma);
                 
             }
         }
@@ -114,26 +118,27 @@ public class OchoReinas implements Icondiciones {
     public void GenerarPoblacionInicial() {
         int barajar;
         Cromosoma nuevoCromosoma;
-        int cromosomaIndex;
+        int inidiceCromosoma;
 
         for (int i = 0; i < POBLACION_INICIAL; i++) {
             // se genera un cromosoma nuevo
             nuevoCromosoma = new Cromosoma(ANCHO_TABLERO);
 
-            // se agrega el cromosoma al arreglo
+            // se agrega el cromosoma a la lista(población)
             poblacion.add(nuevoCromosoma);
 
-            // se captura la posicion del cromosoma en el arreglo
-            cromosomaIndex = poblacion.indexOf(nuevoCromosoma);
+            // se captura la posicion del cromosoma en la lista
+            inidiceCromosoma = poblacion.indexOf(nuevoCromosoma);
 
             // Escoja al azar el tamaño de baraja realizar.
             barajar = recursos.getAleatorio(MIN_BARAJA, MAX_BARAJA);
 
             // intercambia una mutacion (¿Donde y Porque?)
-            intercambiarMutacion(cromosomaIndex, barajar);
+            this.intercambiarMutacion(inidiceCromosoma, barajar);
 
             // obtiene la cantidad de conflictos del cromosoma generado
-            poblacion.get(cromosomaIndex).calcularConflictos();
+            poblacion.get(inidiceCromosoma).calcularConflictos();
+            
         }
 
     }
@@ -149,7 +154,7 @@ public class OchoReinas implements Icondiciones {
     *    0,0,0,1,0,0,0,0,
     *    0,0,0,0,0,1,0,0,
     *    0,0,0,0,0,0,1,0,
-    *   0,0,0,0,0,0,0,1,
+    *    0,0,0,0,0,0,0,1,
     *
     * entonces tienen que ser dos genes para cambiar entre si posiciones
      */
@@ -168,11 +173,11 @@ public class OchoReinas implements Icondiciones {
             //System.out.println("El gen1: " + gen1 + " gen2:" + gen2);
 
             // Cambia los genes seleccionados cruzadamente
-            tempGen1 = cromosoma.getGene(gen1);
-            tempGen2 = cromosoma.getGene(gen2);
+            tempGen1 = cromosoma.getVecSolucion(gen1);
+            tempGen2 = cromosoma.getVecSolucion(gen2);
 
-            cromosoma.setGene(gen1, tempGen2);
-            cromosoma.setGene(gen2, tempGen1);
+            cromosoma.setVecSolucion(gen1, tempGen2);
+            cromosoma.setVecSolucion(gen2, tempGen1);
 
             if (i == intercambio) {
                 terminado = true;
@@ -286,32 +291,13 @@ public class OchoReinas implements Icondiciones {
 
     // Prepara la poblacion de la siguiente generacion
     public void prepararSiguienteGeneracion() {
-        int tamanioPoblacion = 0;
-
         // Restaura estado de cromosoma
-        tamanioPoblacion = poblacion.size();
-        for (int i = 0; i < tamanioPoblacion; i++) {
-            cromosoma = poblacion.get(i);
-            cromosoma.setSelected(false);
+        for (Cromosoma c : poblacion) {
+            c.setSeleccionado(false);
         }
+       
     }
 
-    /**
-     * Imprime la mejor solucion
-     *
-     * @param mejorSolucion
-     */
-    public void ImprimirSolucion(Cromosoma mejorSolucion) {
-        String tablero[][] = new String[ANCHO_TABLERO][ANCHO_TABLERO];
-        this.recursos.inicializarTablero(tablero, "0");
-
-        //1 = reina 
-        for (int x = 0; x < ANCHO_TABLERO; x++) {
-            tablero[x][mejorSolucion.getGene(x)] = "1";
-
-        }
-        //Imprime la soción
-        this.recursos.imprimirTablero(tablero, "Solución ");
-    }
+    
 
 }

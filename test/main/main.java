@@ -12,20 +12,18 @@ import Juego.OchoReinas;
  *
  * @author mendoza
  */
-
 public class main {
 
     /**
      * @param args the command line arguments
      */
-    
     public static void main(String[] args) {
         // TODO code application logic here
-        
+
         OchoReinas reinas = new OchoReinas();
         Cromosoma c = reinas.algoritmoGenetico();
-        System.out.println(c.toString());
-        
+        //System.out.println(c.toString());
+
     }
-    
+
 }
