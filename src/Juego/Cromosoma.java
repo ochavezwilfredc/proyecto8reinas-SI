@@ -15,36 +15,36 @@ import java.util.Arrays;
 public class Cromosoma {
 
     public int anchoTablero = 0;            // n tamaño
-    public int genes[];                     // contiene la ubicación de cada reina
+    public int[] vec_solucion;                 // contiene la ubicación de cada reina
     public double fitness = 0.0;            // la aptitud de este cromosoma para la solución
     public double probSeleccion = 0.0;      // seleccionado para aparearse en la ruleta
     public int conflictos = 0;              // cantidad de colisiones
     public boolean seleccionado = false;    // si se selecciona para aparearse
     public String tablero[][];
-    public Recursos recursos;
+    Recursos recursos;
 
     public Cromosoma(int longitud) {
         this.anchoTablero = longitud;
-        this.genes = new int[longitud];
+        this.vec_solucion = new int[longitud];
         this.recursos = new Recursos();
 
-        // esta linea es para llenar los genes del individuo
-        for (int i = 0; i < longitud; i++) {
-            this.genes[i] = i;
-        }
+        // Inicializar el vector de genes
+        this.recursos.inicializarVector(vec_solucion);
 
     }
 
-    // calcula el número de conflictos para calcular la aptitud
-    // los conflictos se dan 7 por cada cromosoma ejem
-    // 0 tiene 7 conflictos, 1 tiene 7 conflictos...
-    // por eso el total de conflictos son ¡56! como maximo!!
+    /**
+     * calcula el número de conflictos para calcular la aptitud los conflictos
+     * se dan 7 por cada cromosoma ejem 0 tiene 7 conflictos, 1 tiene 7
+     * conflictos... por eso el total de conflictos son ¡56! como maximo!!
+     */
     public void calcularConflictos() {
 
-        // esta linea mustra los cromosomas
-        System.out.println(Arrays.toString(this.genes));
+        // Esta linea mustra los cromosomas
+        System.out.println(Arrays.toString(this.vec_solucion));
 
-        int x = 0, y = 0, tempX = 0, tempY = 0, numeroConflictos = 0;
+        int x, y, tempX, tempY, numeroConflictos;
+        numeroConflictos = 0;
 
         // se crea el tablero
         tablero = new String[anchoTablero][anchoTablero];
@@ -60,19 +60,18 @@ public class Cromosoma {
         //Inicializa el tablero
         this.recursos.inicializarTablero(tablero, "0");
 
-        // este paso llena todas las diagonales del tablero con 1 = reina
+        //setea las diagonales del tablero con 1 = reina
         for (int i = 0; i < anchoTablero; i++) {
-            tablero[i][this.genes[i]] = "1";
+            tablero[i][this.vec_solucion[i]] = "1";
         }
 
         //Imprime el tablero
-        this.recursos.imprimirTablero(tablero, "");
-
+        //this.recursos.imprimirTablero(tablero, "");
         // Recorre cada una de las reinas y cálcula el numero de conflictos
         // Camina a través de cada una de las Reinas y calcule el número de conflictos.
         for (int i = 0; i < anchoTablero; i++) {
             x = i;
-            y = this.genes[i];
+            y = this.vec_solucion[i];
 
             // Evalua las diagonales (¿porque?)
             // Ver diagonales.
@@ -114,12 +113,12 @@ public class Cromosoma {
 
     // Obtiene el gen / datos en un índice especificado.
     public int getGene(int index) {
-        return this.genes[index];
+        return this.vec_solucion[index];
     }
 
     // Establece el gen / datos en un índice especificado.
     public void setGene(int index, int position) {
-        this.genes[index] = position;
+        this.vec_solucion[index] = position;
     }
 
     // Obtiene la aptitud de un cromosoma.
@@ -171,9 +170,15 @@ public class Cromosoma {
         return tablero;
     }
 
+    public int[] getVec_genes() {
+        return vec_solucion;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "Cromosoma{" + "anchoTablero=" + anchoTablero + ", genes=" + genes + ", fitness=" + fitness + ", probSeleccion=" + probSeleccion + ", conflictos=" + conflictos + ", seleccionado=" + seleccionado + ", tablero=" + tablero + ", recursos=" + recursos + '}';
+        return "Cromosoma{" + "anchoTablero=" + anchoTablero + ", genes=" + Arrays.toString(vec_solucion) + ", fitness=" + fitness + ", probSeleccion=" + probSeleccion + ", conflictos=" + conflictos + ", seleccionado=" + seleccionado + ", tablero=" + tablero + ", recursos=" + recursos + '}';
     }
 
 }

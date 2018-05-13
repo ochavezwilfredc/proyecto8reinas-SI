@@ -6,30 +6,31 @@
 package Juego;
 
 import Recursos.Recursos;
-import static Juego.OchoReinas.maxSeleccion;
-import static Juego.OchoReinas.minSeleccion;
 import static Juego.OchoReinas.poblacion;
+import static Juego.OchoReinas.MIN_SELECCION;
+import static Juego.OchoReinas.MAX_SELECCION;
 
 /**
  *
  * @author mendoza
  */
-public class Seleccion {
-    
+public class Seleccion implements Icondiciones{
+    Recursos recursos;
+
+    public Seleccion() {
+        this.recursos = new Recursos();
+    }
+        
     // Seleccion de cromosomas de la generacion
     public void ruletaSeleccion() {
-
-        Recursos rand1 = new Recursos();
-        Recursos rand2 = null;
         
-        int j = 0;
+        int j;
         int tamPoblacion = poblacion.size();
         double genTotal = 0.0;
-        double selTotal = 0.0;
-        int maximoSeleccionar = rand1.NumeroAleatorio(minSeleccion, maxSeleccion);
-        double seleccionar = 0.0;
-        Cromosoma cromosoma = null;
-        Cromosoma comosomaTemp = null;
+        double selTotal;
+        int maximoSeleccionar = recursos.getAleatorio(MIN_SELECCION, MAX_SELECCION);
+        double seleccionar;
+        Cromosoma cromosoma, comosomaTemp;
         boolean terminado = false;
         
         // se almacena en la variable genTotal donde contendra la suma del fitness de toda la poblacion
@@ -56,8 +57,7 @@ public class Seleccion {
             
             // el azar a seleccionar es solo hasta 99 porque la suma de las probabilidades de los cromosomas 
             // es hasta 99.9999999999999999999 y no llega a 100 como para que rompa la condicion
-            rand2 = new Recursos();
-            seleccionar = rand2.NumeroAleatorio(0, 99);
+            seleccionar = recursos.getAleatorio(0, 99);
             terminado = false;
             j = 0;
             selTotal = 0;

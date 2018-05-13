@@ -7,12 +7,13 @@ package Juego;
 
 import Recursos.Recursos;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
  * @author mendoza
  */
-public class OchoReinas implements Condiciones {
+public class OchoReinas implements Icondiciones {
 
     // numero de mutaciones
     public static int numMutaciones = 0;
@@ -34,6 +35,7 @@ public class OchoReinas implements Condiciones {
 
     // Array que contendra todas las poblaciones
     public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();
+    private Cromosoma c_result;
 
     public OchoReinas() {
         this.recursos = new Recursos();
@@ -43,8 +45,11 @@ public class OchoReinas implements Condiciones {
 
     }
 
-    public void algoritmoGenetico() {
-        int tamPoblacion;
+    /**
+     * Método principal para la simulación AG
+     * @return 
+     */
+    public Cromosoma algoritmoGenetico() {
         boolean terminado = false;
         // este paso genera la poblacion inicial a usar
         GenerarPoblacionInicial();
@@ -53,13 +58,10 @@ public class OchoReinas implements Condiciones {
         numMutaciones = 0;
 
         // setea un valor random para la mutacion que se debe de dar
-        sigMutacion = recursos.NumeroAleatorio(0, (int) Math.round(1.0 / tasaMutacion));
+        sigMutacion = recursos.getAleatorio(0, (int) Math.round(1.0 / TASA_MUTACION));
 
         while (!terminado) {
-            // tomamos el tamaño de la poblacion para realizar el 
-            tamPoblacion = poblacion.size();
-
-            for (int i = 0; i < tamPoblacion; i++) {
+            for (int i = 0; i < poblacion.size(); i++) {
                 // obtengo el cromosoma con su contenido 
                 cromosoma = poblacion.get(i);
 
@@ -69,56 +71,66 @@ public class OchoReinas implements Condiciones {
                 }
             }
 
-            // ahora tenemos qe seguir con el fitness para calcular la actitud de cada individuo
+            //Evalua el fitness por individuo
             fitness.evaluar();
 
             //Selecciona los padres de la siguiente generación
             seleccion.ruletaSeleccion();
 
             //Realiza el cruce parcial de los padres
-            reproduccion();
+            this.reproduccion();
 
             //Selecciona los hijos de la siguiente generación
-            PrepararSiguienteGeneracion();
+            this.prepararSiguienteGeneracion();
 
             generacion++;
 
+            System.out.println("===== Generación " + generacion + " =====\n");
+
         }
 
-        tamPoblacion = poblacion.size();
-        for (int i = 0; i < tamPoblacion; i++) {
+        for (int i = 0; i < poblacion.size(); i++) {
             cromosoma = poblacion.get(i);
             if (cromosoma.getConflicts() == 0) {
-                ImprimirSolucion(cromosoma, i + 1);
+                this.c_result = cromosoma;
+                System.out.println("\nCromosoma Solucion:\n"
+                        + Arrays.toString(cromosoma.getVec_genes()));
+                ImprimirSolucion(cromosoma);
+                
             }
         }
 
-        System.out.println("Resuelto en " + generacion + " generaciones \nencontrado con " + numMutaciones + " mutaciones \nen el " + numHijos + " cromosoma y las sgMutaciones " + sigMutacion);
+        System.out.println("\n-------------------------\n"
+                + "Resuelto en:\n "
+                + "\tGeneraciones: " + generacion + "\n"
+                + "\tMutaciones: " + numMutaciones + "\n"
+                + "\tNro. Hijos: " + numHijos + "\n");
+        return this.c_result;
     }
 
+    /**
+     * Método genera la población inicial
+     */
     public void GenerarPoblacionInicial() {
-
         int barajar;
-        Cromosoma newCromosoma;
+        Cromosoma nuevoCromosoma;
         int cromosomaIndex;
-        Recursos rand;
 
-        for (int i = 0; i < poblacionIni; i++) {
-
+        for (int i = 0; i < POBLACION_INICIAL; i++) {
             // se genera un cromosoma nuevo
-            newCromosoma = new Cromosoma(anchoTablero);
+            nuevoCromosoma = new Cromosoma(ANCHO_TABLERO);
 
             // se agrega el cromosoma al arreglo
-            poblacion.add(newCromosoma);
+            poblacion.add(nuevoCromosoma);
 
             // se captura la posicion del cromosoma en el arreglo
-            cromosomaIndex = poblacion.indexOf(newCromosoma);
+            cromosomaIndex = poblacion.indexOf(nuevoCromosoma);
 
             // Escoja al azar el tamaño de baraja realizar.
-            barajar = recursos.NumeroAleatorio(minBaraja, maxBaraja);
+            barajar = recursos.getAleatorio(MIN_BARAJA, MAX_BARAJA);
 
             // intercambia una mutacion (¿Donde y Porque?)
-            IntercambiarMutacion(cromosomaIndex, barajar);
+            intercambiarMutacion(cromosomaIndex, barajar);
 
             // obtiene la cantidad de conflictos del cromosoma generado
             poblacion.get(cromosomaIndex).calcularConflictos();
@@ -126,34 +138,34 @@ public class OchoReinas implements Condiciones {
 
     }
 
-    // intercambia una mutación que suceda en los genes 
-    // Cambia la posición de las reinas en un cromosoma al azar de acuerdo con el número de intercambios
-    // NOTA: siempre tienen que ser dos genes porque si es uno saldria esta figura
-    /*
-        1,0,0,0,0,0,0,0,
-        0,1,0,0,0,0,0,0,
-        0,0,1,0,0,0,0,0,
-        0,0,0,1,0,0,0,0,
-        0,0,0,1,0,0,0,0,
-        0,0,0,0,0,1,0,0,
-        0,0,0,0,0,0,1,0,
-        0,0,0,0,0,0,0,1,
+    /* intercambia una mutación que suceda en los genes 
+    *Cambia la posición de las reinas en un cromosoma al azar de acuerdo con el número de intercambios
+    *NOTA: siempre tienen que ser dos genes porque si es uno saldria esta figura
+    *
+    *    1,0,0,0,0,0,0,0,
+    *    0,1,0,0,0,0,0,0,
+    *    0,0,1,0,0,0,0,0,
+    *    0,0,0,1,0,0,0,0,
+    *    0,0,0,1,0,0,0,0,
+    *    0,0,0,0,0,1,0,0,
+    *    0,0,0,0,0,0,1,0,
+    *   0,0,0,0,0,0,0,1,
+    *
+    * entonces tienen que ser dos genes para cambiar entre si posiciones
      */
-    // entonces tienen que ser dos genes para cambiar entre si posiciones
-    public void IntercambiarMutacion(int indice, int intercambio) {
+    public void intercambiarMutacion(int indice, int intercambio) {
 
         int i = 0;
         int tempGen1, tempGen2, gen1, gen2;
         boolean terminado = false;
-
         cromosoma = poblacion.get(indice);
 
         while (!terminado) {
 
             //Face del cruce en dos puntos
-            gen1 = recursos.NumeroAleatorio(0, anchoTablero - 1);
-            gen2 = recursos.NumeroAleatorioExclusivo(anchoTablero - 1, gen1);
-            System.out.println("El gen1: " + gen1 + " gen2:" + gen2);
+            gen1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
+            gen2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, gen1);
+            //System.out.println("El gen1: " + gen1 + " gen2:" + gen2);
 
             // Cambia los genes seleccionados cruzadamente
             tempGen1 = cromosoma.getGene(gen1);
@@ -177,22 +189,22 @@ public class OchoReinas implements Condiciones {
         Cromosoma newCromosoma1, newCromosoma2;
 
         // este for es del numero de descendencias que genera la reproduccion 
-        for (int i = 0; i < numDesendencia; i++) {
+        for (int i = 0; i < NUM_DESENDENCIA; i++) {
 
             // aqui se selecciona un padre 
             padreA = SeleccionarPadre();
 
             // Probabilidad de prueba de reproduccion.
-            getRand = recursos.NumeroAleatorio(0, 100);
+            getRand = recursos.getAleatorio(0, 100);
 
-            if (getRand <= (probApareamiento * 100)) {
+            if (getRand <= (PROB_APAREAMIENTO * 100)) {
 
                 // se obtiene un nuevo padre que no sea igual al padre A
                 padreB = SeleccionarPadre(padreA);
 
                 // se crean dos nuevos cromosomas 
-                newCromosoma1 = new Cromosoma(anchoTablero);
-                newCromosoma2 = new Cromosoma(anchoTablero);
+                newCromosoma1 = new Cromosoma(ANCHO_TABLERO);
+                newCromosoma2 = new Cromosoma(ANCHO_TABLERO);
 
                 // se agrega el cromosoma creado a la poblacion 
                 poblacion.add(newCromosoma1);
@@ -213,11 +225,11 @@ public class OchoReinas implements Condiciones {
                 if (numHijos - 1 == sigMutacion) {
 
                     // se genera una mutacion al azar y de baraja solo una vaz
-                    IntercambiarMutacion(newIndex1, 1);
+                    intercambiarMutacion(newIndex1, 1);
                 } else if (numHijos == sigMutacion) {
 
                     // se genera una mutacion al azar y de baraja solo una vez
-                    IntercambiarMutacion(newIndex2, 1);
+                    intercambiarMutacion(newIndex2, 1);
                 }
 
                 poblacion.get(newIndex1).calcularConflictos();
@@ -226,23 +238,22 @@ public class OchoReinas implements Condiciones {
                 numHijos += 2;
 
                 // Programa la siguiente mutacion.
-                if (numHijos % (int) Math.round(1.0 / tasaMutacion) == 0) {
-                    sigMutacion = numHijos + recursos.NumeroAleatorio(0, (int) Math.round(1.0 / tasaMutacion));
+                if (numHijos % (int) Math.round(1.0 / TASA_MUTACION) == 0) {
+                    sigMutacion = numHijos + recursos.getAleatorio(0, (int) Math.round(1.0 / TASA_MUTACION));
                 }
             }
-        } // i
+        }
     }
 
     // Seleccionar los padres para la reproduccion
     public int SeleccionarPadre() {
-
         // Función encargada de, vea tambien "choosepadre (ByVal Parenta As Integer)".
         int padre = 0;
         boolean terminado = false;
 
         while (!terminado) {
             // Elige al azar un padre elegible.
-            padre = recursos.NumeroAleatorio(0, poblacion.size() - 1);
+            padre = recursos.getAleatorio(0, poblacion.size() - 1);
             cromosoma = poblacion.get(padre);
             if (cromosoma.isSelected() == true) {
                 terminado = true;
@@ -261,7 +272,7 @@ public class OchoReinas implements Condiciones {
         while (!terminado) {
 
             // Elige al azar un padre elegible.
-            padre = recursos.NumeroAleatorio(0, poblacion.size() - 1);
+            padre = recursos.getAleatorio(0, poblacion.size() - 1);
             if (padre != padreA) {
                 cromosoma = poblacion.get(padre);
                 if (cromosoma.isSelected() == true) {
@@ -274,7 +285,7 @@ public class OchoReinas implements Condiciones {
     }
 
     // Prepara la poblacion de la siguiente generacion
-    public void PrepararSiguienteGeneracion() {
+    public void prepararSiguienteGeneracion() {
         int tamanioPoblacion = 0;
 
         // Restaura estado de cromosoma
@@ -289,19 +300,18 @@ public class OchoReinas implements Condiciones {
      * Imprime la mejor solucion
      *
      * @param mejorSolucion
-     * @param i
      */
-    public void ImprimirSolucion(Cromosoma mejorSolucion, int i) {
-        String tablero[][] = new String[anchoTablero][anchoTablero];
+    public void ImprimirSolucion(Cromosoma mejorSolucion) {
+        String tablero[][] = new String[ANCHO_TABLERO][ANCHO_TABLERO];
         this.recursos.inicializarTablero(tablero, "0");
 
         //1 = reina 
-        for (int x = 0; x < anchoTablero; x++) {
+        for (int x = 0; x < ANCHO_TABLERO; x++) {
             tablero[x][mejorSolucion.getGene(x)] = "1";
 
         }
         //Imprime la soción
-        this.recursos.imprimirTablero(tablero, "Solución " + i);
+        this.recursos.imprimirTablero(tablero, "Solución ");
     }
 
 }

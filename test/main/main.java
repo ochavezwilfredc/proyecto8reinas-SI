@@ -5,6 +5,7 @@
  */
 package main;
 
+import Juego.Cromosoma;
 import Juego.OchoReinas;
 
 /**
@@ -22,7 +23,8 @@ public class main {
         // TODO code application logic here
         
         OchoReinas reinas = new OchoReinas();
-        reinas.algoritmoGenetico();
+        Cromosoma c = reinas.algoritmoGenetico();
+        System.out.println(c.toString());
         
     }
     
