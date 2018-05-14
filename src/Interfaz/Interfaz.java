@@ -362,6 +362,7 @@ public class Interfaz extends javax.swing.JFrame {
         btn7_7.setText("7");
         btn7_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn_iniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaz/iniciar.png"))); // NOI18N
         btn_iniciar.setText("INICIAR");
         btn_iniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
