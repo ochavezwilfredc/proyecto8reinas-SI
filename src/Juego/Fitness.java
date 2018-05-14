@@ -17,7 +17,6 @@ public class Fitness {
     public void evaluar() {
 
         // se busca el Menor error = 100%, Mayor Error = 0%
-        int tamPoblacion = poblacion.size();
         Cromosoma cromosoma;
         double mejor, peor, optimo;
 
@@ -30,7 +29,7 @@ public class Fitness {
         //se cálcula la posición obtima
         optimo = peor - mejor;
 
-        for (int i = 0; i < tamPoblacion; i++) {
+        for (int i = 0; i < poblacion.size(); i++) {
             cromosoma = poblacion.get(i);
             cromosoma.setFitness((peor - cromosoma.getConflictos()) * 100.0 / optimo);
         }

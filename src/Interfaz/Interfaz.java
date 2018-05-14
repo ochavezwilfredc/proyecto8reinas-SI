@@ -620,7 +620,7 @@ public class Interfaz extends javax.swing.JFrame {
         OchoReinas reinas = new OchoReinas();
         Cromosoma c = reinas.algoritmoGenetico();
         for (int i = 0; i < c.vec_solucion.length; i++) {
-            colocarIcono(i, c.vec_solucion[i]);
+            colocarIcono(c.vec_solucion[i],i);
         }
 
 

@@ -21,9 +21,6 @@ public interface Icondiciones {
     // Probabilidad de reproduccion entre dos cromosomas. rango: 0.0 < probMutacion < 1.0
     public static double PROB_APAREAMIENTO = 0.7;
 
-    // Tasa de mutacion. rango: 0.0 < TASA_MUTACION < 1.0
-    public static double TASA_MUTACION = 0.5;
-
     // Minimo de padres para la seleccion.
     public static int MIN_SELECCION = 10;
 
