@@ -48,7 +48,7 @@ public class Cromosoma {
         tablero = new String[anchoTablero][anchoTablero];
 
         // verifica si la diagonal está fuera de los límites
-        boolean terminado = false;
+        boolean terminado;
 
         // Verifica si ha  y diagonal 
         // emparejado con dx para comprobar diagonal
@@ -138,7 +138,7 @@ public class Cromosoma {
     }
 
     // Obtiene si el cromosoma está seleccionado.
-    public boolean isSelected() {
+    public boolean getSeleccionado() {
         return seleccionado;
     }
 
