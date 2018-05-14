@@ -18,7 +18,7 @@ public class Cromosoma {
     public int[] vec_solucion;                 // contiene la ubicación de cada reina
     public double fitness = 0.0;            // la aptitud de este cromosoma para la solución
     public double probSeleccion = 0.0;      // seleccionado para aparearse en la ruleta
-    public int conflictos = 0;              // cantidad de colisiones
+    public int cantConflictos = 0;              // cantidad de colisiones
     public boolean seleccionado = false;    // si se selecciona para aparearse
     public String tablero[][];
     Recursos recursos;
@@ -34,9 +34,10 @@ public class Cromosoma {
     }
 
     /**
-     * calcula el número de conflictos para calcular la aptitud los conflictos
-     * se dan 7 por cada cromosoma ejem 0 tiene 7 conflictos, 1 tiene 7
-     * conflictos... por eso el total de conflictos son ¡56! como maximo!!
+     * calcula el número de cantConflictos para calcular la aptitud los
+     * cantConflictos se dan 7 por cada cromosoma ejem 0 tiene 7 cantConflictos,
+     * 1 tiene 7 cantConflictos... por eso el total de cantConflictos son ¡56!
+     * como maximo!!
      */
     public void calcularConflictos() {
 
@@ -49,7 +50,7 @@ public class Cromosoma {
         // verifica si la diagonal está fuera de los límites
         boolean terminado = false;
 
-        // para verificar si hay diagonal 
+        // Verifica si ha  y diagonal 
         // emparejado con dx para comprobar diagonal
         int dx[] = new int[]{-1, 1, -1, 1};
         int dy[] = new int[]{-1, 1, 1, -1};
@@ -64,15 +65,15 @@ public class Cromosoma {
 
         //Imprime el tablero
         //this.recursos.imprimirTablero(tablero, "");
-        // Recorre cada una de las reinas y cálcula el numero de conflictos
-        // Camina a través de cada una de las Reinas y calcule el número de conflictos.
+        // Recorre cada una de las reinas y cálcula el numero de cantConflictos
+        // Camina a través de cada una de las Reinas y calcule el número de cantConflictos.
         for (int i = 0; i < anchoTablero; i++) {
             x = i;
             y = this.vec_solucion[i];
 
             // Evalua las diagonales (¿porque?)
             // Ver diagonales.
-            // debido a dx y dy donde hay 4 direcciones para la búsqueda diagonal de conflictos
+            // debido a dx y dy donde hay 4 direcciones para la búsqueda diagonal de cantConflictos
             for (int j = 0; j < 4; j++) {
 
                 tempX = x;
@@ -103,9 +104,8 @@ public class Cromosoma {
         }
 
         // aqui termina la comparacion de diagonales
-        // establecer conflictos de este cromosoma  
-        this.conflictos = numeroConflictos;
-
+        // establecer cantConflictos de este cromosoma  
+        this.cantConflictos = numeroConflictos;
 
     }
 
@@ -127,14 +127,14 @@ public class Cromosoma {
         this.fitness = fitness;
     }
 
-    // Obtiene los conflictos del cromosoma.
+    // Obtiene los cantConflictos del cromosoma.
     public int getConflictos() {
-        return conflictos;
+        return cantConflictos;
     }
 
-    // Establece los conflictos del cromosoma.
+    // Establece los cantConflictos del cromosoma.
     public void setConflictos(int conflictos) {
-        this.conflictos = conflictos;
+        this.cantConflictos = conflictos;
     }
 
     // Obtiene si el cromosoma está seleccionado.
@@ -147,12 +147,12 @@ public class Cromosoma {
     }
 
     // Obtiene la probabilidad de selección del cromosoma.
-    public double getSeleccionProbabilidad() {
+    public double getProbabilidad() {
         return probSeleccion;
     }
 
     // establece la probabilidad de selección del cromosoma.
-    public void setSeleccionProbabilidad(double probSeleccion) {
+    public void setProbabilidad(double probSeleccion) {
         this.probSeleccion = probSeleccion;
     }
 
@@ -171,7 +171,7 @@ public class Cromosoma {
 
     @Override
     public String toString() {
-        return "Cromosoma{" + "anchoTablero=" + anchoTablero + ", genes=" + Arrays.toString(vec_solucion) + ", fitness=" + fitness + ", probSeleccion=" + probSeleccion + ", conflictos=" + conflictos + ", seleccionado=" + seleccionado + ", tablero=" + tablero + ", recursos=" + recursos + '}';
+        return "Cromosoma{" + "anchoTablero=" + anchoTablero + ", genes=" + Arrays.toString(vec_solucion) + ", fitness=" + fitness + ", probSeleccion=" + probSeleccion + ", conflictos=" + cantConflictos + ", seleccionado=" + seleccionado + ", tablero=" + tablero + ", recursos=" + recursos + '}';
     }
 
 }

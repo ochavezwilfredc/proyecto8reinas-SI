@@ -27,14 +27,15 @@ public class OchoReinas implements Icondiciones {
     // numero de hijos
     public static int numHijos = 0;
 
+    // Array que contendra todas las poblaciones
+    public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();
+    
     Recursos recursos;
     Seleccion seleccion;
     Fitness fitness;
     Cromosoma cromosoma;
     Cruce cruce;
 
-    // Array que contendra todas las poblaciones
-    public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();
     private Cromosoma c_result;
 
     public OchoReinas() {
@@ -47,7 +48,8 @@ public class OchoReinas implements Icondiciones {
 
     /**
      * Método principal para la simulación AG
-     * @return 
+     *
+     * @return
      */
     public Cromosoma algoritmoGenetico() {
         boolean terminado = false;
@@ -82,12 +84,11 @@ public class OchoReinas implements Icondiciones {
 
             //Selecciona los hijos de la siguiente generación
             this.prepararSiguienteGeneracion();
-            
+
             generacion++;
-            
+
             //Imprime una generación completa
             this.recursos.imprimirGeneracion(poblacion, generacion);
-            
 
         }
 
@@ -96,11 +97,11 @@ public class OchoReinas implements Icondiciones {
             if (cromosoma.getConflictos() == 0) {
                 this.c_result = cromosoma;
                 System.out.println("\nCromosoma Solución:\n"
-                        + Arrays.toString(cromosoma.getVec_genes())+
-                        " Fitness: "+cromosoma.fitness +
-                        " #Coliciones: "+cromosoma.conflictos);
+                        + Arrays.toString(cromosoma.getVec_genes())
+                        + " Fitness: " + cromosoma.fitness
+                        + " #Coliciones: " + cromosoma.cantConflictos);
                 this.recursos.imprimirSolucionFinal(cromosoma);
-                
+
             }
         }
 
@@ -136,9 +137,9 @@ public class OchoReinas implements Icondiciones {
             // intercambia una mutacion (¿Donde y Porque?)
             this.intercambiarMutacion(inidiceCromosoma, barajar);
 
-            // obtiene la cantidad de conflictos del cromosoma generado
+            // obtiene la cantidad de cantConflictos del cromosoma generado
             poblacion.get(inidiceCromosoma).calcularConflictos();
-            
+
         }
 
     }
@@ -224,7 +225,7 @@ public class OchoReinas implements Icondiciones {
                 newIndex2 = poblacion.indexOf(newCromosoma2);
 
                 // Elige uno o ambos de los siguientes: ahora con objetos 
-                cruce.CruceParcial(padreA, padreB, newIndex1, newIndex2);
+                cruce.cruceParcial(padreA, padreB, newIndex1, newIndex2);
 
                 // se compara el numero de hijos con el de la sig mutacion 
                 if (numHijos - 1 == sigMutacion) {
@@ -295,9 +296,7 @@ public class OchoReinas implements Icondiciones {
         for (Cromosoma c : poblacion) {
             c.setSeleccionado(false);
         }
-       
-    }
 
-    
+    }
 
 }

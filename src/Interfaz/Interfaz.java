@@ -104,197 +104,261 @@ public class Interfaz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 51));
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
+        btn0_0.setBackground(new java.awt.Color(153, 255, 204));
         btn0_0.setText("0");
         btn0_0.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn0_2.setBackground(new java.awt.Color(153, 255, 204));
         btn0_2.setText("2");
         btn0_2.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn0_1.setBackground(new java.awt.Color(153, 255, 204));
         btn0_1.setText("1");
         btn0_1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn0_3.setBackground(new java.awt.Color(153, 255, 204));
         btn0_3.setText("3");
         btn0_3.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn0_7.setBackground(new java.awt.Color(153, 255, 204));
         btn0_7.setText("7");
         btn0_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn0_4.setBackground(new java.awt.Color(153, 255, 204));
         btn0_4.setText("4");
         btn0_4.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn0_5.setBackground(new java.awt.Color(153, 255, 204));
         btn0_5.setText("5");
         btn0_5.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn0_6.setBackground(new java.awt.Color(153, 255, 204));
         btn0_6.setText("6");
         btn0_6.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn1_0.setBackground(new java.awt.Color(153, 255, 204));
         btn1_0.setText("0");
         btn1_0.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn1_1.setBackground(new java.awt.Color(153, 255, 204));
         btn1_1.setText("1");
         btn1_1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn1_2.setBackground(new java.awt.Color(153, 255, 204));
         btn1_2.setText("2");
         btn1_2.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn1_3.setBackground(new java.awt.Color(153, 255, 204));
         btn1_3.setText("3");
         btn1_3.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn1_4.setBackground(new java.awt.Color(153, 255, 204));
         btn1_4.setText("4");
         btn1_4.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn1_5.setBackground(new java.awt.Color(153, 255, 204));
         btn1_5.setText("5");
         btn1_5.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn1_6.setBackground(new java.awt.Color(153, 255, 204));
         btn1_6.setText("6");
         btn1_6.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn1_7.setBackground(new java.awt.Color(153, 255, 204));
         btn1_7.setText("7");
         btn1_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn2_0.setBackground(new java.awt.Color(153, 255, 204));
         btn2_0.setText("0");
         btn2_0.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn2_7.setBackground(new java.awt.Color(153, 255, 204));
         btn2_7.setText("7");
         btn2_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn2_1.setBackground(new java.awt.Color(153, 255, 204));
         btn2_1.setText("1");
         btn2_1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn2_2.setBackground(new java.awt.Color(153, 255, 204));
         btn2_2.setText("2");
         btn2_2.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn2_3.setBackground(new java.awt.Color(153, 255, 204));
         btn2_3.setText("3");
         btn2_3.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn2_4.setBackground(new java.awt.Color(153, 255, 204));
         btn2_4.setText("4");
         btn2_4.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn2_5.setBackground(new java.awt.Color(153, 255, 204));
         btn2_5.setText("5");
         btn2_5.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn2_6.setBackground(new java.awt.Color(153, 255, 204));
         btn2_6.setText("6");
         btn2_6.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn3_0.setBackground(new java.awt.Color(153, 255, 204));
         btn3_0.setText("0");
         btn3_0.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn3_1.setBackground(new java.awt.Color(153, 255, 204));
         btn3_1.setText("1");
         btn3_1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn3_2.setBackground(new java.awt.Color(153, 255, 204));
         btn3_2.setText("2");
         btn3_2.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn3_3.setBackground(new java.awt.Color(153, 255, 204));
         btn3_3.setText("3");
         btn3_3.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn3_4.setBackground(new java.awt.Color(153, 255, 204));
         btn3_4.setText("4");
         btn3_4.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn3_5.setBackground(new java.awt.Color(153, 255, 204));
         btn3_5.setText("5");
         btn3_5.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn3_6.setBackground(new java.awt.Color(153, 255, 204));
         btn3_6.setText("6");
         btn3_6.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn3_7.setBackground(new java.awt.Color(153, 255, 204));
         btn3_7.setText("7");
         btn3_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn4_7.setBackground(new java.awt.Color(153, 255, 204));
         btn4_7.setText("7");
         btn4_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn4_6.setBackground(new java.awt.Color(153, 255, 204));
         btn4_6.setText("6");
         btn4_6.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn4_5.setBackground(new java.awt.Color(153, 255, 204));
         btn4_5.setText("5");
         btn4_5.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn4_4.setBackground(new java.awt.Color(153, 255, 204));
         btn4_4.setText("4");
         btn4_4.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn4_3.setBackground(new java.awt.Color(153, 255, 204));
         btn4_3.setText("3");
         btn4_3.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn4_2.setBackground(new java.awt.Color(153, 255, 204));
         btn4_2.setText("2");
         btn4_2.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn4_1.setBackground(new java.awt.Color(153, 255, 204));
         btn4_1.setText("1");
         btn4_1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn4_0.setBackground(new java.awt.Color(153, 255, 204));
         btn4_0.setText("0");
         btn4_0.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn5_0.setBackground(new java.awt.Color(153, 255, 204));
         btn5_0.setText("0");
         btn5_0.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn5_1.setBackground(new java.awt.Color(153, 255, 204));
         btn5_1.setText("1");
         btn5_1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn5_2.setBackground(new java.awt.Color(153, 255, 204));
         btn5_2.setText("2");
         btn5_2.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn5_3.setBackground(new java.awt.Color(153, 255, 204));
         btn5_3.setText("3");
         btn5_3.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn5_4.setBackground(new java.awt.Color(153, 255, 204));
         btn5_4.setText("4");
         btn5_4.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn5_5.setBackground(new java.awt.Color(153, 255, 204));
         btn5_5.setText("5");
         btn5_5.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn5_6.setBackground(new java.awt.Color(153, 255, 204));
         btn5_6.setText("6");
         btn5_6.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn5_7.setBackground(new java.awt.Color(153, 255, 204));
         btn5_7.setText("7");
         btn5_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn7_0.setBackground(new java.awt.Color(153, 255, 204));
         btn7_0.setText("0");
         btn7_0.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn6_0.setBackground(new java.awt.Color(153, 255, 204));
         btn6_0.setText("0");
         btn6_0.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn6_1.setBackground(new java.awt.Color(153, 255, 204));
         btn6_1.setText("1");
         btn6_1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn7_1.setBackground(new java.awt.Color(153, 255, 204));
         btn7_1.setText("1");
         btn7_1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn6_2.setBackground(new java.awt.Color(153, 255, 204));
         btn6_2.setText("2");
         btn6_2.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn7_2.setBackground(new java.awt.Color(153, 255, 204));
         btn7_2.setText("2");
         btn7_2.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn6_3.setBackground(new java.awt.Color(153, 255, 204));
         btn6_3.setText("3");
         btn6_3.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn7_3.setBackground(new java.awt.Color(153, 255, 204));
         btn7_3.setText("3");
         btn7_3.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn6_4.setBackground(new java.awt.Color(153, 255, 204));
         btn6_4.setText("4");
         btn6_4.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn7_4.setBackground(new java.awt.Color(153, 255, 204));
         btn7_4.setText("4");
         btn7_4.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn6_5.setBackground(new java.awt.Color(153, 255, 204));
         btn6_5.setText("5");
         btn6_5.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn7_5.setBackground(new java.awt.Color(153, 255, 204));
         btn7_5.setText("5");
         btn7_5.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn7_6.setBackground(new java.awt.Color(153, 255, 204));
         btn7_6.setText("6");
         btn7_6.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn6_6.setBackground(new java.awt.Color(153, 255, 204));
         btn6_6.setText("6");
         btn6_6.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn6_7.setBackground(new java.awt.Color(153, 255, 204));
         btn6_7.setText("7");
         btn6_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        btn7_7.setBackground(new java.awt.Color(153, 255, 204));
         btn7_7.setText("7");
         btn7_7.setPreferredSize(new java.awt.Dimension(50, 50));
 
@@ -434,18 +498,18 @@ public class Interfaz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn7_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_iniciar)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btn7_3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn7_4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn7_5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn7_6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn7_7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btn7_4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn7_5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn7_6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn7_7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

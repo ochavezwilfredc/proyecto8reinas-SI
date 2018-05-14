@@ -14,7 +14,7 @@ import static Juego.OchoReinas.PTS_CRUCE;
  *
  * @author mendoza
  */
-public class Cruce implements Icondiciones {
+public class Cruce {
 
     Recursos recursos;
 
@@ -25,68 +25,68 @@ public class Cruce implements Icondiciones {
     /**
      * Cruza con probabilidad dos individuos obteniendo dos decendientes
      *
-     * @param chromA
-     * @param chromB
-     * @param hijo1
-     * @param hijo2
+     * @param chromA posición del padrea A para generar el cruce
+     * @param chromB posición del padrea B para generar el cruce
+     * @param hijo1 ""
+     * @param hijo2 ""
      */
-    public void CruceParcial(int chromA, int chromB, int hijo1, int hijo2) {
-        int j ,item1, item2, pos1 ,pos2;
-        pos1=pos2=0;
+    public void cruceParcial(int chromA, int chromB, int hijo1, int hijo2) {
+        int indice, genCromoA, genCromoB, pos1, pos2;
+        pos1 = pos2 = 0;
 
-        Cromosoma cromosomaAux1 = poblacion.get(chromA);
-        Cromosoma cromosomaAux2 = poblacion.get(chromB);
-        Cromosoma newChromo1 = poblacion.get(hijo1);
-        Cromosoma newChromo2 = poblacion.get(hijo2);
+        Cromosoma cromoA = poblacion.get(chromA);
+        Cromosoma cromoB = poblacion.get(chromB);
+        Cromosoma cromoH1 = poblacion.get(hijo1);
+        Cromosoma cromoH2 = poblacion.get(hijo2);
 
-        int crossPoint1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-        int crossPoint2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, crossPoint1);
+        int puntoCruce1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
+        int puntoCruce2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, puntoCruce1);
 
-        if (crossPoint2 < crossPoint1) {
-            j = crossPoint1;
-            crossPoint1 = crossPoint2;
-            crossPoint2 = j;
+        if (puntoCruce2 < puntoCruce1) {
+            indice = puntoCruce1;
+            puntoCruce1 = puntoCruce2;
+            puntoCruce2 = indice;
         }
 
         // Copia los genes de padres a hijos.
         for (int i = 0; i < ANCHO_TABLERO; i++) {
-            newChromo1.setVecSolucion(i, cromosomaAux1.getVecSolucion(i));
-            newChromo2.setVecSolucion(i, cromosomaAux2.getVecSolucion(i));
+            cromoH1.setVecSolucion(i, cromoA.getVecSolucion(i));
+            cromoH2.setVecSolucion(i, cromoB.getVecSolucion(i));
         }
 
-        for (int i = crossPoint1; i <= crossPoint2; i++) {
-            // Obtener los dos elementos que intercambian.
-            item1 = cromosomaAux1.getVecSolucion(i);
-            item2 = cromosomaAux2.getVecSolucion(i);
+        for (int i = puntoCruce1; i <= puntoCruce2; i++) {
+            // Obtener los dos GENES que se van a intercambiar
+            genCromoA = cromoA.getVecSolucion(i);
+            genCromoB = cromoB.getVecSolucion(i);
 
-            // Obtiene los items, posiciones en la descendencia.
-            for (j = 0; j < ANCHO_TABLERO; j++) {
-                if (newChromo1.getVecSolucion(j) == item1) {
-                    pos1 = j;
-                } else if (newChromo1.getVecSolucion(j) == item2) {
-                    pos2 = j;
+            // Obtiene las posiciones en la descendencia el cromosoma A.
+            for (indice = 0; indice < ANCHO_TABLERO; indice++) {
+                if (cromoH1.getVecSolucion(indice) == genCromoA) {
+                    pos1 = indice;
+                } else if (cromoH1.getVecSolucion(indice) == genCromoB) {
+                    pos2 = indice;
                 }
             }
 
             // Intercambiar.
-            if (item1 != item2) {
-                newChromo1.setVecSolucion(pos1, item2);
-                newChromo1.setVecSolucion(pos2, item1);
+            if (genCromoA != genCromoB) {
+                cromoH1.setVecSolucion(pos1, genCromoB);
+                cromoH1.setVecSolucion(pos2, genCromoA);
             }
 
-            // Obtiene los items, posiciones en la descendencia.
-            for (j = 0; j < ANCHO_TABLERO; j++) {
-                if (newChromo2.getVecSolucion(j) == item2) {
-                    pos1 = j;
-                } else if (newChromo2.getVecSolucion(j) == item1) {
-                    pos2 = j;
+            // Obtiene las posiciones en la descendencia para el cromosoma B.
+            for (indice = 0; indice < ANCHO_TABLERO; indice++) {
+                if (cromoH2.getVecSolucion(indice) == genCromoB) {
+                    pos1 = indice;
+                } else if (cromoH2.getVecSolucion(indice) == genCromoA) {
+                    pos2 = indice;
                 }
             }
 
             // Intercambiar.
-            if (item1 != item2) {
-                newChromo2.setVecSolucion(pos1, item1);
-                newChromo2.setVecSolucion(pos2, item2);
+            if (genCromoA != genCromoB) {
+                cromoH2.setVecSolucion(pos1, genCromoA);
+                cromoH2.setVecSolucion(pos2, genCromoB);
             }
 
         }
@@ -100,59 +100,58 @@ public class Cruce implements Icondiciones {
      * @param hijo1
      * @param hijo2
      */
-    public void CrucePorPosicion(int chromA, int chromB, int hijo1, int hijo2) {
+    public void crucePorPosicion(int chromA, int chromB, int hijo1, int hijo2) {
 
-        int k, numPoints;
+        int k, nroPuntos;
         int tempArray1[] = new int[ANCHO_TABLERO];
         int tempArray2[] = new int[ANCHO_TABLERO];
-        boolean matchFound = false;
+        boolean coincidencia = false;
 
-        Cromosoma cromosoma = poblacion.get(chromA);
-        Cromosoma comosomaAux = poblacion.get(chromB);
-        Cromosoma newChromo1 = poblacion.get(hijo1);
-        Cromosoma newChromo2 = poblacion.get(hijo2);
-
+        Cromosoma cromoA = poblacion.get(chromA);
+        Cromosoma cromoB = poblacion.get(chromB);
+        Cromosoma cromoH1 = poblacion.get(hijo1);
+        Cromosoma cromoH2 = poblacion.get(hijo2);
 
         // Elegir y ordenar los puntos de cruce.
-        numPoints = recursos.getAleatorio(0, PTS_CRUCE);
+        nroPuntos = recursos.getAleatorio(0, PTS_CRUCE);
 
-        int crossPoints[] = new int[numPoints];
+        int vec_puntosCruce[] = new int[nroPuntos];
 
-        for (int i = 0; i < numPoints; i++) {
-            crossPoints[i] = recursos.getNumeroAleatorio(0, ANCHO_TABLERO - 1, crossPoints);
-        } // i
+        for (int i = 0; i < nroPuntos; i++) {
+            vec_puntosCruce[i] = recursos.getNumeroAleatorio(0, ANCHO_TABLERO - 1, vec_puntosCruce);
+        } 
 
-        // Obtenga no elegidos de los padres 2
+        // obtine los no elegidos de los padres 2
         k = 0;
         for (int i = 0; i < ANCHO_TABLERO; i++) {
-            matchFound = false;
-            for (int j = 0; j < numPoints; j++) {
-                if (comosomaAux.getVecSolucion(i) == cromosoma.getVecSolucion(crossPoints[j])) {
-                    matchFound = true;
+            coincidencia = false;
+            for (int j = 0; j < nroPuntos; j++) {
+                if (cromoB.getVecSolucion(i) == cromoA.getVecSolucion(vec_puntosCruce[j])) {
+                    coincidencia = true;
                 }
             } // j
-            if (matchFound == false) {
-                tempArray1[k] = comosomaAux.getVecSolucion(i);
+            if (coincidencia == false) {
+                tempArray1[k] = cromoB.getVecSolucion(i);
                 k++;
             }
         } // i
 
         // Insertar elegido al hijo 1.
-        for (int i = 0; i < numPoints; i++) {
-            newChromo1.setVecSolucion(crossPoints[i], cromosoma.getVecSolucion(crossPoints[i]));
+        for (int i = 0; i < nroPuntos; i++) {
+            cromoH1.setVecSolucion(vec_puntosCruce[i], cromoA.getVecSolucion(vec_puntosCruce[i]));
         }
 
-        // Rellene no elegidos para hijos 1.
+        // llenar los no elegidos para hijos 1.
         k = 0;
         for (int i = 0; i < ANCHO_TABLERO; i++) {
-            matchFound = false;
-            for (int j = 0; j < numPoints; j++) {
-                if (i == crossPoints[j]) {
-                    matchFound = true;
+            coincidencia = false;
+            for (int j = 0; j < nroPuntos; j++) {
+                if (i == vec_puntosCruce[j]) {
+                    coincidencia = true;
                 }
             } // j
-            if (matchFound == false) {
-                newChromo1.setVecSolucion(i, tempArray1[k]);
+            if (coincidencia == false) {
+                cromoH1.setVecSolucion(i, tempArray1[k]);
                 k++;
             }
         } // i
@@ -160,34 +159,34 @@ public class Cruce implements Icondiciones {
         // Obtenga no elegidos de los padres 1
         k = 0;
         for (int i = 0; i < ANCHO_TABLERO; i++) {
-            matchFound = false;
-            for (int j = 0; j < numPoints; j++) {
-                if (cromosoma.getVecSolucion(i) == comosomaAux.getVecSolucion(crossPoints[j])) {
-                    matchFound = true;
+            coincidencia = false;
+            for (int j = 0; j < nroPuntos; j++) {
+                if (cromoA.getVecSolucion(i) == cromoB.getVecSolucion(vec_puntosCruce[j])) {
+                    coincidencia = true;
                 }
             } // j
-            if (matchFound == false) {
-                tempArray2[k] = cromosoma.getVecSolucion(i);
+            if (coincidencia == false) {
+                tempArray2[k] = cromoA.getVecSolucion(i);
                 k++;
             }
         } // i
 
         // Inserte elegido en hijos 2.
-        for (int i = 0; i < numPoints; i++) {
-            newChromo2.setVecSolucion(crossPoints[i], comosomaAux.getVecSolucion(crossPoints[i]));
+        for (int i = 0; i < nroPuntos; i++) {
+            cromoH2.setVecSolucion(vec_puntosCruce[i], cromoB.getVecSolucion(vec_puntosCruce[i]));
         }
 
         // Rellene no elegidos para hijos 2.
         k = 0;
         for (int i = 0; i < ANCHO_TABLERO; i++) {
-            matchFound = false;
-            for (int j = 0; j < numPoints; j++) {
-                if (i == crossPoints[j]) {
-                    matchFound = true;
+            coincidencia = false;
+            for (int j = 0; j < nroPuntos; j++) {
+                if (i == vec_puntosCruce[j]) {
+                    coincidencia = true;
                 }
             } // j
-            if (matchFound == false) {
-                newChromo2.setVecSolucion(i, tempArray2[k]);
+            if (coincidencia == false) {
+                cromoH2.setVecSolucion(i, tempArray2[k]);
                 k++;
             }
         } // i

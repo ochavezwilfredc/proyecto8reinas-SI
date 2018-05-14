@@ -62,29 +62,28 @@ public class Recursos implements Icondiciones {
     /**
      * Obtener numero aleatorio fuera del rango
      *
-     * @param low
-     * @param high
-     * @param except
+     * @param bajo
+     * @param alto
+     * @param v_puntosCruce
      * @return
      */
-    public int getNumeroAleatorio(int low, int high, int[] except) {
+    public int getNumeroAleatorio(int bajo, int alto, int[] v_puntosCruce) {
         boolean terminado = false;
         int getRand = 0;
 
-        if (high != low) {
+        if (alto != bajo) {
             while (!terminado) {
                 terminado = true;
-                getRand = (int) Math.round((high - low) * new Random().nextDouble() + low);
-                for (int i = 0; i < except.length; i++) //UBound(except)
-                {
-                    if (getRand == except[i]) {
+                getRand = (int) Math.round((alto - bajo) * new Random().nextDouble() + bajo);
+                for (int i = 0; i < v_puntosCruce.length; i++) {
+                    if (getRand == v_puntosCruce[i]) {
                         terminado = false;
                     }
-                } // i
+                }
             }
             return getRand;
         } else {
-            return high; // or low (it doesn't matter).
+            return alto;
         }
     }
 
@@ -152,14 +151,14 @@ public class Recursos implements Icondiciones {
         poblacion.forEach((c) -> {
             if (c.fitness != 0) {
                 System.out.println(Arrays.toString(c.vec_solucion) + "  "
-                        + "# Coliciones: " + c.conflictos + 
-                        "\t Fitness: " + ((double)Math.round(c.fitness * 100d) / 100d));
+                        + "# Coliciones: " + c.cantConflictos
+                        + "\t Fitness: " + ((double) Math.round(c.fitness * 100d) / 100d));
 
             }
         });
-        
+
         System.out.println("");
-        
+
     }
 
 }
