@@ -6,7 +6,7 @@
 package main;
 
 import Juego.Cromosoma;
-import Juego.OchoReinas;
+import Juego.Genetica;
 
 /**
  *
@@ -20,7 +20,7 @@ public class main {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        OchoReinas reinas = new OchoReinas();
+        Genetica reinas = new Genetica();
         Cromosoma c = reinas.algoritmoGenetico();
         //System.out.println(c.toString());
 

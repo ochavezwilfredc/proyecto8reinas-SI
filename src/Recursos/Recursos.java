@@ -42,16 +42,16 @@ public class Recursos implements Icondiciones {
      * parámetro
      *
      * @param max
-     * @param except
+     * @param posP1
      * @return
      */
-    public int getAleatorioExclusivo(int max, int except) {
+    public int getAleatorioExclusivo(int max, int posP1) {
         boolean terminado = false;
         int getRand = 0;
 
         while (!terminado) {
             getRand = random.nextInt(max);
-            if (getRand != except) {
+            if (getRand != posP1) {
                 terminado = true;
             }
         }

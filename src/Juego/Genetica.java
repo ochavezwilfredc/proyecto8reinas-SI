@@ -13,7 +13,7 @@ import java.util.Arrays;
  *
  * @author mendoza
  */
-public class OchoReinas implements Icondiciones {
+public class Genetica implements Icondiciones {
 
     // numero de mutaciones
     public static int numMutaciones = 0;
@@ -35,7 +35,7 @@ public class OchoReinas implements Icondiciones {
 
     private Cromosoma c_result;
 
-    public OchoReinas() {
+    public Genetica() {
         this.recursos = new Recursos();
         this.seleccion = new Seleccion();
         this.fitness = new Fitness();

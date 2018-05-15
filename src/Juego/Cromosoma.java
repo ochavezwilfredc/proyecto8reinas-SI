@@ -109,12 +109,12 @@ public class Cromosoma {
 
     }
 
-    public int getVecSolucion(int index) {
-        return this.vec_solucion[index];
+    public int getVecSolucion(int indice) {
+        return this.vec_solucion[indice];
     }
 
-    public void setVecSolucion(int index, int position) {
-        this.vec_solucion[index] = position;
+    public void setVecSolucion(int indice, int valor) {
+        this.vec_solucion[indice] = valor;
     }
 
     // Obtiene la aptitud de un cromosoma.

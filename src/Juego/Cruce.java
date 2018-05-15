@@ -5,10 +5,9 @@
  */
 package Juego;
 
-import static Juego.OchoReinas.poblacion;
+import static Juego.Genetica.poblacion;
 import Recursos.Recursos;
-import static Juego.OchoReinas.ANCHO_TABLERO;
-import static Juego.OchoReinas.PTS_CRUCE;
+import static Juego.Genetica.ANCHO_TABLERO;
 
 /**
  *
@@ -31,7 +30,7 @@ public class Cruce {
      * @param hijo2 ""
      */
     public void cruceParcial(int chromA, int chromB, int hijo1, int hijo2) {
-        int indice, genCromoA, genCromoB, pos1, pos2;
+        int inidice, genCromoA, genCromoB, pos1, pos2;
         pos1 = pos2 = 0;
 
         Cromosoma cromoA = poblacion.get(chromA);
@@ -43,9 +42,9 @@ public class Cruce {
         int puntoCruce2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, puntoCruce1);
 
         if (puntoCruce2 < puntoCruce1) {
-            indice = puntoCruce1;
+            inidice = puntoCruce1;
             puntoCruce1 = puntoCruce2;
-            puntoCruce2 = indice;
+            puntoCruce2 = inidice;
         }
 
         // Copia los genes de padres a hijos.
@@ -60,11 +59,11 @@ public class Cruce {
             genCromoB = cromoB.getVecSolucion(i);
 
             // Obtiene las posiciones en la descendencia el cromosoma A.
-            for (indice = 0; indice < ANCHO_TABLERO; indice++) {
-                if (cromoH1.getVecSolucion(indice) == genCromoA) {
-                    pos1 = indice;
-                } else if (cromoH1.getVecSolucion(indice) == genCromoB) {
-                    pos2 = indice;
+            for (inidice = 0; inidice < ANCHO_TABLERO; inidice++) {
+                if (cromoH1.getVecSolucion(inidice) == genCromoA) {
+                    pos1 = inidice;
+                } else if (cromoH1.getVecSolucion(inidice) == genCromoB) {
+                    pos2 = inidice;
                 }
             }
 
@@ -75,11 +74,11 @@ public class Cruce {
             }
 
             // Obtiene las posiciones en la descendencia para el cromosoma B.
-            for (indice = 0; indice < ANCHO_TABLERO; indice++) {
-                if (cromoH2.getVecSolucion(indice) == genCromoB) {
-                    pos1 = indice;
-                } else if (cromoH2.getVecSolucion(indice) == genCromoA) {
-                    pos2 = indice;
+            for (inidice = 0; inidice < ANCHO_TABLERO; inidice++) {
+                if (cromoH2.getVecSolucion(inidice) == genCromoB) {
+                    pos1 = inidice;
+                } else if (cromoH2.getVecSolucion(inidice) == genCromoA) {
+                    pos2 = inidice;
                 }
             }
 

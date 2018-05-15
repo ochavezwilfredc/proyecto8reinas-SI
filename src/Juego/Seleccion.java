@@ -6,9 +6,9 @@
 package Juego;
 
 import Recursos.Recursos;
-import static Juego.OchoReinas.poblacion;
-import static Juego.OchoReinas.MIN_SELECCION;
-import static Juego.OchoReinas.MAX_SELECCION;
+import static Juego.Genetica.poblacion;
+import static Juego.Genetica.MIN_SELECCION;
+import static Juego.Genetica.MAX_SELECCION;
 
 /**
  *

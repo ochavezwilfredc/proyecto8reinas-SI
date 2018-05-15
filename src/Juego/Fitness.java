@@ -5,7 +5,7 @@
  */
 package Juego;
 
-import static Juego.OchoReinas.poblacion;
+import static Juego.Genetica.poblacion;
 
 /**
  *

@@ -6,7 +6,7 @@
 package Interfaz;
 
 import Juego.Cromosoma;
-import Juego.OchoReinas;
+import Juego.Genetica;
 import javax.swing.ImageIcon;
 
 /**
@@ -618,7 +618,7 @@ public class Interfaz extends javax.swing.JFrame {
     private void btn_iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciarActionPerformed
         // TODO add your handling code here:
         this.limpiarTablero();
-        OchoReinas reinas = new OchoReinas();
+        Genetica reinas = new Genetica();
         Cromosoma c = reinas.algoritmoGenetico();
         for (int i = 0; i < c.vec_solucion.length; i++) {
             colocarIcono(c.vec_solucion[i],i);
