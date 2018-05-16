@@ -143,4 +143,13 @@ public class Reproduccion {
         return padre;
     }
     
+    // Prepara la poblacion de la siguiente generacion
+    public void prepararSiguienteGeneracion() {
+        // Restaura estado de cromosoma
+        poblacion.forEach((c) -> {
+            c.setSeleccionado(false);
+        });
+ 
+    }
+    
 }

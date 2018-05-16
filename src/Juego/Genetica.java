@@ -84,7 +84,7 @@ public class Genetica implements Icondiciones {
                 reproduccion.generarReproduccion();
 
                 //Selecciona los hijos de la siguiente generación
-                //this.prepararSiguienteGeneracion();
+                reproduccion.prepararSiguienteGeneracion();
 
                 generacion++;
 
