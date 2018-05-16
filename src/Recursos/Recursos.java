@@ -107,7 +107,7 @@ public class Recursos implements Icondiciones {
             }
             System.out.println(Arrays.toString(aux));
         }
-        System.out.println("\n");
+        System.out.println("");
     }
 
     /**

@@ -24,14 +24,13 @@ public class Genetica implements Icondiciones {
     // numero de hijos
     public static int numHijos = 0;
 
-    // Array que contendra todas las poblaciones
-    public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();
-
     Recursos recursos;
     Seleccion seleccion;
     Fitness fitness;
     Cromosoma cromosoma;
     Cruce cruce;
+    Mutacion mutacion;
+    NuevaPoblacion nuevaPoblacion;
 
     private Cromosoma c_result;
 
@@ -40,7 +39,8 @@ public class Genetica implements Icondiciones {
         this.seleccion = new Seleccion();
         this.fitness = new Fitness();
         this.cruce = new Cruce();
-
+        this.mutacion = new Mutacion();
+        this.nuevaPoblacion = new NuevaPoblacion();
     }
 
     /**
@@ -93,16 +93,18 @@ public class Genetica implements Icondiciones {
                 System.out.println("\nCromosoma Solución:\n"
                         + Arrays.toString(cromosoma.getVec_genes())
                         + " Fitness: " + cromosoma.fitness
-                        + " #Coliciones: " + cromosoma.cantConflictos);
+                        + " #Coliciones: " + cromosoma.cantConflictos
+                        + " #Poblacion Final : " + poblacion.size());
                 this.recursos.imprimirSolucionFinal(cromosoma);
 
             }
         }
 
-        System.out.println("\n-------------------------\n"
+        System.out.println("-------------------------\n"
                 + "Resuelto en:\n "
                 + "\tGeneraciones: " + generacion + "\n"
-                + "\tNro. Hijos Creados: " + numHijos + "\n");
+                + "\tNro. Hijos Creados: " + numHijos + "\n"
+                + " #Poblacion Final : " + poblacion.size());
         return this.c_result;
     }
 
@@ -111,7 +113,8 @@ public class Genetica implements Icondiciones {
      */
     public void generarPoblacionInicial() {
         int barajar;
-        Cromosoma nuevoCromosoma;
+        Cromosoma nuevoCromosoma ;
+        Mutacion mutacion = null;
         int inidiceCromosoma;
 
         for (int i = 0; i < POBLACION_INICIAL; i++) {
@@ -125,7 +128,8 @@ public class Genetica implements Icondiciones {
             barajar = recursos.getAleatorio(MIN_BARAJA, MAX_BARAJA);
 
             // intercambia una mutacion (¿Donde y Porque?)
-            this.intercambiarMutacion(poblacion.size() - 1, barajar);
+            mutacion = new Mutacion();
+            mutacion.intercambiarOrden(poblacion.size() - 1, barajar);
 
             // obtiene la cantidad de cantConflictos del cromosoma generado
             poblacion.get(poblacion.size() - 1).calcularConflictos();
@@ -133,91 +137,58 @@ public class Genetica implements Icondiciones {
         }
     }
 
-    /**
-     * intercambia una mutación que suceda en los genes Cambia la posición de
-     * las reinas en un cromosoma al azar de acuerdo con el número de
-     * intercambios NOTA: siempre tienen que ser dos genes porque si es uno
-     * saldria esta figura
-     *
-     * 1,0,0,0,0,0,0,0, 0,1,0,0,0,0,0,0, 0,0,1,0,0,0,0,0, 0,0,0,1,0,0,0,0,
-     * 0,0,0,1,0,0,0,0, 0,0,0,0,0,1,0,0, 0,0,0,0,0,0,1,0, 0,0,0,0,0,0,0,1,
-     *
-     * entonces tienen que ser dos genes para cambiar entre si posiciones
-     */
-    public void intercambiarMutacion(int indice, int intercambio) {
-
-        int i = 0;
-        int tempGen1, tempGen2, posGen1, posGen2;
-        boolean terminado = false;
-        cromosoma = poblacion.get(indice);
-
-        while (!terminado) {
-
-            //Face del cruce en dos puntos
-            posGen1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-            posGen2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, posGen1);
-
-            // Cambia los genes seleccionados cruzadamente
-            tempGen1 = cromosoma.getVecSolucion(posGen1);
-            tempGen2 = cromosoma.getVecSolucion(posGen2);
-
-            cromosoma.setVecSolucion(posGen1, tempGen2);
-            cromosoma.setVecSolucion(posGen2, tempGen1);
-
-            if (i == intercambio) {
-                terminado = true;
-            }
-            i++;
-        }
-        numMutaciones++;
-    }
 
     // Produce una nueva generacion
     public void generarReproduccion() {
 
         int getRand, posPadreA, posPadreB, indiceCromoHijoPA, indiceCromoHijoPB;
-        Cromosoma cromoHijoPA, cromoHijoPB;
+        Cromosoma cromoHijoPA, cromoHijoPB, auxH1, auxH2;
 
-        // este for es del numero de descendencias que genera la generarReproduccion 
-        for (int i = 0; i < NUM_DESENDENCIA; i++) {
+        // se crean dos nuevos cromosomas 
+        cromoHijoPA = new Cromosoma(ANCHO_TABLERO);
+        cromoHijoPB = new Cromosoma(ANCHO_TABLERO);
+        
+        // aqui se selecciona un padre 
+        posPadreA = this.seleccionarPadre();
 
-            // aqui se selecciona un padre 
-            posPadreA = this.seleccionarPadre();
-
-            // Probabilidad de prueba de generarReproduccion.
-            getRand = recursos.getAleatorio(0, 100);
-
-            if (getRand <= (PROB_APAREAMIENTO * 100)) {
-
-                // se obtiene un nuevo padre que no sea igual al padre A
-                posPadreB = seleccionarPadre(posPadreA);
-
-                // se crean dos nuevos cromosomas 
-                cromoHijoPA = new Cromosoma(ANCHO_TABLERO);
-                cromoHijoPB = new Cromosoma(ANCHO_TABLERO);
-                
-
-                // se agrega el cromosoma creado a la poblacion 
-                poblacion.add(cromoHijoPA);
-
-                // se obtiene el indice del cromosoma creado
-                indiceCromoHijoPA = poblacion.indexOf(cromoHijoPA);
-
-                // se agrega el cromosoma creado a la poblacion 
-                poblacion.add(cromoHijoPB);
-
-                // se obtiene el indice del cromosoma creado
-                indiceCromoHijoPB = poblacion.indexOf(cromoHijoPB);
-
-                // Elige uno o ambos de los siguientes: ahora con objetos 
-                cruce.cruceParcial(posPadreA, posPadreB, indiceCromoHijoPA, indiceCromoHijoPB);
-
-                poblacion.get(indiceCromoHijoPA).calcularConflictos();
-                poblacion.get(indiceCromoHijoPB).calcularConflictos();
-
-                numHijos += 2;
-            }
-        }
+        // se obtiene un nuevo padre que no sea igual al padre A
+        posPadreB = this.seleccionarPadre(posPadreA);
+        
+        /**
+         * Aqui se genera el cruce 
+         */
+        
+        // Elige uno o ambos de los siguientes: ahora con objetos 
+        cruce.cruceParcial(posPadreA, posPadreB, cromoHijoPA, cromoHijoPB);
+        
+        
+        /**
+         * Aqui empieza la mutacion
+         */
+        
+        // de inversion de Genes
+        // ------------> auxH1 = mutacion.inversionGenes(cromoHijoPA);
+        // ------------> auxH2 = mutacion.inversionGenes(cromoHijoPB);
+        
+        // de modificacion de genes
+        auxH1 = mutacion.modificacionGenes(cromoHijoPA);
+        auxH2 = mutacion.modificacionGenes(cromoHijoPB);
+        
+        /**
+         * Aqui empieza seleccion para la nueva generacion
+         */
+        
+        // de aceptacion total
+        nuevaPoblacion.aceptacionTotal(auxH1, auxH2);
+        // de mejora
+        // ------------> nuevaPoblacion.deMejora(posPadreA, posPadreB, auxH1, auxH2);
+        
+        /**
+         * Aqui se agrega agrega el numero de hijos
+         */
+        
+        numHijos += 2;
+  
     }
 
     // Seleccionar los padres para la generarReproduccion

@@ -26,17 +26,17 @@ public class Cruce {
      *
      * @param chromA posición del padrea A para generar el cruce
      * @param chromB posición del padrea B para generar el cruce
-     * @param hijo1 ""
-     * @param hijo2 ""
+     * @param cromoH1
+     * @param cromoH2
      */
-    public void cruceParcial(int chromA, int chromB, int hijo1, int hijo2) {
+    public void cruceParcial(int chromA, int chromB, Cromosoma cromoH1, Cromosoma cromoH2) {
         int inidice, genCromoA, genCromoB, pos1, pos2;
         pos1 = pos2 = 0;
 
         Cromosoma cromoA = poblacion.get(chromA);
         Cromosoma cromoB = poblacion.get(chromB);
-        Cromosoma cromoH1 = poblacion.get(hijo1);
-        Cromosoma cromoH2 = poblacion.get(hijo2);
+        //Cromosoma cromoH1 = hijo1;
+        //Cromosoma cromoH2 = hijo2;
 
         int puntoCruce1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
         int puntoCruce2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, puntoCruce1);

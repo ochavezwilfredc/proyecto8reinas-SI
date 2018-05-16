@@ -54,6 +54,12 @@ public class Cromosoma {
         // emparejado con dx para comprobar diagonal
         int dx[] = new int[]{-1, 1, -1, 1};
         int dy[] = new int[]{-1, 1, 1, -1};
+        
+        // verifica las verticales
+        int v[] = new int [] {-1,1};
+        
+        // verifica las horizontales
+        int h[] = new int [] {-1,1};
 
         //Inicializa el tablero
         this.recursos.inicializarTablero(tablero, "0");
@@ -63,47 +69,86 @@ public class Cromosoma {
             tablero[i][this.vec_solucion[i]] = "1";
         }
 
-        //Imprime el tablero
-        //this.recursos.imprimirTablero(tablero, "");
-        // Recorre cada una de las reinas y cálcula el numero de cantConflictos
         // Camina a través de cada una de las Reinas y calcule el número de cantConflictos.
+        // Solo en las diagonales
         for (int i = 0; i < anchoTablero; i++) {
             x = i;
             y = this.vec_solucion[i];
-
-            // Evalua las diagonales (¿porque?)
-            // Ver diagonales.
+           
             // debido a dx y dy donde hay 4 direcciones para la búsqueda diagonal de cantConflictos
             for (int j = 0; j < 4; j++) {
-
                 tempX = x;
                 tempY = y;
                 terminado = false;
-
                 // atravesar las diagonales
                 while (!terminado) {
-
                     tempX += dx[j];
                     tempY += dy[j];
-
                     // si excede el tablero
                     if ((tempX < 0 || tempX >= anchoTablero) || (tempY < 0 || tempY >= anchoTablero)) {
                         terminado = true;
                     } else {
-
                         if (tablero[tempX][tempY].compareToIgnoreCase("1") == 0) {
                             numeroConflictos++;
                         }
-
                     }
-
                 }
-
             }
-
+        }
+        
+        // Camina a través de cada una de las Reinas y calcule el número de cantConflictos.
+        // Solo en las verticales
+        for (int i = 0; i < anchoTablero; i++) {
+            x = i;
+            y = this.vec_solucion[i];
+           
+            // debido a dx y dy donde hay 4 direcciones para la búsqueda diagonal de cantConflictos
+            for (int j = 0; j < 2; j++) {
+                tempX = x;
+                tempY = y;
+                terminado = false;
+                // atravesar las diagonales
+                while (!terminado) {
+                    tempX += v[j];
+                    // si excede el tablero
+                    if ((tempX < 0 || tempX >= anchoTablero) || (tempY < 0 || tempY >= anchoTablero)) {
+                        terminado = true;
+                    } else {
+                        if (tablero[tempX][tempY].compareToIgnoreCase("1") == 0) {
+                            numeroConflictos++;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Camina a través de cada una de las Reinas y calcule el número de cantConflictos.
+        // Solo en las horizontales
+        for (int i = 0; i < anchoTablero; i++) {
+            x = i;
+            y = this.vec_solucion[i];
+           
+            // debido a dx y dy donde hay 4 direcciones para la búsqueda diagonal de cantConflictos
+            for (int j = 0; j < 2; j++) {
+                tempX = x;
+                tempY = y;
+                terminado = false;
+                // atravesar las diagonales
+                while (!terminado) {
+                    tempY += h[j];
+                    // si excede el tablero
+                    if ((tempX < 0 || tempX >= anchoTablero) || (tempY < 0 || tempY >= anchoTablero)) {
+                        terminado = true;
+                    } else {
+                        if (tablero[tempX][tempY].compareToIgnoreCase("1") == 0) {
+                            numeroConflictos++;
+                        }
+                    }
+                }
+            }
         }
 
-        // aqui termina la comparacion de diagonales
+
         // establecer cantConflictos de este cromosoma  
         this.cantConflictos = numeroConflictos;
 

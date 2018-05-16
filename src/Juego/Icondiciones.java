@@ -5,6 +5,9 @@
  */
 package Juego;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  *
  * @author cristobal
@@ -28,7 +31,7 @@ public interface Icondiciones {
     public static int MAX_SELECCION = 20;
 
     // Cantidad desendencia por generacion. rango: 0 < NUM_DESENDENCIA < MAX_SELECCION.
-    public static int NUM_DESENDENCIA = 15;
+    //public static int NUM_DESENDENCIA = 15;
 
     // Rango para generar aleatorios
     public static int MIN_BARAJA = 8;
@@ -38,6 +41,9 @@ public interface Icondiciones {
 
     // Maximo de puntos de cruce. rango: 0 < PTS_CRUCE < 8 (x > 8 no es bueno).
     public static int PTS_CRUCE = 4;
+    
+    // Array que contendra todas las poblaciones
+    public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();
     
        
 
