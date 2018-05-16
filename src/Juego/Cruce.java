@@ -119,8 +119,7 @@ public class Cruce {
                 hijo.setVecSolucion(i, cromoA.getVecSolucion(i));
             } else {
                 hijo.setVecSolucion(i, cromoB.getVecSolucion(i));
-            }
-            
+            }  
         }
         return hijo;    
     }
