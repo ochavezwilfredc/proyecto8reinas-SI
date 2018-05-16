@@ -98,6 +98,7 @@ public class NuevaPoblacion implements Icondiciones{
         random[0] = rand.getAleatorio(0, poblacion.size()-1);
         random[1] = rand.getAleatorioExclusivo(poblacion.size()-1, random[0]);
         int delete;
+
         
         // cromosoma del hijo se va al arreglo y calcular conflictos 
         cromoH1.calcularConflictos();
@@ -108,8 +109,6 @@ public class NuevaPoblacion implements Icondiciones{
         // calculamos los random para que todos los individuos al azar puedan entrar al torneo
         canConflictoIndividuo[0] = poblacion.get(random[0]);
         canConflictoIndividuo[1] = poblacion.get(random[1]);
-        
-        System.out.println(" Generar Nueva poblacion Poblacion "+poblacion.size()+" Rand 1 -> "+random[0]+" Rand2 -> "+random[1]);
         
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
@@ -123,7 +122,5 @@ public class NuevaPoblacion implements Icondiciones{
             }   
         } 
     }
-   
-    
     
 }
