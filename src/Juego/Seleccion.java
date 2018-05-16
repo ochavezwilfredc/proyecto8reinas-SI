@@ -30,7 +30,7 @@ public class Seleccion{
     }
 
     // Seleccion de cromosomas de la generacion
-    public void ruletaSeleccion() {
+    public void ruleta() {
         int elemenI;//Elemento(cromosoma) de la población
         tamPoblacion = poblacion.size();
         sumFitnessTotal = 0.0;
