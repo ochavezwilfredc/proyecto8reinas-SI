@@ -152,8 +152,7 @@ public class Recursos implements Icondiciones {
         poblacion.forEach((c) -> {
             if (c.fitness != 0) {
                 System.out.println(Arrays.toString(c.vec_solucion) + "  "
-                        + "# Coliciones: " + c.cantConflictos
-                        + "\t Fitness: " + ((double) Math.round(c.fitness * 100d) / 100d));
+                        + "# Coliciones: " + c.cantConflictos);
 
             }
         });
