@@ -8,6 +8,8 @@ package Juego;
 import static Juego.Genetica.poblacion;
 import Recursos.Recursos;
 import static Juego.Genetica.ANCHO_TABLERO;
+import static Juego.Icondiciones.ANCHO_TABLERO;
+import static Juego.Icondiciones.poblacion;
 
 /**
  *
@@ -21,75 +23,107 @@ public class Cruce {
         this.recursos = new Recursos();
     }
 
-    /**
-     * Cruza con probabilidad dos individuos obteniendo dos decendientes
-     *
-     * @param chromA posición del padrea A para generar el cruce
-     * @param chromB posición del padrea B para generar el cruce
-     * @param cromoH1
-     * @param cromoH2
-     */
-    public void cruceParcial(int chromA, int chromB, Cromosoma cromoH1, Cromosoma cromoH2) {
-        int inidice, genCromoA, genCromoB, pos1, pos2;
-        pos1 = pos2 = 0;
-
-        Cromosoma cromoA = poblacion.get(chromA);
-        Cromosoma cromoB = poblacion.get(chromB);
-        //Cromosoma cromoH1 = hijo1;
-        //Cromosoma cromoH2 = hijo2;
-
-        int puntoCruce1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-        int puntoCruce2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, puntoCruce1);
-
-        if (puntoCruce2 < puntoCruce1) {
-            inidice = puntoCruce1;
-            puntoCruce1 = puntoCruce2;
-            puntoCruce2 = inidice;
-        }
-
-        // Copia los genes de padres a hijos.
-        for (int i = 0; i < ANCHO_TABLERO; i++) {
-            cromoH1.setVecSolucion(i, cromoA.getVecSolucion(i));
-            cromoH2.setVecSolucion(i, cromoB.getVecSolucion(i));
-        }
-
-        for (int i = puntoCruce1; i <= puntoCruce2; i++) {
-            // Obtener los dos GENES que se van a intercambiar
-            genCromoA = cromoA.getVecSolucion(i);
-            genCromoB = cromoB.getVecSolucion(i);
-
-            // Obtiene las posiciones en la descendencia el cromosoma A.
-            for (inidice = 0; inidice < ANCHO_TABLERO; inidice++) {
-                if (cromoH1.getVecSolucion(inidice) == genCromoA) {
-                    pos1 = inidice;
-                } else if (cromoH1.getVecSolucion(inidice) == genCromoB) {
-                    pos2 = inidice;
-                }
-            }
-
-            // Intercambiar.
-            if (genCromoA != genCromoB) {
-                cromoH1.setVecSolucion(pos1, genCromoB);
-                cromoH1.setVecSolucion(pos2, genCromoA);
-            }
-
-            // Obtiene las posiciones en la descendencia para el cromosoma B.
-            for (inidice = 0; inidice < ANCHO_TABLERO; inidice++) {
-                if (cromoH2.getVecSolucion(inidice) == genCromoB) {
-                    pos1 = inidice;
-                } else if (cromoH2.getVecSolucion(inidice) == genCromoA) {
-                    pos2 = inidice;
-                }
-            }
-
-            // Intercambiar.
-            if (genCromoA != genCromoB) {
-                cromoH2.setVecSolucion(pos1, genCromoA);
-                cromoH2.setVecSolucion(pos2, genCromoB);
-            }
-
-        }
-    }
-
     // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    public Cromosoma cruceUnPunto (int chromA, int chromB, Cromosoma hijo) {
+        
+        //int inidice, genCromoA, genCromoB, pos1, pos2;
+
+        Cromosoma cromoA;
+        Cromosoma cromoB;
+        
+        int valor = recursos.getAleatorio(0, 1);
+
+        int puntoCruceHijo = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
+        
+        if (valor ==  0) {
+            cromoA = poblacion.get(chromA);
+            cromoB = poblacion.get(chromB);
+        } else {
+            cromoA = poblacion.get(chromB);
+            cromoB = poblacion.get(chromA);
+        }
+        
+        for (int i = 0; i < ANCHO_TABLERO; i++) {
+            
+            if (i <= puntoCruceHijo) {
+                hijo.setVecSolucion(i, cromoA.getVecSolucion(i));
+            } else {
+                hijo.setVecSolucion(i, cromoB.getVecSolucion(i));
+            }
+            
+        }
+        return hijo;    
+    }
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    public Cromosoma cruceDosPuntos (int chromA, int chromB, Cromosoma hijo) {
+
+        Cromosoma cromoA;
+        Cromosoma cromoB;
+        int indice = 0;
+        
+        int punto1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
+        int punto2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, punto1);
+        int valor = recursos.getAleatorio(0, 1);
+        
+        if (punto2 < punto1) {
+            indice = punto1;
+            punto1 = punto2;
+            punto2 = indice;
+        }
+        
+        if (valor ==  0) {
+            cromoA = poblacion.get(chromA);
+            cromoB = poblacion.get(chromB);
+        } else {
+            cromoA = poblacion.get(chromB);
+            cromoB = poblacion.get(chromA);
+        }
+        
+        for (int i = 0; i < ANCHO_TABLERO; i++) {
+            
+            if (i <= punto1) {
+                hijo.setVecSolucion(i, cromoA.getVecSolucion(i));
+            } else if (i >= punto2){
+                hijo.setVecSolucion(i, cromoA.getVecSolucion(i));
+            } else {
+                hijo.setVecSolucion(i, cromoB.getVecSolucion(i));
+            }
+            
+        }
+        return hijo;    
+    }
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    public Cromosoma cruceUniforme (int chromA, int chromB, Cromosoma hijo) {
+
+        Cromosoma cromoA;
+        Cromosoma cromoB;
+        
+        int valor = recursos.getAleatorio(0, 1);
+        
+        if (valor ==  0) {
+            cromoA = poblacion.get(chromA);
+            cromoB = poblacion.get(chromB);
+        } else {
+            cromoA = poblacion.get(chromB);
+            cromoB = poblacion.get(chromA);
+        }
+        
+        for (int i = 0; i < ANCHO_TABLERO; i++) {
+            
+            if (i % 2 == 0) {
+                hijo.setVecSolucion(i, cromoA.getVecSolucion(i));
+            } else {
+                hijo.setVecSolucion(i, cromoB.getVecSolucion(i));
+            }
+            
+        }
+        return hijo;    
+    }
+    
+    
 }

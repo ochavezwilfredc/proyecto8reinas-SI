@@ -109,7 +109,7 @@ public class NuevaPoblacion implements Icondiciones{
         canConflictoIndividuo[0] = poblacion.get(random[0]);
         canConflictoIndividuo[1] = poblacion.get(random[1]);
         
-        System.out.println(" Poblacion "+poblacion.size()+" Rand 1 -> "+random[0]+" Rand2 -> "+random[1]);
+        System.out.println(" Generar Nueva poblacion Poblacion "+poblacion.size()+" Rand 1 -> "+random[0]+" Rand2 -> "+random[1]);
         
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {

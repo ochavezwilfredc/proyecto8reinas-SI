@@ -19,16 +19,7 @@ public interface Icondiciones {
     public static int ANCHO_TABLERO = 8;
 
     // Tamaño de la poblacion 
-    public static int POBLACION_INICIAL = 50;
-
-    // Probabilidad de reproduccion entre dos cromosomas. rango: 0.0 < probMutacion < 1.0
-    public static double PROB_APAREAMIENTO = 0.7;
-
-    // Minimo de padres para la seleccion.
-    public static int MIN_SELECCION = 10;
-
-    // Maximo de padres para la seleccion. rango: MIN_SELECCION < MAX_SELECCION < POBLACION_INICIAL
-    public static int MAX_SELECCION = 20;
+    public static int POBLACION_INICIAL = 100;
 
     // Cantidad desendencia por generacion. rango: 0 < NUM_DESENDENCIA < MAX_SELECCION.
     //public static int NUM_DESENDENCIA = 15;
@@ -38,13 +29,8 @@ public interface Icondiciones {
 
     // Para aleatorizar cromosomas de partida
     public static int MAX_BARAJA = 20;
-
-    // Maximo de puntos de cruce. rango: 0 < PTS_CRUCE < 8 (x > 8 no es bueno).
-    public static int PTS_CRUCE = 4;
     
     // Array que contendra todas las poblaciones
     public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();
     
-       
-
 }

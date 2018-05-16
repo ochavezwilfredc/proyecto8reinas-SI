@@ -6,97 +6,79 @@
 package Juego;
 
 import Recursos.Recursos;
-import static Juego.Genetica.poblacion;
-import static Juego.Genetica.MIN_SELECCION;
-import static Juego.Genetica.MAX_SELECCION;
+import static Juego.Icondiciones.poblacion;
 
 /**
  *
  * @author mendoza
  */
-public class Seleccion{
+public class Seleccion implements Icondiciones{
 
     int tamPoblacion;
-    double sumFitnessTotal = 0.0;
+    //int sumFitnessTotal = 0;
     double sumTotalProbabilidad;
     int maximoSeleccionar;
     double seleccionar;
     Cromosoma cromosoma, comosomaTemp;
     boolean isTerminado;
     Recursos recursos;
+    // Array que contendra todas las poblaciones
+    int sumFitnessTotal[] = new int [POBLACION_INICIAL];
 
     public Seleccion() {
         this.recursos = new Recursos();
     }
 
     // Seleccion de cromosomas de la generacion
-    public void ruleta() {
+    public void ruleta () {
+    
         int elemenI;//Elemento(cromosoma) de la población
         tamPoblacion = poblacion.size();
-        sumFitnessTotal = 0.0;
-        maximoSeleccionar = recursos.getAleatorio(MIN_SELECCION, MAX_SELECCION);
+        int sumActitud;
+        int sumaTotal = 0;
+        
+        // esta es la cantidad de padres que se seleccionara  
+        maximoSeleccionar = 2;
         isTerminado = false;
-
+        int selecionados[] = new int[maximoSeleccionar];
+        
         // se almacena en la variable sumFitnessTotal donde contendra la suma del fitness 
         //de toda la poblacion
         //obtiene la aptitud total
         for (int i = 0; i < tamPoblacion; i++) {
             cromosoma = poblacion.get(i);
-            sumFitnessTotal += cromosoma.getFitness();
+            sumActitud = cromosoma.getConflictos() + sumFitnessTotal[i];
+            sumFitnessTotal[i] = cromosoma.getConflictos();
         }
-
-        // se multiplica por el 0.01 que genera redondeo
-        sumFitnessTotal *= 0.01;
-
-        //  se multiplica por el 0.01 que genera intervalos de 0/1
+        
         for (int i = 0; i < tamPoblacion; i++) {
-            cromosoma = poblacion.get(i);
-            // establecer la probabilidad de selección. cuanto más se ajuste,
-           //mejor será la probabilidad de selección
-            cromosoma.setProbabilidad(cromosoma.getFitness() / sumFitnessTotal);
+            
+            sumaTotal += sumFitnessTotal[i];
         }
-
+        
         // seleccionar padres
         for (int i = 0; i < maximoSeleccionar; i++) {
 
-            // El azar a seleccionar es solo hasta 99 porque la suma de las 
-            // probabilidades de los cromosomas 
-            // es hasta 99.9999 y no llega a 100 como para que
-            // rompa la condicion
-            seleccionar = recursos.getAleatorio(0, 99);
+            // El azar a seleccionar es la suma de todas las colisiones 
+            seleccionar = recursos.getAleatorio(0, sumaTotal);
             isTerminado = false;
             elemenI = 0;
             sumTotalProbabilidad = 0;
-
-            while (!isTerminado) {
-
-                // empieza con la poblacion desde el individuo n°1 hasta el ultimo
-                cromosoma = poblacion.get(elemenI);
-
-                // aqui se almacena el total de la probabilidad de seleccion 
-                // la cual llega a un 99.9999...
-                sumTotalProbabilidad += cromosoma.getProbabilidad();
-
-                if (sumTotalProbabilidad >= seleccionar) {
-                    if (elemenI == 0) {
-                        // toma el primero
-                        comosomaTemp = poblacion.get(elemenI);
-                    } else if (elemenI >= tamPoblacion - 1) {
-                        // toma el ultimo
-                        comosomaTemp = poblacion.get(tamPoblacion - 1);
-                    } else {
-                        // toma en una posicion determinada
-                        comosomaTemp = poblacion.get(elemenI - 1);
-                    }
-
-                    comosomaTemp.setSeleccionado(true);
-                    isTerminado = true;
-
-                } else {
-                    elemenI++;
+            
+            for (int j = 0; j < tamPoblacion; j++) {//se recorre la aptitud acumulada para identificar que individuo supera al ramdon
+                if (sumFitnessTotal[j] > seleccionar) {//Se compara el aleatorio contra la aptitud acumulada
+                    selecionados[i] = j; //si es mayor se selecciona el individuo
+                    break;//Se rompe el for para generar un nuevo aleatorio
                 }
-            }
+            }          
         }
+        
+        for (int x = 0; x < maximoSeleccionar; x++) {
+            
+            poblacion.get(x).setSeleccionado(true);
+            
+        }
+        
     }
 
 }

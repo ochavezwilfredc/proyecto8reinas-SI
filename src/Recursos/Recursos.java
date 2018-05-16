@@ -48,9 +48,10 @@ public class Recursos implements Icondiciones {
     public int getAleatorioExclusivo(int max, int posP1) {
         boolean terminado = false;
         int getRand = 0;
+        int min = 0;
 
         while (!terminado) {
-            getRand = random.nextInt(max);
+            getRand = (int) Math.round((max - min) * random.nextDouble() + min);
             if (getRand != posP1) {
                 terminado = true;
             }

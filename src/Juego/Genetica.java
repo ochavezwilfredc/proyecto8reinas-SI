@@ -5,6 +5,7 @@
  */
 package Juego;
 
+import Interfaz.Interfaz;
 import Recursos.Recursos;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +34,7 @@ public class Genetica implements Icondiciones {
     NuevaPoblacion nuevaPoblacion;
 
     private Cromosoma c_result;
+    
 
     public Genetica() {
         this.recursos = new Recursos();
@@ -49,8 +51,10 @@ public class Genetica implements Icondiciones {
      * @return
      */
     public Cromosoma algoritmoGenetico() {
+        
         boolean terminado = false;
         this.generarPoblacionInicial();
+        System.out.println("Pobacion inicial "+poblacion.size());
         numMutaciones = 0;
 
         while (!terminado) {
@@ -59,6 +63,7 @@ public class Genetica implements Icondiciones {
                 
                 // si el conflicto == 0 es porque ese es el ganador y la solucion
                 if (poblacion.get(i).getConflictos() == 0) {
+                    poblacion.get(i).setIsSolucion(true);
                     terminado = true;
                 }
             }
@@ -75,7 +80,7 @@ public class Genetica implements Icondiciones {
                 this.generarReproduccion();
 
                 //Selecciona los hijos de la siguiente generación
-                this.prepararSiguienteGeneracion();
+                //this.prepararSiguienteGeneracion();
 
                 generacion++;
 
@@ -126,10 +131,12 @@ public class Genetica implements Icondiciones {
 
             // Escoja al azar el tamaño de baraja realizar.
             barajar = recursos.getAleatorio(MIN_BARAJA, MAX_BARAJA);
-
+            
+            inidiceCromosoma = poblacion.indexOf(nuevoCromosoma);
+            
             // intercambia una mutacion (¿Donde y Porque?)
             mutacion = new Mutacion();
-            mutacion.intercambiarOrden(poblacion.size() - 1, barajar);
+            mutacion.intercambiarOrden(inidiceCromosoma, barajar);
 
             // obtiene la cantidad de cantConflictos del cromosoma generado
             poblacion.get(poblacion.size() - 1).calcularConflictos();
@@ -142,7 +149,7 @@ public class Genetica implements Icondiciones {
     public void generarReproduccion() {
 
         int getRand, posPadreA, posPadreB, indiceCromoHijoPA, indiceCromoHijoPB;
-        Cromosoma cromoHijoPA, cromoHijoPB, auxH1, auxH2;
+        Cromosoma cromoHijoPA, cromoHijoPB, auxMutacionH1, auxMutacionH2, auxCruceH1, auxCruceH2;
 
         // se crean dos nuevos cromosomas 
         cromoHijoPA = new Cromosoma(ANCHO_TABLERO);
@@ -159,33 +166,48 @@ public class Genetica implements Icondiciones {
          */
         
         // Elige uno o ambos de los siguientes: ahora con objetos 
-        cruce.cruceParcial(posPadreA, posPadreB, cromoHijoPA, cromoHijoPB);
+        //cruce.cruceParcial(posPadreA, posPadreB, cromoHijoPA, cromoHijoPB);
         
+        // cruce en un punto
+        // ------------> auxCruceH1 = cruce.cruceUnPunto(posPadreA, posPadreB, cromoHijoPA);
+        // ------------> auxCruceH2 = cruce.cruceUnPunto(posPadreA, posPadreB, cromoHijoPB);
+        
+        // cruce en dos punto
+        // ------------> auxCruceH1 = cruce.cruceDosPuntos(posPadreA, posPadreB, cromoHijoPA);
+        // ------------> auxCruceH2 = cruce.cruceDosPuntos(posPadreA, posPadreB, cromoHijoPB);
+        
+        // cruce uniforme
+        auxCruceH1 = cruce.cruceDosPuntos(posPadreA, posPadreB, cromoHijoPA);
+        auxCruceH2 = cruce.cruceDosPuntos(posPadreA, posPadreB, cromoHijoPB);
         
         /**
          * Aqui empieza la mutacion
          */
         
         // de inversion de Genes
-        // ------------> auxH1 = mutacion.inversionGenes(cromoHijoPA);
-        // ------------> auxH2 = mutacion.inversionGenes(cromoHijoPB);
+        // ------------> auxMutacionH1 = mutacion.inversionGenes(cromoHijoPA);
+        // ------------> auxMutacionH2 = mutacion.inversionGenes(cromoHijoPB);
+        
+        // de cambio de orden
+        auxMutacionH1 = mutacion.intercambiarOrden(cromoHijoPA);
+        auxMutacionH2 = mutacion.intercambiarOrden(cromoHijoPA);
         
         // de modificacion de genes
-        auxH1 = mutacion.modificacionGenes(cromoHijoPA);
-        auxH2 = mutacion.modificacionGenes(cromoHijoPB);
+        // ------------> auxMutacionH1 = mutacion.modificacionGenes(cromoHijoPA);
+        // ------------> auxMutacionH2 = mutacion.modificacionGenes(cromoHijoPB);
         
         /**
          * Aqui empieza seleccion para la nueva generacion
          */
         
         // *********************** de aceptacion total ***********************
-        // ------------>  nuevaPoblacion.aceptacionTotal(auxH1, auxH2);
+        nuevaPoblacion.aceptacionTotal(auxMutacionH1, auxMutacionH2);
         
         // *********************** de mejora ***********************
         // ------------> nuevaPoblacion.deMejora(posPadreA, posPadreB, auxH1, auxH2);
         
         // *********************** por torneo ***********************
-        nuevaPoblacion.porTorneo(auxH1, auxH2);
+        // ------------> nuevaPoblacion.porTorneo(auxH1, auxH2);
         
         /**
          * Aqui se agrega agrega el numero de hijos
@@ -240,6 +262,7 @@ public class Genetica implements Icondiciones {
             c.setSeleccionado(false);
         });
 
-    }
+    }  
+    
 
 }

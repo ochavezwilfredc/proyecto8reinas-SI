@@ -25,6 +25,14 @@ public class Interfaz extends javax.swing.JFrame {
         this.limpiarTablero();
 
     }
+    
+    public void visualizarTablero (Cromosoma individuo) {
+    
+        for (int i = 0; i < individuo.vec_solucion.length; i++) {
+            colocarIcono(individuo.vec_solucion[i] , i);
+        }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

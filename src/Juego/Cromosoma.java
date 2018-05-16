@@ -22,6 +22,7 @@ public class Cromosoma {
     public boolean seleccionado = false;    // si se selecciona para aparearse
     public String tablero[][];
     Recursos recursos;
+    public boolean isSolucion = false;
 
     public Cromosoma(int longitud) {
         this.anchoTablero = longitud;
@@ -212,6 +213,14 @@ public class Cromosoma {
 
     public int[] getVec_genes() {
         return vec_solucion;
+    }
+
+    public boolean isIsSolucion() {
+        return isSolucion;
+    }
+
+    public void setIsSolucion(boolean isSolucion) {
+        this.isSolucion = isSolucion;
     }
 
     @Override

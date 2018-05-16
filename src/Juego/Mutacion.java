@@ -62,6 +62,41 @@ public class Mutacion implements Icondiciones {
         }
         numMutaciones++;
     }
+    
+    public Cromosoma intercambiarOrden(Cromosoma hijo) {
+
+        Recursos rand = new Recursos();
+        int intercambio = rand.getAleatorio(0, ANCHO_TABLERO-1);
+        int i = 0;
+        int tempGen1, tempGen2, posGen1, posGen2;
+        boolean terminado = false;
+        Recursos recursos;
+
+        while (!terminado) {
+
+            // se crea un objeto recursos
+            recursos = new Recursos();
+
+            //Face del cruce en dos puntos
+            posGen1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
+            posGen2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, posGen1);
+
+            // Cambia los genes seleccionados cruzadamente
+            tempGen1 = hijo.getVecSolucion(posGen1);
+            tempGen2 = hijo.getVecSolucion(posGen2);
+
+            hijo.setVecSolucion(posGen1, tempGen2);
+            hijo.setVecSolucion(posGen2, tempGen1);
+
+            if (i == intercambio) {
+                terminado = true;
+            }
+            i++;
+        }
+        numMutaciones++;
+        
+        return hijo;
+    }
 
     /**
      * Inversion de genes se utiliza para cambiar o mutar a otro valort los ya
