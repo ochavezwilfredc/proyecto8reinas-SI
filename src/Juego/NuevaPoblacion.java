@@ -5,6 +5,8 @@
  */
 package Juego;
 
+import Recursos.Recursos;
+
 /**
  *
  * @author mendoza
@@ -30,20 +32,13 @@ public class NuevaPoblacion implements Icondiciones{
                     posMayConflic[i] = poblacion.lastIndexOf(poblacionTemp);
                     
                 }
-
             }
-            
             poblacion.remove(posMayConflic[i]);
         }
         
         cromoH1.calcularConflictos();
         cromoH2.calcularConflictos();
-        
-        System.out.println(" 12121212122 ->>>>>>>>>>>> "+posMayConflic[0]);
-        System.out.println(" 12121212122 ->>>>>>>>>>>> "+posMayConflic[1]);
-        
-        System.out.println("Cantidad de pobladores  " + poblacion.size());
-        
+
         poblacion.add(cromoH1);
         poblacion.add(cromoH2);
  
@@ -95,6 +90,44 @@ public class NuevaPoblacion implements Icondiciones{
                 }               
             }   
         }
+    }
+    
+    public void porTorneo (Cromosoma cromoH1, Cromosoma cromoH2) {
+        
+        Recursos rand = new Recursos();
+        int random[] = new int[2];
+        Cromosoma canConflictoHijo [] = new Cromosoma[2];
+        Cromosoma canConflictoIndividuo [] = new Cromosoma[2];
+        random[0] = rand.getAleatorio(0, poblacion.size()-1);
+        random[1] = rand.getAleatorioExclusivo(poblacion.size()-1, random[0]);
+        
+        // cromosoma del hijo se va al arreglo y calcular conflictos 
+        cromoH1.calcularConflictos();
+        cromoH2.calcularConflictos();
+        canConflictoHijo[0] = cromoH1;
+        canConflictoHijo[1] = cromoH2;        
+        
+        // calculamos los random para que todos los individuos al azar puedan entrar al torneo
+        canConflictoIndividuo[0] = poblacion.get(random[0]);
+        canConflictoIndividuo[1] = poblacion.get(random[1]);
+        
+        System.out.println(" Poblacion "+poblacion.size()+"Rand 1 -> "+random[0]+" Rand2 -> "+random[1]);
+        
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                
+                if (canConflictoHijo[i].getConflictos() < canConflictoIndividuo[j].getConflictos()) {
+                    
+                    // no se agrega al hijo y se deja al individuo
+                    poblacion.remove(canConflictoIndividuo[j]);
+                    poblacion.add(canConflictoHijo[i]);
+                    
+                    
+                }               
+            }   
+        }
+        
+        
     }
     
 }

@@ -178,10 +178,14 @@ public class Genetica implements Icondiciones {
          * Aqui empieza seleccion para la nueva generacion
          */
         
-        // de aceptacion total
-        nuevaPoblacion.aceptacionTotal(auxH1, auxH2);
-        // de mejora
+        // *********************** de aceptacion total ***********************
+        // ------------>  nuevaPoblacion.aceptacionTotal(auxH1, auxH2);
+        
+        // *********************** de mejora ***********************
         // ------------> nuevaPoblacion.deMejora(posPadreA, posPadreB, auxH1, auxH2);
+        
+        // *********************** por torneo ***********************
+        nuevaPoblacion.porTorneo(auxH1, auxH2);
         
         /**
          * Aqui se agrega agrega el numero de hijos
