@@ -22,7 +22,7 @@ public class Reproduccion {
     Cromosoma cromosoma;
     Cruce cruce;
     Mutacion mutacion;
-    NuevaPoblacion nuevaPoblacion;
+    SiguientePoblacion nuevaPoblacion;
 
     public Reproduccion() {
         this.recursos = new Recursos();
@@ -30,7 +30,7 @@ public class Reproduccion {
         this.fitness = new Fitness();
         this.cruce = new Cruce();
         this.mutacion = new Mutacion();
-        this.nuevaPoblacion = new NuevaPoblacion();
+        this.nuevaPoblacion = new SiguientePoblacion();
     }
 
     // Produce una nueva generacion
@@ -100,11 +100,8 @@ public class Reproduccion {
         boolean terminado = false;
 
         for (int i = 0; i < poblacion.size(); i++) {
-
-            cromosoma = poblacion.get(i);
-            
+        cromosoma = poblacion.get(i);   
             if (cromosoma.getSeleccionado()) {
-                
                 posPadre = i;
                 terminado = true;
             }
@@ -118,13 +115,9 @@ public class Reproduccion {
         boolean terminado = false;
 
         for (int i = 0; i < poblacion.size(); i++) {
-
-            cromosoma = poblacion.get(i);
-            
-            if (i != padreA) {
-                
+            cromosoma = poblacion.get(i); 
+            if (i != padreA) { 
                 if (cromosoma.getSeleccionado()) {
-                    
                     posPadre = i;
                     terminado = true;
                 }

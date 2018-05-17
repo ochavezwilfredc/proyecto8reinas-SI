@@ -35,10 +35,11 @@ public class Fitness {
         }
     }
 
-      /**
-     * Método para obtener el indice maximo de la poblcación con 
-     * numero de coliciones minimo
-     * @return 
+    /**
+     * Método para obtener el indice maximo de la poblcación con numero de
+     * coliciones minimo
+     *
+     * @return
      */
     public int maximo() {
 
@@ -77,12 +78,13 @@ public class Fitness {
     }
 
     /**
-     * Método para obtener el indice minimo de la poblcación con 
-     * numero de coliciones minimo
-     * @return 
+     * Método para obtener el indice minimo de la poblcación con numero de
+     * coliciones minimo
+     *
+     * @return
      */
     public int minimo() {
-        
+
         // Devuelve el indice de una matriz.
         Cromosoma cromosoma, comosomaTemp;
         int ganador = 0;

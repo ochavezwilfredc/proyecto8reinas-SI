@@ -31,11 +31,10 @@ public class Genetica implements Icondiciones {
     Cromosoma cromosoma;
     Cruce cruce;
     Mutacion mutacion;
-    NuevaPoblacion nuevaPoblacion;
+    SiguientePoblacion nuevaPoblacion;
     Reproduccion reproduccion;
 
-    private Cromosoma c_result;
-    
+    private Cromosoma cromoResult;
 
     public Genetica() {
         this.recursos = new Recursos();
@@ -43,7 +42,7 @@ public class Genetica implements Icondiciones {
         this.fitness = new Fitness();
         this.cruce = new Cruce();
         this.mutacion = new Mutacion();
-        this.nuevaPoblacion = new NuevaPoblacion();
+        this.nuevaPoblacion = new SiguientePoblacion();
         this.reproduccion = new Reproduccion();
     }
 
@@ -53,30 +52,27 @@ public class Genetica implements Icondiciones {
      * @return
      */
     public Cromosoma algoritmoGenetico() {
-        
-        boolean terminado = false;
-        this.generarPoblacionInicial();
+
+        boolean esFinal = false;
+        //condición para generar una uniaca poblacion
+        if (poblacion.isEmpty()) {
+            this.generarPoblacionInicial();
+        }
         numMutaciones = 0;
 
-        while (!terminado) {
-            //Recorre toda la población buscando un cromosoma solucion
-            for (int i = 0; i < poblacion.size(); i++) {
-                
-                // si el conflicto == 0 es porque ese es el ganador y la solucion
-                if (poblacion.get(i).getConflictos() == 0) {
-                    poblacion.get(i).setIsSolucion(true);
-                    terminado = true;
-                }
+        while (!esFinal) {
+            if (this.recursos.haySolucion()) {
+                esFinal = true;
             }
             //EvaluaR el fitness por cromosoma significa representar
             //la cantidad de coliciones en un valor porcentual de la solución
             fitness.evaluar();
 
-            if (!terminado) {
+            if (!esFinal) {
 
                 /**
-                * Aqui se genera la seleccion 
-                */
+                 * Aqui se genera la seleccion
+                 */
                 // se utiliza la ruleta como algoritmo de seleccion 
                 seleccion.ruleta();
 
@@ -94,27 +90,25 @@ public class Genetica implements Icondiciones {
             this.recursos.imprimirGeneracion(poblacion, generacion);
 
         }
-
-        for (int i = 0; i < poblacion.size(); i++) {
-            cromosoma = poblacion.get(i);
-            if (cromosoma.getConflictos() == 0) {
-                this.c_result = cromosoma;
-                System.out.println("\nCromosoma Solución:\n"
-                        + Arrays.toString(cromosoma.getVec_genes())
-                        //+ " Fitness: " + cromosoma.fitness
-                        + " #Coliciones: " + cromosoma.cantConflictos
-                        + " #Poblacion Final : " + poblacion.size());
-                this.recursos.imprimirSolucionFinal(cromosoma);
-
-            }
-        }
+        poblacion.stream().filter((c) -> (c.getConflictos() == 0)).map((c) -> {
+            this.cromoResult = c;
+            return c;
+        }).map((c) -> {
+            System.out.println("\nCromosoma Solución:\n"
+                    + Arrays.toString(c.getVec_genes())
+                    + " #Coliciones: " + c.cantConflictos
+                    + " #Poblacion: " + poblacion.size());
+            return c;
+        }).forEachOrdered((c) -> {
+            this.recursos.imprimirSolucionFinal(c);
+        });
 
         System.out.println("-------------------------\n"
                 + "Resuelto en:\n "
                 + "\tGeneraciones: " + generacion + "\n"
                 + "\tNro. Hijos Creados: " + numHijos + "\n"
-                + " #Poblacion Final : " + poblacion.size());
-        return this.c_result;
+                + " #Poblacion  : " + poblacion.size());
+        return this.cromoResult;
     }
 
     /**
@@ -122,8 +116,8 @@ public class Genetica implements Icondiciones {
      */
     public void generarPoblacionInicial() {
         int barajar;
-        Cromosoma nuevoCromosoma ;
-        Mutacion mutacion = null;
+        Cromosoma nuevoCromosoma;
+        Mutacion objMutacion;
         int inidiceCromosoma;
 
         for (int i = 0; i < POBLACION_INICIAL; i++) {
@@ -135,17 +129,22 @@ public class Genetica implements Icondiciones {
 
             // Escoja al azar el tamaño de baraja realizar.
             barajar = recursos.getAleatorio(MIN_BARAJA, MAX_BARAJA);
-            
+
             inidiceCromosoma = poblacion.indexOf(nuevoCromosoma);
-            
+
             // intercambia una mutacion (¿Donde y Porque?)
-            mutacion = new Mutacion();
-            mutacion.intercambiarOrden(inidiceCromosoma, barajar);
+            objMutacion = new Mutacion();
+            objMutacion.intercambiarOrden(inidiceCromosoma, barajar);
 
             // obtiene la cantidad de cantConflictos del cromosoma generado
             poblacion.get(poblacion.size() - 1).calcularConflictos();
 
         }
-    }    
+    }
+
+    public static void main(String[] args) {
+        Genetica reinas = new Genetica();
+        Cromosoma c = reinas.algoritmoGenetico();
+    }
 
 }

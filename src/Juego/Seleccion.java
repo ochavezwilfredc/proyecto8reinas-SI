@@ -12,73 +12,60 @@ import static Juego.Icondiciones.poblacion;
  *
  * @author mendoza
  */
-public class Seleccion implements Icondiciones{
+public class Seleccion implements Icondiciones {
 
-    int tamPoblacion;
-    //int sumFitnessTotal = 0;
+   //int vecFitness = 0;
     double sumTotalProbabilidad;
-    int maximoSeleccionar;
-    double seleccionar;
+    double inidiceAleatorio;
     Cromosoma cromosoma, comosomaTemp;
     boolean isTerminado;
     Recursos recursos;
     // Array que contendra todas las poblaciones
-    int sumFitnessTotal[] = new int [POBLACION_INICIAL];
+    int[] vecFitness;
 
     public Seleccion() {
+        vecFitness = new int[POBLACION_INICIAL];
         this.recursos = new Recursos();
     }
 
     // Seleccion de cromosomas de la generacion
-    public void ruleta () {
-    
-        int elemenI;//Elemento(cromosoma) de la población
-        tamPoblacion = poblacion.size();
-        int sumActitud;
-        int sumaTotal = 0;
-        
-        // esta es la cantidad de padres que se seleccionara  
-        maximoSeleccionar = 2;
-        isTerminado = false;
-        int selecionados[] = new int[maximoSeleccionar];
-        
-        // se almacena en la variable sumFitnessTotal donde contendra la suma del fitness 
-        //de toda la poblacion
-        //obtiene la aptitud total
-        for (int i = 0; i < tamPoblacion; i++) {
-            cromosoma = poblacion.get(i);
-            sumActitud = cromosoma.getConflictos() + sumFitnessTotal[i];
-            sumFitnessTotal[i] = cromosoma.getConflictos();
-        }
-        
-        for (int i = 0; i < tamPoblacion; i++) {
-            
-            sumaTotal += sumFitnessTotal[i];
-        }
-        
-        // seleccionar padres
-        for (int i = 0; i < maximoSeleccionar; i++) {
+    public void ruleta() {
 
-            // El azar a seleccionar es la suma de todas las colisiones 
-            seleccionar = recursos.getAleatorio(0, sumaTotal);
+        int elemenI, sumActitud;//Elemento(cromosoma) de la población
+         
+        int sumaTotal = 0;
+
+        // esta es la cantidad de padres que se seleccionara  
+        isTerminado = false;
+        int vecSelecionados[] = new int[CANT_PADRES_RULETA];
+
+        for (int i = 0; i < poblacion.size(); i++) {
+            cromosoma = poblacion.get(i);
+            sumActitud = cromosoma.getConflictos() + vecFitness[i];
+            vecFitness[i] = cromosoma.getConflictos();
+        }
+        sumaTotal = poblacion.stream().map((cromo) -> cromo.getConflictos()).reduce(sumaTotal, Integer::sum);
+        
+        // inidiceAleatorio padres
+        for (int i = 0; i < CANT_PADRES_RULETA; i++) {
+            // El azar a inidiceAleatorio es la suma de todas las colisiones 
+            inidiceAleatorio = recursos.getAleatorio(0, sumaTotal);
             isTerminado = false;
             elemenI = 0;
             sumTotalProbabilidad = 0;
-            
-            for (int j = 0; j < tamPoblacion; j++) {//se recorre la aptitud acumulada para identificar que individuo supera al ramdon
-                if (sumFitnessTotal[j] > seleccionar) {//Se compara el aleatorio contra la aptitud acumulada
-                    selecionados[i] = j; //si es mayor se selecciona el individuo
+
+            for (int j = 0; j < poblacion.size(); j++) {//se recorre la aptitud acumulada para identificar que individuo supera al ramdon
+                if (vecFitness[j] > inidiceAleatorio) {//Se compara el aleatorio contra la aptitud acumulada
+                    vecSelecionados[i] = j; //si es mayor se selecciona el individuo
                     break;//Se rompe el for para generar un nuevo aleatorio
                 }
-            }          
+            }
         }
-        
-        for (int x = 0; x < maximoSeleccionar; x++) {
-            
+
+        for (int x = 0; x < CANT_PADRES_RULETA; x++) {
             poblacion.get(x).setSeleccionado(true);
-            
         }
-        
+
     }
 
 }
