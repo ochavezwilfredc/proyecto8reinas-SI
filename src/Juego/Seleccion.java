@@ -12,7 +12,7 @@ import static Juego.Icondiciones.poblacion;
  *
  * @author mendoza
  */
-public class Seleccion implements Icondiciones{
+public class Seleccion implements Icondiciones {
 
     Recursos recursos;    
 
@@ -22,10 +22,10 @@ public class Seleccion implements Icondiciones{
 
     public void ruleta () {
     
-        int sumActitud = 0,sumaTotal = 0, maxSeleccionar = 2, seleccionar;
+        int sumActitud = 0, seleccionar;
         
         // esta es la cantidad de padres que se seleccionara  
-        int seleccionados[] = new int[maxSeleccionar];
+        int vecSelecionados[] = new int[CANT_PADRES_RULETA];
         int sumFitnessTotal[] = new int [POBLACION_INICIAL];
         
         // suma secuencial de los fitness de la poblacion
@@ -33,10 +33,11 @@ public class Seleccion implements Icondiciones{
             
             sumActitud += poblacion.get(i).getConflictos();
             sumFitnessTotal[i] = sumActitud;
+
         }
-        
+
         // seleccionar padres
-        for (int i = 0; i < maxSeleccionar; i++) {
+        for (int i = 0; i < CANT_PADRES_RULETA; i++) {
 
             // El azar a seleccionar es la suma de todas las colisiones 
             seleccionar = recursos.getAleatorio(0, sumActitud);
@@ -48,19 +49,19 @@ public class Seleccion implements Icondiciones{
                 if (sumFitnessTotal[j] > seleccionar) {
                     
                     //si es mayor se selecciona el individuo
-                    seleccionados[i] = j;
+                    vecSelecionados[i] = j;
                     
                     //Se rompe el for para generar un nuevo aleatorio
                     break;
+
                 }
-            }          
+            }
         }
         
-        for (int i = 0; i < maxSeleccionar; i++) {
+        for (int i = 0; i < CANT_PADRES_RULETA; i++) {
             
-            poblacion.get(seleccionados[i]).setSeleccionado(true);   
-            System.out.println("Seleccion padre "+ seleccionados[i]+ "suma Act "+sumActitud+" ultimo "+sumFitnessTotal[POBLACION_INICIAL-1]);
+            poblacion.get(vecSelecionados[i]).setSeleccionado(true);   
+            System.out.println("Seleccion padre "+ vecSelecionados[i]+ "suma Act "+sumActitud+" ultimo "+sumFitnessTotal[POBLACION_INICIAL-1]);
         }
     }
-    
 }

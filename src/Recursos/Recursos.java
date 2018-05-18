@@ -155,5 +155,25 @@ public class Recursos implements Icondiciones {
             }
         });
     }
+    
+    /**
+     * Método para fijarse si existe una solución
+     *
+     * @return 
+     */
+    
+    public boolean haySolucion(){
+         //Recorre toda la población buscando un cromosoma solucion
+            for (int i = 0; i < poblacion.size(); i++) {
+                
+                // si el conflicto == 0 es porque ese es el ganador y la solucion
+                if (poblacion.get(i).getConflictos() == 0) {
+                    poblacion.get(i).setIsSolucion(true);
+                    return true;
+                }
+            }
+         return false;
+    }
+    
 
 }

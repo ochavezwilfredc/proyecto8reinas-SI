@@ -5,7 +5,6 @@
  */
 package Juego;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -33,4 +32,7 @@ public interface Icondiciones {
     // Array que contendra todas las poblaciones
     public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();
     
+    
+    //Condiciones Selección Ruleta
+    public static int CANT_PADRES_RULETA = 2;
 }

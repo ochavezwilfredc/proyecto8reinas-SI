@@ -11,7 +11,7 @@ import Recursos.Recursos;
  *
  * @author mendoza
  */
-public class NuevaPoblacion implements Icondiciones{
+public class SiguientePoblacion implements Icondiciones{
     
     public void aceptacionTotal (Cromosoma cromoH1, Cromosoma cromoH2) {
         
@@ -23,9 +23,7 @@ public class NuevaPoblacion implements Icondiciones{
         
         for (int i = 0; i < 2; i++) {
             for (Cromosoma poblacionTemp : poblacion) {
-            
                 if (poblacionTemp.getConflictos() > mayorConflic[i]) {
-                    
                     mayorConflic[i] = poblacionTemp.getConflictos();
                     posMayConflic[i] = poblacion.lastIndexOf(poblacionTemp);
                     
@@ -59,15 +57,11 @@ public class NuevaPoblacion implements Icondiciones{
         mayorConflic[0] =  poblacion.get(0).getConflictos();
         mayorConflic[1] =  poblacion.get(0).getConflictos();
         
-        for (int i = 0; i < 2; i++) {
-            
-            for (Cromosoma poblacionTemp : poblacion) {
-            
-                if (poblacionTemp.getConflictos() > mayorConflic[i]) {
-                    
+        for (int i = 0; i < 2; i++) {    
+            for (Cromosoma poblacionTemp : poblacion) {       
+                if (poblacionTemp.getConflictos() > mayorConflic[i]) {                  
                     mayorConflic[i] = poblacionTemp.getConflictos();
-                    posMayConflic[i] = poblacion.lastIndexOf(poblacionTemp);
-                    
+                    posMayConflic[i] = poblacion.lastIndexOf(poblacionTemp);                   
                 }
             }
         }
@@ -77,9 +71,7 @@ public class NuevaPoblacion implements Icondiciones{
         
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                
-                if (canConflictoHijo[i].getConflictos() < canConflictoIndividuo[j]) {
-                    
+                if (canConflictoHijo[i].getConflictos() < canConflictoIndividuo[j]) {  
                     // no se agrega al hijo y se deja al individuo
                     poblacion.remove(posMayConflic[j]);
                     poblacion.add(canConflictoHijo[i]);
