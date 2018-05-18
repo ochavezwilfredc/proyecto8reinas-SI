@@ -46,7 +46,7 @@ public class Mutacion implements Icondiciones {
 
             //Face del cruce en dos puntos
             posGen1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-            posGen2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, posGen1);
+            posGen2 = recursos.getAleatorioExclusivo(0,ANCHO_TABLERO - 1, posGen1);
 
             // Cambia los genes seleccionados cruzadamente
             tempGen1 = cromosoma.getVecSolucion(posGen1);
@@ -66,7 +66,7 @@ public class Mutacion implements Icondiciones {
     public Cromosoma intercambiarOrden(Cromosoma hijo) {
 
         Recursos rand = new Recursos();
-        int intercambio = rand.getAleatorio(0, ANCHO_TABLERO-1);
+        int intercambio = rand.getAleatorio(1, ANCHO_TABLERO-1);
         int i = 0;
         int tempGen1, tempGen2, posGen1, posGen2;
         boolean terminado = false;
@@ -79,7 +79,7 @@ public class Mutacion implements Icondiciones {
 
             //Face del cruce en dos puntos
             posGen1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-            posGen2 = recursos.getAleatorioExclusivo(ANCHO_TABLERO - 1, posGen1);
+            posGen2 = recursos.getAleatorioExclusivo(0,ANCHO_TABLERO - 1, posGen1);
 
             // Cambia los genes seleccionados cruzadamente
             tempGen1 = hijo.getVecSolucion(posGen1);
@@ -144,9 +144,9 @@ public class Mutacion implements Icondiciones {
      */
     public Cromosoma modificacionGenes(Cromosoma hijo) {
 
-        int cambio = new Recursos().getAleatorio(0, ANCHO_TABLERO - 1);
+        int cambio = new Recursos().getAleatorio(1, ANCHO_TABLERO - 1);
         int nuevoGen, posGen, valGen, valPos;
-        boolean terminado = false;
+        boolean terminado;
         Recursos recursos;
         int sumGen = 1;
         int resGen = -1;
@@ -176,14 +176,9 @@ public class Mutacion implements Icondiciones {
                     // Setea el valor con el gen mutado y la posicion
                     hijo.setVecSolucion(posGen, nuevoGen);
                 }
-
             }
         }
-
         numMutaciones++;
-
         return hijo;
-
     }
-
 }

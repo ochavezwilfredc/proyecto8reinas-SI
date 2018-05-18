@@ -45,10 +45,9 @@ public class Recursos implements Icondiciones {
      * @param posP1
      * @return
      */
-    public int getAleatorioExclusivo(int max, int posP1) {
+    public int getAleatorioExclusivo(int min,int max, int posP1) {
         boolean terminado = false;
         int getRand = 0;
-        int min = 0;
 
         while (!terminado) {
             getRand = (int) Math.round((max - min) * random.nextDouble() + min);
@@ -150,15 +149,11 @@ public class Recursos implements Icondiciones {
     public void imprimirGeneracion(ArrayList<Cromosoma> poblacion, int g) {
         System.out.println("\n============================== Generación " + g + " ==============================\n");
         poblacion.forEach((c) -> {
-            if (c.fitness != 0) {
+            if (c.getConflictos()!= 0) {
                 System.out.println(Arrays.toString(c.vec_solucion) + "  "
-                        + "# Coliciones: " + c.cantConflictos);
-
+                        + "# Coliciones: " + c.getConflictos());
             }
         });
-
-        System.out.println("");
-
     }
 
 }

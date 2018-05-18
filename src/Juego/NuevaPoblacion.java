@@ -96,7 +96,7 @@ public class NuevaPoblacion implements Icondiciones{
         Cromosoma canConflictoHijo [] = new Cromosoma[2];
         Cromosoma canConflictoIndividuo [] = new Cromosoma[2];
         random[0] = rand.getAleatorio(0, poblacion.size()-1);
-        random[1] = rand.getAleatorioExclusivo(poblacion.size()-1, random[0]);
+        random[1] = rand.getAleatorioExclusivo(0,poblacion.size()-1, random[0]);
         int delete;
 
         

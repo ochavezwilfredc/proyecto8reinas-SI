@@ -9,6 +9,7 @@ import static Juego.Genetica.numHijos;
 import static Juego.Icondiciones.ANCHO_TABLERO;
 import static Juego.Icondiciones.poblacion;
 import Recursos.Recursos;
+import java.util.Arrays;
 
 /**
  *
@@ -37,17 +38,20 @@ public class Reproduccion {
     public void generarReproduccion() {
 
         int posPadreA, posPadreB;
+        int posPadres [] = new int[2];
         Cromosoma cromoHijoPA, cromoHijoPB, auxMutacionH1, auxMutacionH2, auxCruceH1, auxCruceH2;
-
+        Cromosoma cromosomasHijos [] = new Cromosoma[2];
+        Cromosoma auxCruceHijo [] = new Cromosoma[2];
+  
         // se crean dos nuevos cromosomas 
-        cromoHijoPA = new Cromosoma(ANCHO_TABLERO);
-        cromoHijoPB = new Cromosoma(ANCHO_TABLERO);
+        cromosomasHijos[0] = new Cromosoma(ANCHO_TABLERO);
+        cromosomasHijos[1] = new Cromosoma(ANCHO_TABLERO);
 
         // aqui se selecciona un padre 
-        posPadreA = this.seleccionarPadre();
+        posPadres[0] = this.seleccionarPadre();
 
         // se obtiene un nuevo padre que no sea igual al padre A
-        posPadreB = this.seleccionarPadre(posPadreA);
+        posPadres[1] = this.seleccionarPadre(posPadres[0]);
 
         /**
          * Aqui se genera el cruce
@@ -58,8 +62,9 @@ public class Reproduccion {
         // ------------> auxCruceH1 = cruce.cruceUnPunto(posPadreA, posPadreB, cromoHijoPA);
         // ------------> auxCruceH2 = cruce.cruceUnPunto(posPadreA, posPadreB, cromoHijoPB);
         // cruce en dos punto
-        auxCruceH1 = cruce.cruceDosPuntos(posPadreA, posPadreB, cromoHijoPA);
-        auxCruceH2 = cruce.cruceDosPuntos(posPadreA, posPadreB, cromoHijoPB);
+        auxCruceHijo = cruce.cruceDosPuntos(posPadres,cromosomasHijos);
+        System.out.println("Recibo - > "+Arrays.toString(auxCruceHijo));
+        //auxCruceH2 = cruce.cruceDosPuntos(posPadreA, posPadreB, cromoHijoPB);
         // cruce uniforme ( este tipo de cruce demota muchisimo con la ruleta y cualquier tipo de mutacipn)
         // ------------> auxCruceH1 = cruce.cruceUniforme(posPadreA, posPadreB, cromoHijoPA);
         // ------------> auxCruceH2 = cruce.cruceUniforme(posPadreA, posPadreB, cromoHijoPB);
@@ -71,22 +76,22 @@ public class Reproduccion {
         // ------------> auxMutacionH1 = mutacion.inversionGenes(cromoHijoPA);
         // ------------> auxMutacionH2 = mutacion.inversionGenes(cromoHijoPB);
         // de cambio de orden
-        // ------------> auxMutacionH1 = mutacion.intercambiarOrden(auxCruceH1);
-        // ------------> auxMutacionH2 = mutacion.intercambiarOrden(auxCruceH2);
+        auxMutacionH1 = mutacion.intercambiarOrden(auxCruceHijo[0]);
+        auxMutacionH2 = mutacion.intercambiarOrden(auxCruceHijo[1]);
 
         // de modificacion de genes
-        auxMutacionH1 = mutacion.modificacionGenes(cromoHijoPA);
-        auxMutacionH2 = mutacion.modificacionGenes(cromoHijoPB);
+        // ------------> auxMutacionH1 = mutacion.modificacionGenes(auxCruceHijo[0]);
+        // ------------> auxMutacionH2 = mutacion.modificacionGenes(auxCruceHijo[1]);
         /**
          * Aqui empieza seleccion para la nueva generacion
          */
         // *********************** de aceptacion total ***********************
-        nuevaPoblacion.aceptacionTotal(auxMutacionH1, auxMutacionH2);
+        // ------------> nuevaPoblacion.aceptacionTotal(auxMutacionH1, auxMutacionH2);
 
         // *********************** de mejora ***********************
-        // ------------> nuevaPoblacion.deMejora(posPadreA, posPadreB, auxH1, auxH2);
+        nuevaPoblacion.deMejora(posPadres[0], posPadres[1], auxMutacionH1, auxMutacionH2);
         // *********************** por torneo ***********************
-        // ------------> nuevaPoblacion.porTorneo(auxH1, auxH2);
+        // ------------> nuevaPoblacion.porTorneo(auxMutacionH1, auxMutacionH2);
         /**
          * Aqui se agrega agrega el numero de hijos
          */
