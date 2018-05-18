@@ -115,29 +115,24 @@ public class Genetica implements Icondiciones {
      * Método genera la población inicial
      */
     public void generarPoblacionInicial() {
-        int barajar;
+        
         Cromosoma nuevoCromosoma;
-        Mutacion objMutacion;
-        int inidiceCromosoma;
+        int azar;
 
         for (int i = 0; i < POBLACION_INICIAL; i++) {
+            
             // se genera un cromosoma nuevo
             nuevoCromosoma = new Cromosoma(ANCHO_TABLERO);
-
+            
+            for (int j = 0; j < ANCHO_TABLERO; j++) {
+                azar = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
+                nuevoCromosoma.setVecSolucion(j, azar);
+            }
+            // se calculan los conflictos
+            nuevoCromosoma.calcularConflictos();
             // se agrega el cromosoma a la lista(población)
             poblacion.add(nuevoCromosoma);
-
-            // Escoja al azar el tamaño de baraja realizar.
-            barajar = recursos.getAleatorio(MIN_BARAJA, MAX_BARAJA);
-
-            inidiceCromosoma = poblacion.indexOf(nuevoCromosoma);
-
-            // intercambia una mutacion (¿Donde y Porque?)
-            objMutacion = new Mutacion();
-            objMutacion.intercambiarOrden(inidiceCromosoma, barajar);
-
-            // obtiene la cantidad de cantConflictos del cromosoma generado
-            poblacion.get(poblacion.size() - 1).calcularConflictos();
+                      
 
         }
     }

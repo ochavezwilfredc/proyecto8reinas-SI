@@ -33,7 +33,6 @@ public class Seleccion implements Icondiciones {
             
             sumActitud += poblacion.get(i).getConflictos();
             sumFitnessTotal[i] = sumActitud;
-
         }
 
         // seleccionar padres
@@ -53,7 +52,6 @@ public class Seleccion implements Icondiciones {
                     
                     //Se rompe el for para generar un nuevo aleatorio
                     break;
-
                 }
             }
         }
@@ -61,7 +59,7 @@ public class Seleccion implements Icondiciones {
         for (int i = 0; i < CANT_PADRES_RULETA; i++) {
             
             poblacion.get(vecSelecionados[i]).setSeleccionado(true);   
-            System.out.println("Seleccion padre "+ vecSelecionados[i]+ "suma Act "+sumActitud+" ultimo "+sumFitnessTotal[POBLACION_INICIAL-1]);
+            System.out.println("Seleccion padre "+ vecSelecionados[i]+ " suma Act "+sumActitud+" ultimo "+sumFitnessTotal[POBLACION_INICIAL-1]);
         }
     }
 }

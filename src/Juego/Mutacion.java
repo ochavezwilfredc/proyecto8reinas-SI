@@ -9,6 +9,7 @@ import static Juego.Genetica.numMutaciones;
 import static Juego.Genetica.poblacion;
 import static Juego.Icondiciones.ANCHO_TABLERO;
 import Recursos.Recursos;
+import java.util.Arrays;
 
 /**
  *
@@ -16,20 +17,14 @@ import Recursos.Recursos;
  */
 public class Mutacion implements Icondiciones {
 
-    /**
-     * intercambia una mutación que suceda en los genes Cambia la posición de
-     * las reinas en un cromosoma al azar de acuerdo con el número de
-     * intercambios NOTA: siempre tienen que ser dos genes porque si es uno
-     * saldria esta figura
-     *
-     * 1,0,0,0,0,0,0,0, 0,1,0,0,0,0,0,0, 0,0,1,0,0,0,0,0, 0,0,0,1,0,0,0,0,
-     * 0,0,0,1,0,0,0,0, 0,0,0,0,0,1,0,0, 0,0,0,0,0,0,1,0, 0,0,0,0,0,0,0,1,
-     *
-     * entonces tienen que ser dos genes para cambiar entre si posiciones
-     *
-     * @param indice
-     * @param intercambio
-     */
+    Recursos recursos;
+
+    public Mutacion() {
+
+        this.recursos = new Recursos();
+
+    }
+
     public void intercambiarOrden(int indice, int intercambio) {
 
         int i = 0;
@@ -46,7 +41,7 @@ public class Mutacion implements Icondiciones {
 
             //Face del cruce en dos puntos
             posGen1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-            posGen2 = recursos.getAleatorioExclusivo(0,ANCHO_TABLERO - 1, posGen1);
+            posGen2 = recursos.getAleatorioExclusivo(0, ANCHO_TABLERO - 1, posGen1);
 
             // Cambia los genes seleccionados cruzadamente
             tempGen1 = cromosoma.getVecSolucion(posGen1);
@@ -62,86 +57,50 @@ public class Mutacion implements Icondiciones {
         }
         numMutaciones++;
     }
+
     
-    public Cromosoma intercambiarOrden(Cromosoma hijo) {
+    public Cromosoma[] inversionGenes(Cromosoma cromosomasHijos[]) {
 
-        Recursos rand = new Recursos();
-        int intercambio = rand.getAleatorio(1, ANCHO_TABLERO-1);
-        int i = 0;
-        int tempGen1, tempGen2, posGen1, posGen2;
-        boolean terminado = false;
-        Recursos recursos;
+        int puntoInversionGen, valor;
+        System.out.println("// --------------------------------------------------------------------------------------------------------------------------------------------");
+        for (int i = 0; i < cromosomasHijos.length; i++) {
 
-        while (!terminado) {
+            puntoInversionGen = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
 
-            // se crea un objeto recursos
-            recursos = new Recursos();
+            valor = recursos.getAleatorio(0, ANCHO_TABLERO - 1); 
 
-            //Face del cruce en dos puntos
-            posGen1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-            posGen2 = recursos.getAleatorioExclusivo(0,ANCHO_TABLERO - 1, posGen1);
-
-            // Cambia los genes seleccionados cruzadamente
-            tempGen1 = hijo.getVecSolucion(posGen1);
-            tempGen2 = hijo.getVecSolucion(posGen2);
-
-            hijo.setVecSolucion(posGen1, tempGen2);
-            hijo.setVecSolucion(posGen2, tempGen1);
-
-            if (i == intercambio) {
-                terminado = true;
-            }
-            i++;
+            cromosomasHijos[i].setVecSolucion(puntoInversionGen, valor);
         }
-        numMutaciones++;
-        
-        return hijo;
+        System.out.println("Mutacion en el Hijo 1 " + Arrays.toString(cromosomasHijos[0].getVec_genes()));
+        System.out.println("Mutacion en el Hijo 2 " + Arrays.toString(cromosomasHijos[1].getVec_genes()));
+        System.out.println("// --------------------------------------------------------------------------------------------------------------------------------------------");
+        return cromosomasHijos;
     }
 
-    /**
-     * Inversion de genes se utiliza para cambiar o mutar a otro valort los ya
-     * contenidos en los genes.
-     *
-     * @param hijo
-     * @return
-     */
-    public Cromosoma inversionGenes(Cromosoma hijo) {
+    public Cromosoma[] intercambiarOrden(Cromosoma cromosomasHijos[]) {
 
-        int intercambio = new Recursos().getAleatorio(0, ANCHO_TABLERO - 1);
-        int nuevoGen, posGen, i = 0;
-        boolean terminado = false;
-        Recursos recursos;
+        int puntoIntercambio1, puntoIntercambio2, genPosIntercambio1, genPosIntercambio2;
 
-        while (!terminado) {
+        System.out.println("// --------------------------------------------------------------------------------------------------------------------------------------------");
+        for (int i = 0; i < cromosomasHijos.length; i++) {
 
-            // se crea un objeto recursos
-            recursos = new Recursos();
+            puntoIntercambio1 = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
+            puntoIntercambio2 = recursos.getAleatorioExclusivo(0, ANCHO_TABLERO - 1, puntoIntercambio1);
 
-            //Face del cruce en dos puntos
-            posGen = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-            nuevoGen = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
+            genPosIntercambio1 = cromosomasHijos[i].getVecSolucion(puntoIntercambio1);
+            genPosIntercambio2 = cromosomasHijos[i].getVecSolucion(puntoIntercambio2);
 
-            // Setea el valor con el gen mutado y la posicion
-            hijo.setVecSolucion(posGen, nuevoGen);
+            cromosomasHijos[i].setVecSolucion(puntoIntercambio1, genPosIntercambio2);
+            cromosomasHijos[i].setVecSolucion(puntoIntercambio2, genPosIntercambio1);
 
-            if (i == intercambio) {
-                terminado = true;
-            }
-            i++;
         }
-        numMutaciones++;
+        System.out.println("Mutacion en el Hijo 1 " + Arrays.toString(cromosomasHijos[0].getVec_genes()));
+        System.out.println("Mutacion en el Hijo 2 " + Arrays.toString(cromosomasHijos[1].getVec_genes()));
+        System.out.println("// --------------------------------------------------------------------------------------------------------------------------------------------");
 
-        return hijo;
+        return cromosomasHijos;
     }
 
-    /**
-     * Modificaciones de genes Se realizan pequeñas modificaciones en los genes.
-     * Por ejemplo en una codificación basada en numeros reales se realizan
-     * sumas de números muy pequeños positivos o negativos.
-     *
-     * @param hijo
-     * @return
-     */
     public Cromosoma modificacionGenes(Cromosoma hijo) {
 
         int cambio = new Recursos().getAleatorio(1, ANCHO_TABLERO - 1);
@@ -164,14 +123,14 @@ public class Mutacion implements Icondiciones {
                 //Face del cruce en dos puntos
                 posGen = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
                 valPos = hijo.getVecSolucion(posGen);
-                
-                if (valPos % 2 == 0 ) {
-                    
+
+                if (valPos % 2 == 0) {
+
                     nuevoGen = valPos + sumGen;
                     // Setea el valor con el gen mutado y la posicion
                     hijo.setVecSolucion(posGen, nuevoGen);
                 } else {
-                    
+
                     nuevoGen = valPos + resGen;
                     // Setea el valor con el gen mutado y la posicion
                     hijo.setVecSolucion(posGen, nuevoGen);

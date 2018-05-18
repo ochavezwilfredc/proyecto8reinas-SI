@@ -19,15 +19,6 @@ public interface Icondiciones {
 
     // Tamaño de la poblacion 
     public static int POBLACION_INICIAL = 100;
-
-    // Cantidad desendencia por generacion. rango: 0 < NUM_DESENDENCIA < MAX_SELECCION.
-    //public static int NUM_DESENDENCIA = 15;
-
-    // Rango para generar aleatorios
-    public static int MIN_BARAJA = 8;
-
-    // Para aleatorizar cromosomas de partida
-    public static int MAX_BARAJA = 20;
     
     // Array que contendra todas las poblaciones
     public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();

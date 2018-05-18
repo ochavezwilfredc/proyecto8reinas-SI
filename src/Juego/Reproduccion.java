@@ -23,7 +23,7 @@ public class Reproduccion {
     Cromosoma cromosoma;
     Cruce cruce;
     Mutacion mutacion;
-    SiguientePoblacion nuevaPoblacion;
+    SiguientePoblacion siguientePoblacion;
 
     public Reproduccion() {
         this.recursos = new Recursos();
@@ -31,7 +31,7 @@ public class Reproduccion {
         this.fitness = new Fitness();
         this.cruce = new Cruce();
         this.mutacion = new Mutacion();
-        this.nuevaPoblacion = new SiguientePoblacion();
+        this.siguientePoblacion = new SiguientePoblacion();
     }
 
     // Produce una nueva generacion
@@ -41,7 +41,8 @@ public class Reproduccion {
         int posPadres [] = new int[2];
         Cromosoma cromoHijoPA, cromoHijoPB, auxMutacionH1, auxMutacionH2, auxCruceH1, auxCruceH2;
         Cromosoma cromosomasHijos [] = new Cromosoma[2];
-        Cromosoma auxCruceHijo [] = new Cromosoma[2];
+        Cromosoma auxCruceHijos [] = new Cromosoma[2];
+        Cromosoma auxMutacionHijos[] = new Cromosoma[2];
   
         // se crean dos nuevos cromosomas 
         cromosomasHijos[0] = new Cromosoma(ANCHO_TABLERO);
@@ -59,11 +60,12 @@ public class Reproduccion {
         // Elige uno o ambos de los siguientes: ahora con objetos 
         //cruce.cruceParcial(posPadreA, posPadreB, cromoHijoPA, cromoHijoPB);
         // cruce en un punto
-        // ------------> auxCruceH1 = cruce.cruceUnPunto(posPadreA, posPadreB, cromoHijoPA);
-        // ------------> auxCruceH2 = cruce.cruceUnPunto(posPadreA, posPadreB, cromoHijoPB);
+        
+        auxCruceHijos = cruce.cruceUniforme(posPadres,cromosomasHijos);
+
         // cruce en dos punto
-        auxCruceHijo = cruce.cruceDosPuntos(posPadres,cromosomasHijos);
-        System.out.println("Recibo - > "+Arrays.toString(auxCruceHijo));
+        // ------------> auxCruceHijo = cruce.cruceDosPuntos(posPadres,cromosomasHijos);
+        System.out.println("Recibo - > "+Arrays.toString(auxCruceHijos));
         //auxCruceH2 = cruce.cruceDosPuntos(posPadreA, posPadreB, cromoHijoPB);
         // cruce uniforme ( este tipo de cruce demota muchisimo con la ruleta y cualquier tipo de mutacipn)
         // ------------> auxCruceH1 = cruce.cruceUniforme(posPadreA, posPadreB, cromoHijoPA);
@@ -73,11 +75,13 @@ public class Reproduccion {
          * Aqui empieza la mutacion
          */
         // de inversion de Genes
-        // ------------> auxMutacionH1 = mutacion.inversionGenes(cromoHijoPA);
-        // ------------> auxMutacionH2 = mutacion.inversionGenes(cromoHijoPB);
+        
+        auxMutacionHijos = mutacion.inversionGenes(auxCruceHijos);
+        
         // de cambio de orden
-        auxMutacionH1 = mutacion.intercambiarOrden(auxCruceHijo[0]);
-        auxMutacionH2 = mutacion.intercambiarOrden(auxCruceHijo[1]);
+        
+        // ------------> auxMutacionHijos = mutacion.intercambiarOrden(auxCruceHijos);
+        
 
         // de modificacion de genes
         // ------------> auxMutacionH1 = mutacion.modificacionGenes(auxCruceHijo[0]);
@@ -86,10 +90,10 @@ public class Reproduccion {
          * Aqui empieza seleccion para la nueva generacion
          */
         // *********************** de aceptacion total ***********************
-        // ------------> nuevaPoblacion.aceptacionTotal(auxMutacionH1, auxMutacionH2);
+        // ------------> siguientePoblacion.aceptacionTotal(auxMutacionHijos);
 
         // *********************** de mejora ***********************
-        nuevaPoblacion.deMejora(posPadres[0], posPadres[1], auxMutacionH1, auxMutacionH2);
+        siguientePoblacion.deMejora(cromosomasHijos);
         // *********************** por torneo ***********************
         // ------------> nuevaPoblacion.porTorneo(auxMutacionH1, auxMutacionH2);
         /**

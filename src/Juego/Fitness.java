@@ -16,23 +16,13 @@ public class Fitness {
     // Buscar la mejor aptud 
     public void evaluar() {
 
-        // se busca el Menor error = 100%, Mayor Error = 0%
-        Cromosoma cromosoma;
-        double mejor, peor, optimo;
+        
+        
+        poblacion.forEach((cromosoma) -> {
+            cromosoma.calcularConflictos();
+        });
 
-        // La peor puntuación seá el que tiene la mayor numero de conflictos , y el mejor el más bajo.
-        peor = poblacion.get(this.maximo()).getConflictos();
-
-        // el mejor 
-        mejor = poblacion.get(this.minimo()).getConflictos();
-
-        //se cálcula la posición obtima
-        optimo = peor - mejor;
-
-        for (int i = 0; i < poblacion.size(); i++) {
-            cromosoma = poblacion.get(i);
-            cromosoma.setFitness((peor - cromosoma.getConflictos()) * 100.0 / optimo);
-        }
+        
     }
 
     /**
