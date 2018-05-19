@@ -7,13 +7,14 @@ package Interfaz;
 
 import Juego.Cromosoma;
 import Juego.Genetica;
+import Juego.Icondiciones;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author cristobal
  */
-public class Interfaz extends javax.swing.JFrame {
+public class Interfaz extends javax.swing.JFrame implements Icondiciones{
 
     /**
      * Creates new form Interfaz
@@ -1054,11 +1055,11 @@ public class Interfaz extends javax.swing.JFrame {
         this.limpiarTablero();
         Genetica genetica = new Genetica();
         Cromosoma c = genetica.algoritmoGenetico();
+        
         for (int i = 0; i < c.vec_solucion.length; i++) {
             colocarIcono(c.vec_solucion[i],i);
         }
-
-
+        
     }//GEN-LAST:event_btn_iniciarActionPerformed
 
     private void jrb_cruce_2puntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_cruce_2puntosActionPerformed
@@ -1333,7 +1334,7 @@ public class Interfaz extends javax.swing.JFrame {
         lb7_7.setIcon(null);
     }
 
-    private void colocarIcono(int f, int c) {
+    public void colocarIcono(int f, int c) {
         switch (f) {
             case 0:
                 switch (c) {

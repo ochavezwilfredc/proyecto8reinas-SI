@@ -58,7 +58,7 @@ public class Reproduccion {
          * Aqui se genera el cruce
          */
         // Elige uno o ambos de los siguientes: ahora con objetos 
-        //cruce.cruceParcial(posPadreA, posPadreB, cromoHijoPA, cromoHijoPB);
+        
         // cruce en un punto
         
         auxCruceHijos = cruce.cruceUniforme(posPadres,cromosomasHijos);
@@ -76,16 +76,16 @@ public class Reproduccion {
          */
         // de inversion de Genes
         
-        auxMutacionHijos = mutacion.inversionGenes(auxCruceHijos);
+        // ------------> auxMutacionHijos = mutacion.inversionGenes(auxCruceHijos);
         
         // de cambio de orden
         
-        // ------------> auxMutacionHijos = mutacion.intercambiarOrden(auxCruceHijos);
+        auxMutacionHijos = mutacion.intercambiarOrden(auxCruceHijos);
         
 
         // de modificacion de genes
-        // ------------> auxMutacionH1 = mutacion.modificacionGenes(auxCruceHijo[0]);
-        // ------------> auxMutacionH2 = mutacion.modificacionGenes(auxCruceHijo[1]);
+        // ------------> auxMutacionHijos = mutacion.modificacionGenes(auxCruceHijos);
+        
         /**
          * Aqui empieza seleccion para la nueva generacion
          */

@@ -5,6 +5,7 @@
  */
 package Juego;
 
+import Interfaz.Interfaz;
 import java.util.ArrayList;
 
 /**
@@ -26,4 +27,5 @@ public interface Icondiciones {
     
     //Condiciones Selección Ruleta
     public static int CANT_PADRES_RULETA = 2;
+    
 }

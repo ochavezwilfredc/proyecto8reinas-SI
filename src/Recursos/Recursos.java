@@ -5,6 +5,7 @@
  */
 package Recursos;
 
+import Interfaz.Interfaz;
 import Juego.Cromosoma;
 import java.util.Arrays;
 import java.util.Random;
@@ -152,6 +153,9 @@ public class Recursos implements Icondiciones {
             if (c.getConflictos()!= 0) {
                 System.out.println(Arrays.toString(c.vec_solucion) + "  "
                         + "# Coliciones: " + c.getConflictos());
+                /*for (int i = 0; i < ANCHO_TABLERO; i++) {
+                    interfaz.colocarIcono(c.vec_solucion[i],i);
+                }*/
             }
         });
     }

@@ -6,6 +6,7 @@
 package Juego;
 
 import Recursos.Recursos;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -51,18 +52,19 @@ public class SiguientePoblacion implements Icondiciones {
 
         int mayorConflic[] = new int[2];
         int posMayConflic[] = new int[2];
+        int menorConflic[] = new int[2];
+        int posMenConflic[] = new int[2];
         Cromosoma cromosomaTemp[] = new Cromosoma[2];
+        ArrayList<Cromosoma> totalCromosomas = new ArrayList<>();
         System.out.println("// --------------------------------------------------------------------------------------------------------------------------------------------");
         // cromosoma del hijo se va al arreglo y calcular conflictos 
         for (Cromosoma cromosomasHijo : cromosomasHijos) {
             cromosomasHijo.calcularConflictos();
         }
 
-        // se obtiene el mayor inicial para los dos hijos 
-        mayorConflic[0] = poblacion.get(0).getConflictos();
-        mayorConflic[1] = poblacion.get(0).getConflictos();
-
         for (int i = 0; i < cromosomasHijos.length; i++) {
+            
+            mayorConflic[i] = poblacion.get(0).getConflictos();
 
             for (Cromosoma poblacionTemp : poblacion) {
 
@@ -70,7 +72,6 @@ public class SiguientePoblacion implements Icondiciones {
 
                     mayorConflic[i] = poblacionTemp.getConflictos();
                     posMayConflic[i] = poblacion.indexOf(poblacionTemp);
-
                 }
             }
             cromosomaTemp[i] = poblacion.get(posMayConflic[i]);
@@ -85,22 +86,35 @@ public class SiguientePoblacion implements Icondiciones {
         System.out.println("Padres " + posMayConflic[1] + " conflictos ( " + cromosomaTemp[1].getConflictos() + " )" + " - > " + Arrays.toString(cromosomaTemp[1].getVec_genes()));
         System.out.println("Hijo 1  ( " + cromosomasHijos[0].getConflictos() + " ) y " + Arrays.toString(cromosomasHijos[0].getVec_genes()));
         System.out.println("Hijo 2  ( " + cromosomasHijos[1].getConflictos() + " ) y " + Arrays.toString(cromosomasHijos[1].getVec_genes()));
-
+        
         for (int i = 0; i < cromosomasHijos.length; i++) {
-            for (int j = 0; j < cromosomasHijos.length; j++) {
-                if (cromosomasHijos[i].getConflictos() < cromosomaTemp[j].getConflictos()) {
-                    // no se agrega al hijo y se deja al individuo
-                    poblacion.add(cromosomasHijos[i]);
-                    System.out.println(" Pasan a SiguientePoblacion en el Hijo " + i + " " + Arrays.toString(cromosomasHijos[i].getVec_genes()));
-                    break;
-                } else {
-                    poblacion.add(cromosomaTemp[j]);
-                    System.out.println(" Pasan a SiguientePoblacion en el Hijo " + i + " " + Arrays.toString(cromosomaTemp[j].getVec_genes()));
-                    break;
+            totalCromosomas.add(cromosomasHijos[i]);
+            totalCromosomas.add(cromosomaTemp[i]);
+        }
+        
+        totalCromosomas.forEach((totalCromosoma) -> {
+            System.out.println(" Participa en la busqueda del menor "+totalCromosoma.getConflictos()+" " + Arrays.toString(totalCromosoma.getVec_genes()));
+        });
+        
+        for (int i = 0; i < cromosomasHijos.length; i++) {
+            
+            menorConflic[i] = totalCromosomas.get(0).getConflictos();
+
+            for (Cromosoma poblacionTemp : totalCromosomas) {
+
+                if (poblacionTemp.getConflictos() < menorConflic[i]) {
+
+                    menorConflic[i] = poblacionTemp.getConflictos();
+                    posMenConflic[i] = totalCromosomas.indexOf(poblacionTemp);
+                    System.out.println(" Pos del menor -> "+posMenConflic[i]);
                 }
             }
-        }
+            System.out.println(" Pasan a SiguientePoblacion en el Hijo " + i + " menor colisiones "+totalCromosomas.get(posMenConflic[i]).getConflictos()+" " + Arrays.toString(totalCromosomas.get(posMenConflic[i]).getVec_genes()));
 
+            poblacion.add(totalCromosomas.get(posMenConflic[i]));
+            totalCromosomas.remove(posMenConflic[i]);
+        }
+        
         System.out.println("// --------------------------------------------------------------------------------------------------------------------------------------------");
     }
 
