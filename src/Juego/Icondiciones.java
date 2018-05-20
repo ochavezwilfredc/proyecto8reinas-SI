@@ -5,7 +5,6 @@
  */
 package Juego;
 
-import Interfaz.Interfaz;
 import java.util.ArrayList;
 
 /**

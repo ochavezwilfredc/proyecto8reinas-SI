@@ -5,7 +5,6 @@
  */
 package Recursos;
 
-import Interfaz.Interfaz;
 import Juego.Cromosoma;
 import java.util.Arrays;
 import java.util.Random;

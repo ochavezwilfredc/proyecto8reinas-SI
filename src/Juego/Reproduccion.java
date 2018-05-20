@@ -93,9 +93,11 @@ public class Reproduccion {
         // ------------> siguientePoblacion.aceptacionTotal(auxMutacionHijos);
 
         // *********************** de mejora ***********************
-        siguientePoblacion.deMejora(cromosomasHijos);
+        // ------------> siguientePoblacion.deMejora(auxMutacionHijos);
+        
         // *********************** por torneo ***********************
-        // ------------> nuevaPoblacion.porTorneo(auxMutacionH1, auxMutacionH2);
+        siguientePoblacion.porTorneo(auxMutacionHijos);
+        
         /**
          * Aqui se agrega agrega el numero de hijos
          */

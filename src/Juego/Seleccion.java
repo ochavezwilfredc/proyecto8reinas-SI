@@ -62,4 +62,6 @@ public class Seleccion implements Icondiciones {
             System.out.println("Seleccion padre "+ vecSelecionados[i]+ " suma Act "+sumActitud+" ultimo "+sumFitnessTotal[POBLACION_INICIAL-1]);
         }
     }
+    
+    public void elitista () {}
 }

@@ -8,9 +8,7 @@ package Juego;
 import Recursos.Recursos;
 import static Juego.Icondiciones.ANCHO_TABLERO;
 import static Juego.Icondiciones.poblacion;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 /**
  *

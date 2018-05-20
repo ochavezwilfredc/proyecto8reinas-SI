@@ -5,8 +5,6 @@
  */
 package Juego;
 
-import static Juego.Genetica.numMutaciones;
-import static Juego.Genetica.poblacion;
 import static Juego.Icondiciones.ANCHO_TABLERO;
 import Recursos.Recursos;
 import java.util.Arrays;
