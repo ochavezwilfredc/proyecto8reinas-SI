@@ -22,6 +22,10 @@ public class Cromosoma {
     public String tablero[][];
     Recursos recursos;
     public boolean isSolucion = false;
+    
+    //ranking
+    public double ranking = -1;
+    public int posRanking = -1;
 
     public Cromosoma(int longitud) {
         this.anchoTablero = longitud;
@@ -211,6 +215,23 @@ public class Cromosoma {
         this.isSolucion = isSolucion;
     }
 
+    public double getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(double ranking) {
+        this.ranking = ranking;
+    }
+
+    public int getPosRanking() {
+        return posRanking;
+    }
+
+    public void setPosRanking(int posRanking) {
+        this.posRanking = posRanking;
+    }
+
+    
     @Override
     public String toString() {
         return "Cromosoma{" + "anchoTablero=" + anchoTablero + ", vec_solucion=" + vec_solucion + ", posicion=" + posicion + ", cantConflictos=" + cantConflictos + ", seleccionado=" + seleccionado + ", tablero=" + tablero + ", recursos=" + recursos + ", isSolucion=" + isSolucion + '}';

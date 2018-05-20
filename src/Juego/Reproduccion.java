@@ -90,10 +90,10 @@ public class Reproduccion {
             // ------------> siguientePoblacion.aceptacionTotal(auxMutacionHijos);
 
             // *********************** de mejora ***********************
-            // ------------> siguientePoblacion.deMejora(auxMutacionHijos);
+            siguientePoblacion.deMejora(auxMutacionHijos);
 
             // *********************** por torneo ***********************
-            siguientePoblacion.porTorneo(auxMutacionHijos);
+            // ------------> siguientePoblacion.porTorneo(auxMutacionHijos);
         
         /**
          * Aqui se agrega agrega el numero de hijos

@@ -69,14 +69,11 @@ public class Seleccion implements Icondiciones {
 
         int posIndividuosTorneo[] = new int[CANT_INDIVIDUOS_TORNEO];
 
-        int posPadres[] = new int[CANT_PADRES_RULETA];
-
         int excepto = -1;
 
-        int menorConflic[] = new int[2];
-        int posMenConflic[] = new int[2];
-        Cromosoma posIndivMenConflic[] = new Cromosoma[2];
-        int posIndivMenConflicAux[] = new int[2];
+        int menorConflic[] = new int[CANT_PADRES_RULETA];
+        int posMenConflic[] = new int[CANT_PADRES_RULETA];
+        Cromosoma posIndivMenConflic[] = new Cromosoma[CANT_PADRES_RULETA];
 
         ArrayList<Cromosoma> individuosTorneo = new ArrayList<>();
 
@@ -116,10 +113,24 @@ public class Seleccion implements Icondiciones {
             individuosTorneo.remove(posMenConflic[i]);
         }
 
-        for (int i = 0; i < posIndivMenConflic.length; i++) {
-            System.out.println("Las posiciones de los individuos que menos colisiones son la posición : " + (posIndivMenConflic[i].getPosicion()));
-            poblacion.get(posIndivMenConflic[i].getPosicion()).setSeleccionado(true);
+        for (Cromosoma posIndivMenConflic1 : posIndivMenConflic) {
+            System.out.println("Las posiciones de los individuos que menos colisiones son la posición : " + (posIndivMenConflic1.getPosicion()));
+            poblacion.get(posIndivMenConflic1.getPosicion()).setSeleccionado(true);
         }
 
+    }
+    
+    public void ranking () {
+    /*
+        ArrayList<Cromosoma> poblacionTemp = new ArrayList<>();
+        
+        for (int i = 0; i < poblacion.size(); i++) {
+            //poblacionTemp.add(poblacionTemp)
+            poblacionTemp.add(poblacion.get(i));
+            poblacionTemp.get(i).setPosRanking(i);
+            
+        }
+    */    
+        
     }
 }
