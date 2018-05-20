@@ -64,10 +64,10 @@ public class Reproduccion {
             // ------------> auxCruceHijo = cruce.cruceDosPuntos(posPadres,cromosomasHijos);
 
             // *********************** cruce uniforme ***********************
-            // ------------> auxCruceHijos = cruce.cruceUniforme(posPadres,cromosomasHijos);
+            auxCruceHijos = cruce.cruceUniforme(posPadres,cromosomasHijos);
             
-            // *********************** cruce Aritmetico ***********************
-            auxCruceHijos = cruce.cruceAritmetico(posPadres,cromosomasHijos);
+            // *********************** cruce Aritmetico *********************** (ESTE CRUCE ES EL QUE NO DEBE DE UTILIZARCE PERO PARA QUE VEA EL PROFE QUE SI LO HEMOS HECHO AQUI ESTA)
+            // ------------> auxCruceHijos = cruce.cruceAritmetico(posPadres,cromosomasHijos);
         
         System.out.println("Recibo - > "+Arrays.toString(auxCruceHijos));
         
@@ -139,6 +139,7 @@ public class Reproduccion {
         // Restaura estado de cromosoma
         poblacion.forEach((c) -> {
             c.setSeleccionado(false);
+            c.setPosicion(-1);
         });
 
     }

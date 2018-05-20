@@ -16,8 +16,7 @@ public class Cromosoma {
 
     public int anchoTablero = 0;            // n tamaño
     public int[] vec_solucion;                 // contiene la ubicación de cada reina
-    public double fitness = 0.0;            // la aptitud de este cromosoma para la solución
-    public double probSeleccion = 0.0;      // seleccionado para aparearse en la ruleta
+    public int posicion = -1;            
     public int cantConflictos = 0;              // cantidad de colisiones
     public boolean seleccionado = false;    // si se selecciona para aparearse
     public String tablero[][];
@@ -163,14 +162,12 @@ public class Cromosoma {
         this.vec_solucion[indice] = valor;
     }
 
-    // Obtiene la aptitud de un cromosoma.
-    public double getFitness() {
-        return fitness;
+    public int getPosicion() {
+        return posicion;
     }
 
-    // Establece la aptitud del cromosoma.
-    public void setFitness(double fitness) {
-        this.fitness = fitness;
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
     }
 
     // Obtiene los cantConflictos del cromosoma.
@@ -192,15 +189,6 @@ public class Cromosoma {
         this.seleccionado = seleccionado;
     }
 
-    // Obtiene la probabilidad de selección del cromosoma.
-    public double getProbabilidad() {
-        return probSeleccion;
-    }
-
-    // establece la probabilidad de selección del cromosoma.
-    public void setProbabilidad(double probSeleccion) {
-        this.probSeleccion = probSeleccion;
-    }
 
     // Obtiene la longitud máxima.
     public int getAnchoTablero() {
@@ -225,7 +213,9 @@ public class Cromosoma {
 
     @Override
     public String toString() {
-        return "Cromosoma{" + "anchoTablero=" + anchoTablero + ", genes=" + Arrays.toString(vec_solucion) + ", fitness=" + fitness + ", probSeleccion=" + probSeleccion + ", conflictos=" + cantConflictos + ", seleccionado=" + seleccionado + ", tablero=" + tablero + ", recursos=" + recursos + '}';
+        return "Cromosoma{" + "anchoTablero=" + anchoTablero + ", vec_solucion=" + vec_solucion + ", posicion=" + posicion + ", cantConflictos=" + cantConflictos + ", seleccionado=" + seleccionado + ", tablero=" + tablero + ", recursos=" + recursos + ", isSolucion=" + isSolucion + '}';
     }
+
+    
 
 }

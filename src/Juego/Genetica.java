@@ -72,7 +72,7 @@ public class Genetica implements Icondiciones {
                  * Aqui se genera la seleccion
                  */
                 // se utiliza la ruleta como algoritmo de seleccion 
-                seleccion.ruleta();
+                seleccion.torneo();
 
                 //Realiza el cruce parcial de los padres
                 reproduccion.generarReproduccion();

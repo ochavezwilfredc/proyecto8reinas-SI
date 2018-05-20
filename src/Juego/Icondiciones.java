@@ -27,4 +27,7 @@ public interface Icondiciones {
     //Condiciones Selección Ruleta
     public static int CANT_PADRES_RULETA = 2;
     
+    // Cantidad de padres al azar en el torneo
+    public static int CANT_INDIVIDUOS_TORNEO = 8;
+    
 }
