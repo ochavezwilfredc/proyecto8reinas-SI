@@ -268,7 +268,6 @@ public class Cruce {
         System.out.println("-> Vector resultado " + Arrays.toString(vectorResultado));
         
         
-        
         for (int i = 0; i < ANCHO_TABLERO; i++) {
             
             tempVR = vectorResultado[i].split("");
