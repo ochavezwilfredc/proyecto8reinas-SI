@@ -9,7 +9,9 @@ import Juego.Cromosoma;
 import Juego.Genetica;
 import Juego.Icondiciones;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -1172,7 +1174,15 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                 colocarIcono(c.vec_solucion[i], i);
             }
             //Se cálcula el tiempo
+
             this.lbl_tiempo.setText(((System.currentTimeMillis() - genetica.getTiempoInicial()) / 1000) + " seg");
+
+            long diferencia_tiempo = (System.currentTimeMillis() - genetica.getTiempoInicial());
+            Date date = new Date(diferencia_tiempo);
+            SimpleDateFormat sd2 = new SimpleDateFormat("mm:ss");
+            String tiempo = sd2.format(date);
+            this.lbl_tiempo.setText(tiempo);
+
 
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar todas las opcionsiones", "8-reinas", JOptionPane.INFORMATION_MESSAGE);
@@ -1642,6 +1652,7 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
     }
 
     private void inicalizarPruebaPorDefecto() {
+
         this.vecConfig[0] = 0;
         this.vecConfig[1] = 1;
         this.vecConfig[2] = 1;
@@ -1650,6 +1661,7 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
         this.rb_cruce_2puntos.setSelected(true);
         this.rb_muta_intercambio_orden.setSelected(true);
         this.rb_aceptacion_total.setSelected(true);
+
     }
 
     private boolean todoOK() {

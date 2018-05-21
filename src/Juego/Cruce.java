@@ -296,4 +296,6 @@ public class Cruce {
         return cromosomasHijos;
 
     }
+    
+    
 }

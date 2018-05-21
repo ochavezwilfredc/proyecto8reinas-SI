@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Juego">
+  <ClassDiagramComponents>
+    <Class name="Aceptacion" package="Juego" visibility="public" xPosition="66.0" yPosition="118.0">
+      <Fields>
+        <Field name="recursos" type="Recursos" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="aceptacionTotal" returnType="void" visibility="public">
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+        <Method name="deMejora" returnType="void" visibility="public">
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+        <Method name="porTorneo" returnType="void" visibility="public">
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Binario" package="Juego" visibility="public" xPosition="66.0" yPosition="-4.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="obtenerBinario" returnType="String" visibility="public">
+          <Argument type="int" name="numero"/>
+        </Method>
+        <Method name="binarioDecimal" returnType="int" visibility="public">
+          <Argument type="int[]" name="valorBinario"/>
+          <Argument type="int" name="index"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Cromosoma" package="Juego" visibility="public" xPosition="627.0" yPosition="118.0">
+      <Fields>
+        <Field name="anchoTablero" type="int" visibility="public"/>
+        <Field name="vec_solucion" type="int[]" visibility="public"/>
+        <Field name="posicion" type="int" visibility="public"/>
+        <Field name="cantConflictos" type="int" visibility="public"/>
+        <Field name="seleccionado" type="boolean" visibility="public"/>
+        <Field name="tablero" type="String" visibility="public"/>
+        <Field name="recursos" type="Recursos" visibility="package"/>
+        <Field name="isSolucion" type="boolean" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="longitud"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="calcularConflictos" returnType="void" visibility="public"/>
+        <Method name="getVecSolucion" returnType="int" visibility="public">
+          <Argument type="int" name="indice"/>
+        </Method>
+        <Method name="setVecSolucion" returnType="void" visibility="public">
+          <Argument type="int" name="indice"/>
+          <Argument type="int" name="valor"/>
+        </Method>
+        <Method name="getPosicion" returnType="int" visibility="public"/>
+        <Method name="setPosicion" returnType="void" visibility="public">
+          <Argument type="int" name="posicion"/>
+        </Method>
+        <Method name="getConflictos" returnType="int" visibility="public"/>
+        <Method name="setConflictos" returnType="void" visibility="public">
+          <Argument type="int" name="conflictos"/>
+        </Method>
+        <Method name="getSeleccionado" returnType="boolean" visibility="public"/>
+        <Method name="setSeleccionado" returnType="void" visibility="public">
+          <Argument type="boolean" name="seleccionado"/>
+        </Method>
+        <Method name="getAnchoTablero" returnType="int" visibility="public"/>
+        <Method name="getTablero" returnType="String[][]" visibility="public"/>
+        <Method name="getVec_genes" returnType="int[]" visibility="public"/>
+        <Method name="isIsSolucion" returnType="boolean" visibility="public"/>
+        <Method name="setIsSolucion" returnType="void" visibility="public">
+          <Argument type="boolean" name="isSolucion"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Cruce" package="Juego" visibility="public" xPosition="859.0" yPosition="463.0">
+      <Fields>
+        <Field name="recursos" type="Recursos" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="cruceUnPunto" returnType="Cromosoma[]" visibility="public">
+          <Argument type="int" name="posPadres"/>
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+        <Method name="cruceDosPuntos" returnType="Cromosoma[]" visibility="public">
+          <Argument type="int" name="posPadres"/>
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+        <Method name="cruceUniforme" returnType="Cromosoma[]" visibility="public">
+          <Argument type="int" name="posPadres"/>
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+        <Method name="cruceAritmetico" returnType="Cromosoma[]" visibility="public">
+          <Argument type="int" name="posPadres"/>
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Fitness" package="Juego" visibility="public" xPosition="1307.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="evaluar" returnType="void" visibility="public"/>
+        <Method name="maximo" returnType="int" visibility="public"/>
+        <Method name="minimo" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Genetica" package="Juego" visibility="public" xPosition="911.0" yPosition="20.0">
+      <Fields>
+        <Field name="numMutaciones" type="int" visibility="public" isStatic="true"/>
+        <Field name="generacion" type="int" visibility="public" isStatic="true"/>
+        <Field name="numHijos" type="int" visibility="public" isStatic="true"/>
+        <Field name="recursos" type="Recursos" visibility="package"/>
+        <Field name="seleccion" type="Seleccion" visibility="package"/>
+        <Field name="fitness" type="Fitness" visibility="package"/>
+        <Field name="cromosoma" type="Cromosoma" visibility="package"/>
+        <Field name="cruce" type="Cruce" visibility="package"/>
+        <Field name="mutacion" type="Mutacion" visibility="package"/>
+        <Field name="nuevaPoblacion" type="Aceptacion" visibility="package"/>
+        <Field name="reproduccion" type="Reproduccion" visibility="package"/>
+        <Field name="cromoResult" type="Cromosoma" visibility="private"/>
+        <Field name="vecConfig" type="int[]" visibility="package"/>
+        <Field name="tiempoInicial" type="long" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="v"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="algoritmoGenetico" returnType="Cromosoma" visibility="public"/>
+        <Method name="generarPoblacionInicial" returnType="void" visibility="public"/>
+        <Method name="condicionesPruebaSeleccion" returnType="void" visibility="private"/>
+        <Method name="getNumMutaciones" returnType="int" visibility="public" isStatic="true"/>
+        <Method name="setNumMutaciones" returnType="void" visibility="public" isStatic="true">
+          <Argument type="int" name="numMutaciones"/>
+        </Method>
+        <Method name="getGeneracion" returnType="int" visibility="public" isStatic="true"/>
+        <Method name="setGeneracion" returnType="void" visibility="public" isStatic="true">
+          <Argument type="int" name="generacion"/>
+        </Method>
+        <Method name="getNumHijos" returnType="int" visibility="public" isStatic="true"/>
+        <Method name="setNumHijos" returnType="void" visibility="public" isStatic="true">
+          <Argument type="int" name="numHijos"/>
+        </Method>
+        <Method name="getRecursos" returnType="Recursos" visibility="public"/>
+        <Method name="setRecursos" returnType="void" visibility="public">
+          <Argument type="Recursos" name="recursos"/>
+        </Method>
+        <Method name="getSeleccion" returnType="Seleccion" visibility="public"/>
+        <Method name="setSeleccion" returnType="void" visibility="public">
+          <Argument type="Seleccion" name="seleccion"/>
+        </Method>
+        <Method name="getFitness" returnType="Fitness" visibility="public"/>
+        <Method name="setFitness" returnType="void" visibility="public">
+          <Argument type="Fitness" name="fitness"/>
+        </Method>
+        <Method name="getCromosoma" returnType="Cromosoma" visibility="public"/>
+        <Method name="setCromosoma" returnType="void" visibility="public">
+          <Argument type="Cromosoma" name="cromosoma"/>
+        </Method>
+        <Method name="getCruce" returnType="Cruce" visibility="public"/>
+        <Method name="setCruce" returnType="void" visibility="public">
+          <Argument type="Cruce" name="cruce"/>
+        </Method>
+        <Method name="getMutacion" returnType="Mutacion" visibility="public"/>
+        <Method name="setMutacion" returnType="void" visibility="public">
+          <Argument type="Mutacion" name="mutacion"/>
+        </Method>
+        <Method name="getNuevaPoblacion" returnType="Aceptacion" visibility="public"/>
+        <Method name="setNuevaPoblacion" returnType="void" visibility="public">
+          <Argument type="Aceptacion" name="nuevaPoblacion"/>
+        </Method>
+        <Method name="getReproduccion" returnType="Reproduccion" visibility="public"/>
+        <Method name="setReproduccion" returnType="void" visibility="public">
+          <Argument type="Reproduccion" name="reproduccion"/>
+        </Method>
+        <Method name="getCromoResult" returnType="Cromosoma" visibility="public"/>
+        <Method name="setCromoResult" returnType="void" visibility="public">
+          <Argument type="Cromosoma" name="cromoResult"/>
+        </Method>
+        <Method name="getVecConfig" returnType="int[]" visibility="public"/>
+        <Method name="setVecConfig" returnType="void" visibility="public">
+          <Argument type="int[]" name="vecConfig"/>
+        </Method>
+        <Method name="getTiempoInicial" returnType="long" visibility="public"/>
+        <Method name="setTiempoInicial" returnType="void" visibility="public">
+          <Argument type="long" name="tiempoInicial"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Mutacion" package="Juego" visibility="public" xPosition="1192.0" yPosition="263.0">
+      <Fields>
+        <Field name="recursos" type="Recursos" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="inversionGenes" returnType="Cromosoma[]" visibility="public">
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+        <Method name="intercambiarOrden" returnType="Cromosoma[]" visibility="public">
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+        <Method name="modificacionGenes" returnType="Cromosoma[]" visibility="public">
+          <Argument type="Cromosoma" name="cromosomasHijos"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Reproduccion" package="Juego" visibility="public" xPosition="627.0" yPosition="325.0">
+      <Fields>
+        <Field name="recursos" type="Recursos" visibility="package"/>
+        <Field name="seleccion" type="Seleccion" visibility="package"/>
+        <Field name="fitness" type="Fitness" visibility="package"/>
+        <Field name="cromosoma" type="Cromosoma" visibility="package"/>
+        <Field name="cruce" type="Cruce" visibility="package"/>
+        <Field name="mutacion" type="Mutacion" visibility="package"/>
+        <Field name="siguientePoblacion" type="Aceptacion" visibility="package"/>
+        <Field name="cromosomasHijos" type="Cromosoma" visibility="package"/>
+        <Field name="auxCruceHijos" type="Cromosoma" visibility="package"/>
+        <Field name="auxMutacionHijos" type="Cromosoma" visibility="package"/>
+        <Field name="posPadres" type="int" visibility="package"/>
+        <Field name="vecConfig" type="int[]" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="v"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="generarReproduccion" returnType="void" visibility="public"/>
+        <Method name="seleccionarPadre" returnType="int" visibility="public"/>
+        <Method name="seleccionarPadre" returnType="int" visibility="public">
+          <Argument type="int" name="padreA"/>
+        </Method>
+        <Method name="prepararSiguienteGeneracion" returnType="void" visibility="public"/>
+        <Method name="configuracionesF2F3F4" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="Seleccion" package="Juego" visibility="public" xPosition="627.0" yPosition="463.0">
+      <Fields>
+        <Field name="recursos" type="Recursos" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="ruleta" returnType="void" visibility="public"/>
+        <Method name="torneo" returnType="void" visibility="public"/>
+        <Method name="ranking" returnType="void" visibility="public"/>
+        <Method name="elitista" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="Icondiciones" package="Juego" visibility="public" xPosition="1069.0" yPosition="468.0">
+      <Methods/>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="Juego.Genetica" target="Juego.Fitness" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Juego.Aceptacion" target="Juego.Cromosoma" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cruce" source="Juego.Reproduccion" target="Juego.Cruce" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Juego.Genetica" target="Juego.Aceptacion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="reproduccion" source="Juego.Genetica" target="Juego.Reproduccion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="auxCruceHijos" source="Juego.Reproduccion" target="Juego.Cromosoma" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cromosomasHijos" source="Juego.Reproduccion" target="Juego.Cromosoma" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="seleccion" source="Juego.Reproduccion" target="Juego.Seleccion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="fitness" source="Juego.Reproduccion" target="Juego.Fitness" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mutacion" source="Juego.Genetica" target="Juego.Mutacion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Juego.Genetica" target="Juego.Cromosoma" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Juego.Seleccion" target="Juego.Icondiciones"/>
+    <UseRelation source="Juego.Cruce" target="Juego.Cromosoma" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Juego.Mutacion" target="Juego.Cromosoma" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cromoResult" source="Juego.Genetica" target="Juego.Cromosoma" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="fitness" source="Juego.Genetica" target="Juego.Fitness" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="seleccion" source="Juego.Genetica" target="Juego.Seleccion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Juego.Genetica" target="Juego.Cruce" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mutacion" source="Juego.Reproduccion" target="Juego.Mutacion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="nuevaPoblacion" source="Juego.Genetica" target="Juego.Aceptacion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Juego.Genetica" target="Juego.Mutacion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Juego.Aceptacion" target="Juego.Icondiciones"/>
+    <HasRelation name="cromosoma" source="Juego.Reproduccion" target="Juego.Cromosoma" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Juego.Mutacion" target="Juego.Icondiciones"/>
+    <UseRelation source="Juego.Genetica" target="Juego.Reproduccion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Juego.Genetica" target="Juego.Seleccion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cruce" source="Juego.Genetica" target="Juego.Cruce" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="siguientePoblacion" source="Juego.Reproduccion" target="Juego.Aceptacion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cromosoma" source="Juego.Genetica" target="Juego.Cromosoma" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="auxMutacionHijos" source="Juego.Reproduccion" target="Juego.Cromosoma" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Juego.Genetica" target="Juego.Icondiciones"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

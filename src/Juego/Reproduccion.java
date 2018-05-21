@@ -23,7 +23,7 @@ public class Reproduccion {
     Cromosoma cromosoma;
     Cruce cruce;
     Mutacion mutacion;
-    SiguientePoblacion siguientePoblacion;
+    Aceptacion siguientePoblacion;
 
     // vectores para el cruzamiento mutacion
     Cromosoma cromosomasHijos[];
@@ -40,7 +40,7 @@ public class Reproduccion {
         this.fitness = new Fitness();
         this.cruce = new Cruce();
         this.mutacion = new Mutacion();
-        this.siguientePoblacion = new SiguientePoblacion();
+        this.siguientePoblacion = new Aceptacion();
 
         this.vecConfig = v;
     }

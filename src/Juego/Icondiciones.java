@@ -18,14 +18,14 @@ public interface Icondiciones {
     public static int ANCHO_TABLERO = 8;
 
     // Tamaño de la poblacion 
-    public static int POBLACION_INICIAL = 100;
+    public static int POBLACION = 100;
     
     // Array que contendra todas las poblaciones
     public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();
     
     
     //Condiciones Selección Ruleta
-    public static int CANT_PADRES_RULETA = 2;
+    public static int CANT_PADRES = 2;
     
     // Cantidad de padres al azar en el torneo
     public static int CANT_INDIVIDUOS_TORNEO = 8;
