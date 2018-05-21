@@ -13,11 +13,11 @@ import java.util.Arrays;
  *
  * @author mendoza
  */
-public class SiguientePoblacion implements Icondiciones {
+public class Aceptacion implements Icondiciones {
     
     Recursos recursos;
     
-    public SiguientePoblacion() {
+    public Aceptacion() {
         recursos = new Recursos();
     }
     

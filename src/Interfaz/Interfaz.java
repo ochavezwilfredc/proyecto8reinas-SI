@@ -1156,6 +1156,8 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
             //Se cálcula el tiempo
             this.lbl_tiempo.setText(((System.currentTimeMillis() - genetica.getTiempoInicial()) / 1000)+ " seg" );
             
+            //Termina el programa
+            System.exit(0);
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar todas las opcionsiones", "8-reinas", JOptionPane.INFORMATION_MESSAGE);
             

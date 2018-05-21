@@ -15,14 +15,10 @@ public class Fitness {
 
     // Buscar la mejor aptud 
     public void evaluar() {
-
-        
-        
         poblacion.forEach((cromosoma) -> {
             cromosoma.calcularConflictos();
         });
 
-        
     }
 
     /**

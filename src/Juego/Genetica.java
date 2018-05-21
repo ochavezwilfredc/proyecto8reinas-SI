@@ -29,7 +29,7 @@ public class Genetica implements Icondiciones{
     Cromosoma cromosoma;
     Cruce cruce;
     Mutacion mutacion;
-    SiguientePoblacion nuevaPoblacion;
+    Aceptacion nuevaPoblacion;
     Reproduccion reproduccion;
 
     private Cromosoma cromoResult;
@@ -46,7 +46,7 @@ public class Genetica implements Icondiciones{
         this.fitness = new Fitness();
         this.cruce = new Cruce();
         this.mutacion = new Mutacion();
-        this.nuevaPoblacion = new SiguientePoblacion();
+        this.nuevaPoblacion = new Aceptacion();
 
         //recibo el vector de configuracion de la prueba desde la interfaz
         this.reproduccion = new Reproduccion(v);
@@ -128,7 +128,7 @@ public class Genetica implements Icondiciones{
         Cromosoma nuevoCromosoma;
         int azar;
 
-        for (int i = 0; i < POBLACION_INICIAL; i++) {
+        for (int i = 0; i < POBLACION; i++) {
 
             // se genera un cromosoma nuevo
             nuevoCromosoma = new Cromosoma(ANCHO_TABLERO);
@@ -158,7 +158,7 @@ public class Genetica implements Icondiciones{
                 this.seleccion.torneo();
                 break;
             case 2://ranking
-
+                this.seleccion.ranking();
                 break;
             case 3://Elitista
 
@@ -240,11 +240,11 @@ public class Genetica implements Icondiciones{
         this.mutacion = mutacion;
     }
 
-    public SiguientePoblacion getNuevaPoblacion() {
+    public Aceptacion getNuevaPoblacion() {
         return nuevaPoblacion;
     }
 
-    public void setNuevaPoblacion(SiguientePoblacion nuevaPoblacion) {
+    public void setNuevaPoblacion(Aceptacion nuevaPoblacion) {
         this.nuevaPoblacion = nuevaPoblacion;
     }
 
