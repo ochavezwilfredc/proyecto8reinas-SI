@@ -20,8 +20,8 @@ public class main {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        Genetica reinas = new Genetica();
-        Cromosoma c = reinas.algoritmoGenetico();
+//        Genetica reinas = new Genetica();
+//        Cromosoma c = reinas.algoritmoGenetico();
         //System.out.println(c.toString());
 
     }

@@ -116,9 +116,9 @@ public class Seleccion implements Icondiciones {
             individuosTorneo.remove(posMenConflic[i]);
         }
 
-        for (int i = 0; i < posIndivMenConflic.length; i++) {
-            System.out.println("Las posiciones de los individuos que menos colisiones son la posición : " + (posIndivMenConflic[i].getPosicion()));
-            poblacion.get(posIndivMenConflic[i].getPosicion()).setSeleccionado(true);
+        for (Cromosoma posIndivMenConflic1 : posIndivMenConflic) {
+            System.out.println("Las posiciones de los individuos que menos colisiones son la posición : " + (posIndivMenConflic1.getPosicion()));
+            poblacion.get(posIndivMenConflic1.getPosicion()).setSeleccionado(true);
         }
 
     }

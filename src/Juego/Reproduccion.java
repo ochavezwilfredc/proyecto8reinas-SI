@@ -25,24 +25,35 @@ public class Reproduccion {
     Mutacion mutacion;
     SiguientePoblacion siguientePoblacion;
 
-    public Reproduccion() {
+    // vectores para el cruzamiento mutacion
+    Cromosoma cromosomasHijos[];
+    Cromosoma auxCruceHijos[];
+    Cromosoma auxMutacionHijos[];
+    int posPadres[];
+
+    //Vector para la configuracion
+    int[] vecConfig;
+
+    public Reproduccion(int v[]) {
         this.recursos = new Recursos();
         this.seleccion = new Seleccion();
         this.fitness = new Fitness();
         this.cruce = new Cruce();
         this.mutacion = new Mutacion();
         this.siguientePoblacion = new SiguientePoblacion();
+
+        this.vecConfig = v;
     }
 
     // Produce una nueva generacion
     public void generarReproduccion() {
 
-        int posPadres [] = new int[2];
+        this.posPadres = new int[2];
 
-        Cromosoma cromosomasHijos [] = new Cromosoma[2];
-        Cromosoma auxCruceHijos [] = new Cromosoma[2];
-        Cromosoma auxMutacionHijos[] = new Cromosoma[2];
-  
+        this.cromosomasHijos = new Cromosoma[2];
+        this.auxCruceHijos = new Cromosoma[2];
+        this.auxMutacionHijos = new Cromosoma[2];
+
         // se crean dos nuevos cromosomas 
         cromosomasHijos[0] = new Cromosoma(ANCHO_TABLERO);
         cromosomasHijos[1] = new Cromosoma(ANCHO_TABLERO);
@@ -53,51 +64,12 @@ public class Reproduccion {
         // se obtiene un nuevo padre que no sea igual al padre A
         posPadres[1] = this.seleccionarPadre(posPadres[0]);
 
-        /**
-         * Aqui se genera el cruce
-         */
+        //Método que evalua la conficurazion del cruce, mutacion y aceptación
+        this.configuracionesF2F3F4();
         
-            //*********************** cruce en un punto ***********************
-            // ------------> auxCruceHijos = cruce.cruceUnPunto(posPadres,cromosomasHijos);
-
-            // *********************** cruce en dos punto ***********************
-            // ------------> auxCruceHijo = cruce.cruceDosPuntos(posPadres,cromosomasHijos);
-
-            // *********************** cruce uniforme ***********************
-            auxCruceHijos = cruce.cruceUniforme(posPadres,cromosomasHijos);
-            
-            // *********************** cruce Aritmetico *********************** (ESTE CRUCE ES EL QUE NO DEBE DE UTILIZARCE PERO PARA QUE VEA EL PROFE QUE SI LO HEMOS HECHO AQUI ESTA)
-            // ------------> auxCruceHijos = cruce.cruceAritmetico(posPadres,cromosomasHijos);
+        System.out.println("Recibo - > " + Arrays.toString(auxCruceHijos));
         
-        System.out.println("Recibo - > "+Arrays.toString(auxCruceHijos));
-        
-        /**
-         * Aqui empieza la mutacion
-         */
-            // *********************** de inversion de Genes ***********************
-            // ------------> auxMutacionHijos = mutacion.inversionGenes(auxCruceHijos);
-
-            // *********************** de cambio de orden ***********************
-            auxMutacionHijos = mutacion.intercambiarOrden(auxCruceHijos);
-
-            // *********************** de modificacion de genes ***********************
-            // ------------> auxMutacionHijos = mutacion.modificacionGenes(auxCruceHijos);
-        
-        /**
-         * Aqui empieza seleccion para la nueva generacion
-         */
-            // *********************** de aceptacion total ***********************
-            // ------------> siguientePoblacion.aceptacionTotal(auxMutacionHijos);
-
-            // *********************** de mejora ***********************
-            // ------------> siguientePoblacion.deMejora(auxMutacionHijos);
-
-            // *********************** por torneo ***********************
-            siguientePoblacion.porTorneo(auxMutacionHijos);
-        
-        /**
-         * Aqui se agrega agrega el numero de hijos
-         */
+        // Aqui se agrega agrega el numero de hijos
         numHijos += 2;
 
     }
@@ -108,7 +80,7 @@ public class Reproduccion {
         boolean terminado = false;
 
         for (int i = 0; i < poblacion.size(); i++) {
-        cromosoma = poblacion.get(i);   
+            cromosoma = poblacion.get(i);
             if (cromosoma.getSeleccionado()) {
                 posPadre = i;
                 terminado = true;
@@ -123,8 +95,8 @@ public class Reproduccion {
         boolean terminado = false;
 
         for (int i = 0; i < poblacion.size(); i++) {
-            cromosoma = poblacion.get(i); 
-            if (i != padreA) { 
+            cromosoma = poblacion.get(i);
+            if (i != padreA) {
                 if (cromosoma.getSeleccionado()) {
                     posPadre = i;
                     terminado = true;
@@ -139,9 +111,53 @@ public class Reproduccion {
         // Restaura estado de cromosoma
         poblacion.forEach((c) -> {
             c.setSeleccionado(false);
-            c.setPosicion(-1);
         });
 
+    }
+
+    private void configuracionesF2F3F4() {
+        //Configuraciones Fase2 = Cruce
+        switch (vecConfig[1]) {
+            case 0://1 punto
+                auxCruceHijos = cruce.cruceUnPunto(posPadres, cromosomasHijos);
+                break;
+            case 1://2 puntos
+                auxCruceHijos = cruce.cruceDosPuntos(posPadres, cromosomasHijos);
+                break;
+            case 2://Uniforme
+                auxCruceHijos = cruce.cruceUniforme(posPadres, cromosomasHijos);
+                break;
+            case 3://Arimetico
+                auxCruceHijos = cruce.cruceAritmetico(posPadres, cromosomasHijos);
+                break;
+        }
+
+        //Configuraciones Fase3 = Mutación
+        switch (vecConfig[2]) {
+            case 0://Inversión de genes
+                auxMutacionHijos = mutacion.inversionGenes(auxCruceHijos);
+                break;
+            case 1://Cambio de orden
+                auxMutacionHijos = mutacion.intercambiarOrden(auxCruceHijos);
+                break;
+            case 2://Modificación de genes
+                auxMutacionHijos = mutacion.modificacionGenes(auxCruceHijos);
+                break;
+
+        }
+
+        //Configuraciones Fase4 = nueva población
+        switch (vecConfig[3]) {
+            case 0://Aceptación total
+                siguientePoblacion.aceptacionTotal(auxMutacionHijos);
+                break;
+            case 1://De mejora
+                siguientePoblacion.deMejora(auxMutacionHijos);
+                break;
+            case 2://Por torneo
+                siguientePoblacion.porTorneo(auxMutacionHijos);
+                break;
+        }
     }
 
 }

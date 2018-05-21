@@ -34,14 +34,20 @@ public class Genetica implements Icondiciones {
 
     private Cromosoma cromoResult;
 
-    public Genetica() {
+    //Vector para la configuracion
+    int[] vecConfig;
+
+    public Genetica(int v[]) {
         this.recursos = new Recursos();
         this.seleccion = new Seleccion();
         this.fitness = new Fitness();
         this.cruce = new Cruce();
         this.mutacion = new Mutacion();
         this.nuevaPoblacion = new SiguientePoblacion();
-        this.reproduccion = new Reproduccion();
+
+        //recibo el vector de configuracion de la prueba desde la interfaz
+        this.reproduccion = new Reproduccion(v);
+        this.vecConfig = v;
     }
 
     /**
@@ -68,11 +74,8 @@ public class Genetica implements Icondiciones {
 
             if (!esFinal) {
 
-                /**
-                 * Aqui se genera la seleccion
-                 */
-                // se utiliza la ruleta como algoritmo de seleccion 
-                seleccion.torneo();
+                //Método que evalua la condición de la fase 1 = selección
+                this.condicionesPruebaSeleccion();
 
                 //Realiza el cruce parcial de los padres
                 reproduccion.generarReproduccion();
@@ -113,15 +116,15 @@ public class Genetica implements Icondiciones {
      * Método genera la población inicial
      */
     public void generarPoblacionInicial() {
-        
+
         Cromosoma nuevoCromosoma;
         int azar;
 
         for (int i = 0; i < POBLACION_INICIAL; i++) {
-            
+
             // se genera un cromosoma nuevo
             nuevoCromosoma = new Cromosoma(ANCHO_TABLERO);
-            
+
             for (int j = 0; j < ANCHO_TABLERO; j++) {
                 azar = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
                 nuevoCromosoma.setVecSolucion(j, azar);
@@ -130,14 +133,29 @@ public class Genetica implements Icondiciones {
             nuevoCromosoma.calcularConflictos();
             // se agrega el cromosoma a la lista(población)
             poblacion.add(nuevoCromosoma);
-                      
 
         }
     }
 
-    public static void main(String[] args) {
-        Genetica reinas = new Genetica();
-        Cromosoma c = reinas.algoritmoGenetico();
+    /**
+     * Método que evalua la condiciones de la prueba
+     */
+    private void condicionesPruebaSeleccion() {
+        //Configuraciones Fase1 = selección
+        switch (vecConfig[0]) {
+            case 0://ruleta
+                this.seleccion.ruleta();
+                break;
+            case 1://torneo
+                this.seleccion.torneo();
+                break;
+            case 2://ranking
+
+                break;
+            case 3://Elitista
+
+                break;
+        }
     }
 
 }
