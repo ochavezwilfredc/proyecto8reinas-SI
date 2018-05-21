@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author mendoza
  */
-public class Genetica implements Icondiciones {
+public class Genetica implements Icondiciones{
 
     // numero de mutaciones
     public static int numMutaciones = 0;
@@ -37,6 +37,9 @@ public class Genetica implements Icondiciones {
     //Vector para la configuracion
     int[] vecConfig;
 
+    //Tiempo
+    private long tiempoInicial;
+
     public Genetica(int v[]) {
         this.recursos = new Recursos();
         this.seleccion = new Seleccion();
@@ -48,8 +51,13 @@ public class Genetica implements Icondiciones {
         //recibo el vector de configuracion de la prueba desde la interfaz
         this.reproduccion = new Reproduccion(v);
         this.vecConfig = v;
+        
+        //Tiempo inicial de referencia
+        this.tiempoInicial= System.currentTimeMillis();
     }
 
+    
+    
     /**
      * Método principal para la simulación AG
      *
@@ -157,5 +165,121 @@ public class Genetica implements Icondiciones {
                 break;
         }
     }
+    
+    //GET AND SET
+
+    public static int getNumMutaciones() {
+        return numMutaciones;
+    }
+
+    public static void setNumMutaciones(int numMutaciones) {
+        Genetica.numMutaciones = numMutaciones;
+    }
+
+    public static int getGeneracion() {
+        return generacion;
+    }
+
+    public static void setGeneracion(int generacion) {
+        Genetica.generacion = generacion;
+    }
+
+    public static int getNumHijos() {
+        return numHijos;
+    }
+
+    public static void setNumHijos(int numHijos) {
+        Genetica.numHijos = numHijos;
+    }
+
+    public Recursos getRecursos() {
+        return recursos;
+    }
+
+    public void setRecursos(Recursos recursos) {
+        this.recursos = recursos;
+    }
+
+    public Seleccion getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
+    }
+
+    public Fitness getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(Fitness fitness) {
+        this.fitness = fitness;
+    }
+
+    public Cromosoma getCromosoma() {
+        return cromosoma;
+    }
+
+    public void setCromosoma(Cromosoma cromosoma) {
+        this.cromosoma = cromosoma;
+    }
+
+    public Cruce getCruce() {
+        return cruce;
+    }
+
+    public void setCruce(Cruce cruce) {
+        this.cruce = cruce;
+    }
+
+    public Mutacion getMutacion() {
+        return mutacion;
+    }
+
+    public void setMutacion(Mutacion mutacion) {
+        this.mutacion = mutacion;
+    }
+
+    public SiguientePoblacion getNuevaPoblacion() {
+        return nuevaPoblacion;
+    }
+
+    public void setNuevaPoblacion(SiguientePoblacion nuevaPoblacion) {
+        this.nuevaPoblacion = nuevaPoblacion;
+    }
+
+    public Reproduccion getReproduccion() {
+        return reproduccion;
+    }
+
+    public void setReproduccion(Reproduccion reproduccion) {
+        this.reproduccion = reproduccion;
+    }
+
+    public Cromosoma getCromoResult() {
+        return cromoResult;
+    }
+
+    public void setCromoResult(Cromosoma cromoResult) {
+        this.cromoResult = cromoResult;
+    }
+
+    public int[] getVecConfig() {
+        return vecConfig;
+    }
+
+    public void setVecConfig(int[] vecConfig) {
+        this.vecConfig = vecConfig;
+    }
+
+    public long getTiempoInicial() {
+        return tiempoInicial;
+    }
+
+    public void setTiempoInicial(long tiempoInicial) {
+        this.tiempoInicial = tiempoInicial;
+    }
+    
+    
 
 }

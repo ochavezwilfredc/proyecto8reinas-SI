@@ -109,7 +109,7 @@ public class Seleccion implements Icondiciones {
 
                     menorConflic[i] = individuo.getConflictos();
                     posMenConflic[i] = individuosTorneo.indexOf(individuo);
-                    
+
                 }
             }
             posIndivMenConflic[i] = individuosTorneo.get(posMenConflic[i]);
