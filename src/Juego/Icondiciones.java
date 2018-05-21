@@ -18,7 +18,7 @@ public interface Icondiciones {
     public static int ANCHO_TABLERO = 8;
 
     // Tamaño de la poblacion 
-    public static int POBLACION = 100;
+    public static int TAM_POBLACION = 100;
     
     // Array que contendra todas las poblaciones
     public static ArrayList<Cromosoma> poblacion = new ArrayList<Cromosoma>();

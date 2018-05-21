@@ -5,7 +5,6 @@
  */
 package Juego;
 
-import static Juego.Icondiciones.ANCHO_TABLERO;
 import Recursos.Recursos;
 import java.util.Arrays;
 
@@ -18,9 +17,7 @@ public class Mutacion implements Icondiciones {
     Recursos recursos;
 
     public Mutacion() {
-
         this.recursos = new Recursos();
-
     }
 
     public Cromosoma[] inversionGenes(Cromosoma cromosomasHijos[]) {
@@ -30,9 +27,7 @@ public class Mutacion implements Icondiciones {
         for (int i = 0; i < cromosomasHijos.length; i++) {
 
             puntoInversionGen = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-
             valor = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
-
             cromosomasHijos[i].setVecSolucion(puntoInversionGen, valor);
         }
         System.out.println("Mutacion en el Hijo 1 " + Arrays.toString(cromosomasHijos[0].getVec_genes()));
@@ -70,25 +65,18 @@ public class Mutacion implements Icondiciones {
         int posCambio, genPosCambio, nuevoGen, numModificaciones = 4;
         int posDiferentes[] = new int[5];
         posDiferentes[0] = -1;
-
         int sumGen = 1, resGen = -1;
 
         System.out.println("// --------------------------------------------------------------------------------------------------------------------------------------------");
 
         for (int i = 0; i < cromosomasHijos.length; i++) {
-
             for (int j = 1; j <= 4; j++) {
-
                 posCambio = recursos.getAleatorioExclusivo(0, ANCHO_TABLERO - 1, posDiferentes[j - 1]);
-
                 genPosCambio = cromosomasHijos[i].getVecSolucion(posCambio);
-
                 if (genPosCambio % 2 == 0) {
-
                     nuevoGen = genPosCambio + sumGen;
                     cromosomasHijos[i].setVecSolucion(posCambio, nuevoGen);
                 } else {
-
                     nuevoGen = genPosCambio + resGen;
                     cromosomasHijos[i].setVecSolucion(posCambio, nuevoGen);
                 }

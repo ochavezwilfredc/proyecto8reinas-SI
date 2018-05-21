@@ -7,9 +7,9 @@ package Juego;
 
 import static Juego.Genetica.numHijos;
 import static Juego.Icondiciones.ANCHO_TABLERO;
-import static Juego.Icondiciones.poblacion;
 import Recursos.Recursos;
 import java.util.Arrays;
+import static Juego.Icondiciones.poblacion;
 
 /**
  *

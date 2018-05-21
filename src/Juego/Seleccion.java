@@ -6,10 +6,10 @@
 package Juego;
 
 import Recursos.Recursos;
-import static Juego.Icondiciones.poblacion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import static Juego.Icondiciones.poblacion;
 
 /**
  *
@@ -27,7 +27,7 @@ public class Seleccion implements Icondiciones {
         int sumActitud = 0, seleccionar;
         // esta es la cantidad de padres que se seleccionara  
         int vecSelecionados[] = new int[CANT_PADRES];
-        int sumFitnessTotal[] = new int[POBLACION];
+        int sumFitnessTotal[] = new int[TAM_POBLACION];
 
         // suma secuencial de los fitness de la poblacion
         for (int i = 0; i < poblacion.size(); i++) {
@@ -53,7 +53,7 @@ public class Seleccion implements Icondiciones {
 
         for (int i = 0; i < CANT_PADRES; i++) {
             poblacion.get(vecSelecionados[i]).setSeleccionado(true);
-            //System.out.println("Seleccion padre " + vecSelecionados[i] + " suma Act " + sumActitud + " ultimo " + sumFitnessTotal[POBLACION - 1]);
+            //System.out.println("Seleccion padre " + vecSelecionados[i] + " suma Act " + sumActitud + " ultimo " + sumFitnessTotal[TAM_POBLACION - 1]);
         }
     }
 
@@ -124,9 +124,9 @@ public class Seleccion implements Icondiciones {
             return new Integer(c.getConflictos()).compareTo(new Integer(c1.getConflictos()));
         });
 
-        //peor es el primero
+        //mejor es el primero
         poblacion.get(0).setSeleccionado(true);
-        //mejor el ultimo1
+        //peor el ultimo
         poblacion.get(poblacion.size() - 1).setSeleccionado(true);
 
     }
@@ -137,7 +137,7 @@ public class Seleccion implements Icondiciones {
      * se perderá el mejor cromosoma. Al resto de la población se le aplica la
      * reproducción normalmente.
      *
-     * fuente: http://www.aic.uniovi.es/ssii/Tutorial/Seleccion.html
+     * fuente: http://www.aic.uniovi.es/ssii/Tutorial/Seleccion.htm
      * http://sabia.tic.udc.es/mgestal/cv/AAGGtutorial/node11.html
      */
     public void elitista() {

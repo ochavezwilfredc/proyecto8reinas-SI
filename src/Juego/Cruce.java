@@ -6,15 +6,13 @@
 package Juego;
 
 import Recursos.Recursos;
-import static Juego.Icondiciones.ANCHO_TABLERO;
-import static Juego.Icondiciones.poblacion;
 import java.util.Arrays;
 
 /**
  *
  * @author mendoza
  */
-public class Cruce {
+public class Cruce implements Icondiciones{
 
     Recursos recursos;
 
@@ -44,7 +42,6 @@ public class Cruce {
             System.out.println("Padre 2 " + Arrays.toString(Padre2.getVec_genes()));
 
             for (int j = 0; j < ANCHO_TABLERO; j++) {
-
                 if (j <= puntoCruceHijo) {
                     cromosomasHijos[i].setVecSolucion(j, Padre1.getVecSolucion(j));
                 } else {
@@ -111,81 +108,6 @@ public class Cruce {
 
         Cromosoma Padre1, Padre2;
 
-        /*Cromosoma auxPadre1, auxPadre2;
-        int posDiferentes[] = new int[5];
-        int CromosomaTemp1[] = new int[4];
-        int CromosomaTemp2[] = new int[4];
-        int cromosomaDescend[] = new int[ANCHO_TABLERO];
-        int x,y;
-        //ArrayList<Integer> totalCromosomas = new ArrayList<Integer>();
-
-        int pos, genPos;
-        posDiferentes[0] = -1;
-        /*
-        Cromosoma padres[] = new Cromosoma[2];
-        
-        padres[0] = poblacion.get(posPadres[0]);
-        padres[1] = poblacion.get(posPadres[1]);
-        System.out.println("Padrees para Genes extraidos 1 " + Arrays.toString(padres[0].getVec_genes()));
-        System.out.println("Padrees para Genes extraidos 2 " + Arrays.toString(padres[1].getVec_genes()));
-
-        /*
-        for (int i = 0; i < cromosomasHijos.length; i++) {
-            
-            
-            for (int j = 0; j < posPadres.length; j++) {
-
-                for (int k = 1; k <= 4; k++) {
-
-                    pos = recursos.getAleatorioExclusivo(0, ANCHO_TABLERO - 1, posDiferentes[k - 1]);
-                    genPos = padres[j].getVecSolucion(pos);
-
-                    if (j % 2 == 0) {
-
-                        CromosomaTemp1[k-1] = genPos;
-                    } else {
-
-                        CromosomaTemp2[k-1] = genPos;
-                    }
-
-                    posDiferentes[j] = pos;
-                }
-
-            }
-            
-            x=y=0;
-            
-            for (int j = 0; j < ANCHO_TABLERO; j++) {
-                
-                if (j%2 == 0) {
-                    cromosomasHijos[i].setVecSolucion(j, CromosomaTemp1[x]);
-                    x++;
-                } else {
-                    cromosomasHijos[i].setVecSolucion(j, CromosomaTemp2[y]);
-                    y++;
-                }
-            }
-            
-            
-            
-            
-        }
-    
-        for (int i = 0; i < 2; i++) {
-
-            if (i % 2 == 0) {
-
-                System.out.println("Genes extraidos en el vector 1" + Arrays.toString(CromosomaTemp1));
-
-            } else {
-
-                System.out.println("Genes extraidos en el vector 1" + Arrays.toString(CromosomaTemp2));
-            }
-
-        }
-
-        System.out.println("// --------------------------------------------------------------------------------------------------------------------------------------------");
-         */
         for (int i = 0; i < cromosomasHijos.length; i++) {
 
             if (i % 2 == 0) {
@@ -260,9 +182,7 @@ public class Cruce {
             for (int j = 0; j < temp1.length; j++) {
                 tempResultado += Integer.toString( Integer.parseInt(temp1[j]) * Integer.parseInt(temp2[j]));
             }
-               
-            vectorResultado[i] = tempResultado;
-               
+            vectorResultado[i] = tempResultado;            
         }
         
         System.out.println("-> Vector resultado " + Arrays.toString(vectorResultado));

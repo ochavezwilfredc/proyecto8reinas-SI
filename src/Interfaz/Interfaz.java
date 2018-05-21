@@ -8,6 +8,8 @@ package Interfaz;
 import Juego.Cromosoma;
 import Juego.Genetica;
 import Juego.Icondiciones;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -144,7 +146,12 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lbl_tiempo = new javax.swing.JLabel();
-        btn_rest = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        lbl_poblacion = new javax.swing.JLabel();
+        lbl_nro_hijos = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lbl_generaciones = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("8 Reinas - Genética - Universidad Señor de Sipán");
@@ -1086,23 +1093,37 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                 .addGap(33, 33, 33))
         );
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel6.setText("TIEMPO DE LA PRUEBA:");
+        jLabel6.setText("Tiempo:");
 
-        lbl_tiempo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbl_tiempo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_tiempo.setForeground(new java.awt.Color(0, 0, 51));
         lbl_tiempo.setText("1seg");
 
-        btn_rest.setBackground(new java.awt.Color(0, 51, 51));
-        btn_rest.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btn_rest.setForeground(new java.awt.Color(255, 255, 255));
-        btn_rest.setText("Restart");
-        btn_rest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_restActionPerformed(evt);
-            }
-        });
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel7.setText("Población:");
+
+        lbl_poblacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_poblacion.setForeground(new java.awt.Color(0, 0, 51));
+        lbl_poblacion.setText("100");
+
+        lbl_nro_hijos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_nro_hijos.setForeground(new java.awt.Color(0, 0, 51));
+        lbl_nro_hijos.setText("100");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel8.setText("#Hijos:");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel9.setText("Generaciones:");
+
+        lbl_generaciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_generaciones.setForeground(new java.awt.Color(0, 0, 51));
+        lbl_generaciones.setText("100");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1125,9 +1146,19 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_tiempo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_poblacion)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_generaciones)
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_nro_hijos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_rest, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(135, 135, 135)
                         .addComponent(btn_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(72, 72, 72))))
         );
@@ -1146,11 +1177,19 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(lbl_tiempo)
-                    .addComponent(btn_rest, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(lbl_nro_hijos))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl_poblacion)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(lbl_tiempo)
+                            .addComponent(jLabel7))
+                        .addComponent(jLabel9)
+                        .addComponent(lbl_generaciones))
+                    .addComponent(btn_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1162,26 +1201,31 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
         
         if (todoOK()) {
             this.limpiarTablero();
+            this.btn_iniciar.setEnabled(false);
             //System.out.println("Arreglo config\n" + Arrays.toString(vecConfig));
             Genetica genetica = new Genetica(this.vecConfig);
+            //limpia la lista de cromosomas
+            genetica.poblacion.clear();
             Cromosoma c = genetica.algoritmoGenetico();
 
             for (int i = 0; i < c.vec_solucion.length; i++) {
                 colocarIcono(c.vec_solucion[i], i);
             }
+            
+            this.lbl_poblacion.setText(String.valueOf(TAM_POBLACION));
+            this.lbl_generaciones.setText(String.valueOf(Genetica.generacion));
+            this.lbl_nro_hijos.setText(String.valueOf(Genetica.numHijos));
+            
             //Se cálcula el tiempo
-
-            this.lbl_tiempo.setText(((System.currentTimeMillis() - genetica.getTiempoInicial()) / 1000) + " seg");
-/*
             long diferencia_tiempo = (System.currentTimeMillis() - genetica.getTiempoInicial());
             Date date = new Date(diferencia_tiempo);
             SimpleDateFormat sd2 = new SimpleDateFormat("mm:ss");
             String tiempo = sd2.format(date);
             this.lbl_tiempo.setText(tiempo);
-*/
-
+            
+            this.btn_iniciar.setEnabled(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar todas las opcionsiones", "8-reinas", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar todas \nlas opcionsiones de las fases", "8-reinas", JOptionPane.INFORMATION_MESSAGE);
 
         }
 
@@ -1262,26 +1306,6 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
         this.vecConfig[3] = 2;
     }//GEN-LAST:event_rb_aceptacion_torneoActionPerformed
 
-    private void btn_restActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_restActionPerformed
-        // TODO add your handling code here:
-        /*
-         System.exit(0);
-
-        //System.exit(0);
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                Interfaz nueva = new Interfaz();
-                nueva.setVisible(true);
-            }
-        });
-        */
-        
-        
-       
-
-    }//GEN-LAST:event_btn_restActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -1320,7 +1344,6 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_iniciar;
-    private javax.swing.JButton btn_rest;
     private javax.swing.ButtonGroup grupo_aceptacion;
     private javax.swing.ButtonGroup grupo_cruzamiento;
     private javax.swing.ButtonGroup grupo_mutacion;
@@ -1331,6 +1354,9 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1400,6 +1426,9 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
     private javax.swing.JLabel lb7_5;
     private javax.swing.JLabel lb7_6;
     private javax.swing.JLabel lb7_7;
+    private javax.swing.JLabel lbl_generaciones;
+    private javax.swing.JLabel lbl_nro_hijos;
+    private javax.swing.JLabel lbl_poblacion;
     private javax.swing.JLabel lbl_tiempo;
     private javax.swing.JRadioButton rb_aceptacion_mejora;
     private javax.swing.JRadioButton rb_aceptacion_torneo;
@@ -1649,11 +1678,11 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
 
     private void inicalizarPruebaPorDefecto() {
 
-        this.vecConfig[0] = 0;
+        this.vecConfig[0] = 1;
         this.vecConfig[1] = 1;
         this.vecConfig[2] = 1;
         this.vecConfig[3] = 0;
-        this.rb_seleccion_ruleta.setSelected(true);
+        this.rb_seleccion_torneo.setSelected(true);
         this.rb_cruce_2puntos.setSelected(true);
         this.rb_muta_intercambio_orden.setSelected(true);
         this.rb_aceptacion_total.setSelected(true);
@@ -1680,6 +1709,9 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
 
     private void limpiarTablero() {
         lbl_tiempo.setText("");
+        lbl_poblacion.setText("");
+        lbl_nro_hijos.setText("");
+        lbl_generaciones.setText("");
         lb0_0.setText("");
         lb0_1.setText("");
         lb0_2.setText("");

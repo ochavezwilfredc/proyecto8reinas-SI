@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author mendoza
  */
-public class Genetica implements Icondiciones{
+public class Genetica implements Icondiciones {
 
     // numero de mutaciones
     public static int numMutaciones = 0;
@@ -51,13 +51,11 @@ public class Genetica implements Icondiciones{
         //recibo el vector de configuracion de la prueba desde la interfaz
         this.reproduccion = new Reproduccion(v);
         this.vecConfig = v;
-        
+
         //Tiempo inicial de referencia
-        this.tiempoInicial= System.currentTimeMillis();
+        this.tiempoInicial = System.currentTimeMillis();
     }
 
-    
-    
     /**
      * Método principal para la simulación AG
      *
@@ -76,7 +74,7 @@ public class Genetica implements Icondiciones{
             if (this.recursos.haySolucion()) {
                 esFinal = true;
             }
-            //EvaluaR el fitness por cromosoma significa representar
+            //Evaluar el fitness por cromosoma significa representar
             //la cantidad de coliciones en un valor porcentual de la solución
             fitness.evaluar();
 
@@ -118,7 +116,7 @@ public class Genetica implements Icondiciones{
                 + "\tNro. Hijos Creados: " + numHijos + "\n"
                 + " #Poblacion  : " + poblacion.size());
         return this.cromoResult;
-        
+
     }
 
     /**
@@ -129,8 +127,7 @@ public class Genetica implements Icondiciones{
         Cromosoma nuevoCromosoma;
         int azar;
 
-        for (int i = 0; i < POBLACION; i++) {
-
+        for (int i = 0; i < TAM_POBLACION; i++) {
             // se genera un cromosoma nuevo
             nuevoCromosoma = new Cromosoma(ANCHO_TABLERO);
 
@@ -166,9 +163,8 @@ public class Genetica implements Icondiciones{
                 break;
         }
     }
-    
-    //GET AND SET
 
+    //GET AND SET
     public static int getNumMutaciones() {
         return numMutaciones;
     }
@@ -280,7 +276,5 @@ public class Genetica implements Icondiciones{
     public void setTiempoInicial(long tiempoInicial) {
         this.tiempoInicial = tiempoInicial;
     }
-    
-    
 
 }
