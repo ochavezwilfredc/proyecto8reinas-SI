@@ -161,7 +161,7 @@ public class Genetica implements Icondiciones{
                 this.seleccion.ranking();
                 break;
             case 3://Elitista
-
+                this.seleccion.elitista();
                 break;
         }
     }

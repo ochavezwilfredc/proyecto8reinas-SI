@@ -120,8 +120,8 @@ public class Seleccion implements Icondiciones {
     public void ranking() {
 
         //ordeno la lista de menor a mayor por el valor
-        Collections.sort(poblacion, (Cromosoma t, Cromosoma t1) -> {
-            return new Integer(t.getConflictos()).compareTo(new Integer(t1.getConflictos()));
+        Collections.sort(poblacion, (Cromosoma c, Cromosoma c1) -> {
+            return new Integer(c.getConflictos()).compareTo(new Integer(c1.getConflictos()));
         });
 
         //peor es el primero
@@ -141,6 +141,13 @@ public class Seleccion implements Icondiciones {
      * http://sabia.tic.udc.es/mgestal/cv/AAGGtutorial/node11.html
      */
     public void elitista() {
+        //ordeno la lista de mayor a menor por el valor
+        Collections.sort(poblacion, (Cromosoma c, Cromosoma c1) -> {
+            return new Integer(c1.getConflictos()).compareTo(new Integer(c.getConflictos()));
+        });
 
+        //seleccionamos los dos mejores
+        poblacion.get(0).setSeleccionado(true);
+        poblacion.get(1).setSeleccionado(true);
     }
 }

@@ -8,7 +8,9 @@ package Interfaz;
 import Juego.Cromosoma;
 import Juego.Genetica;
 import Juego.Icondiciones;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -30,15 +32,15 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
         this.vecConfig = new int[4];
         this.inicalizarPruebaPorDefecto();//prueba por defecto
         this.limpiarTablero();
-        
+
     }
-    
+
     public void visualizarTablero(Cromosoma individuo) {
-        
+
         for (int i = 0; i < individuo.vec_solucion.length; i++) {
             colocarIcono(individuo.vec_solucion[i], i);
         }
-        
+
     }
 
     /**
@@ -1154,13 +1156,15 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                 colocarIcono(c.vec_solucion[i], i);
             }
             //Se cálcula el tiempo
-            this.lbl_tiempo.setText(((System.currentTimeMillis() - genetica.getTiempoInicial()) / 1000)+ " seg" );
-            
-            //Termina el programa
-            System.exit(0);
+            long diferencia_tiempo = (System.currentTimeMillis() - genetica.getTiempoInicial());
+            Date date = new Date(diferencia_tiempo);
+            SimpleDateFormat sd2 = new SimpleDateFormat("mm:ss");
+            String tiempo = sd2.format(date);
+            this.lbl_tiempo.setText(tiempo);
+
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar todas las opcionsiones", "8-reinas", JOptionPane.INFORMATION_MESSAGE);
-            
+
         }
 
     }//GEN-LAST:event_btn_iniciarActionPerformed
@@ -1178,7 +1182,7 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
     private void rb_cruce_1puntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_cruce_1puntoActionPerformed
         // TODO add your handling code here:
         this.vecConfig[1] = 0;
-        
+
     }//GEN-LAST:event_rb_cruce_1puntoActionPerformed
 
     private void rb_seleccion_ruletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_seleccion_ruletaActionPerformed
@@ -1192,7 +1196,7 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
 
     private void rb_seleccion_rankingStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rb_seleccion_rankingStateChanged
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_rb_seleccion_rankingStateChanged
 
     private void rb_seleccion_rankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_seleccion_rankingActionPerformed
@@ -1542,7 +1546,7 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                         break;
                 }
                 break;
-            
+
             case 6:
                 switch (c) {
                     case 0:
@@ -1571,7 +1575,7 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                         break;
                 }
                 break;
-            
+
             case 7:
                 switch (c) {
                     case 0:
@@ -1600,21 +1604,21 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                         break;
                 }
                 break;
-            
+
         }
     }
-    
+
     private void inicalizarPruebaPorDefecto() {
-        this.vecConfig[0]=0;
-        this.vecConfig[1]=3;
-        this.vecConfig[2]=1;
-        this.vecConfig[3]=2;
-        this.rb_seleccion_ruleta.setSelected(true);
-        this.rb_cruce_arimetico.setSelected(true);
-        this.rb_muta_intercambio_orden.setSelected(true);
+        this.vecConfig[0] = 2;
+        this.vecConfig[1] = 1;
+        this.vecConfig[2] = 0;
+        this.vecConfig[3] = 2;
+        this.rb_seleccion_ranking.setSelected(true);
+        this.rb_cruce_2puntos.setSelected(true);
+        this.rb_muta_inversion_genes.setSelected(true);
         this.rb_aceptacion_torneo.setSelected(true);
     }
-    
+
     private boolean todoOK() {
         if (rb_seleccion_torneo.isSelected() || rb_seleccion_ruleta.isSelected()
                 || rb_seleccion_ranking.isSelected() || rb_seleccion_elitista.isSelected()) {
@@ -1627,12 +1631,12 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                         return true;
                     }
                 }
-                
+
             }
         }
         return false;
     }
-    
+
     private void limpiarTablero() {
         lbl_tiempo.setText("");
         lb0_0.setText("");
@@ -1699,7 +1703,7 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
         lb7_5.setText("");
         lb7_6.setText("");
         lb7_7.setText("");
-        
+
         lb0_0.setIcon(null);
         lb0_1.setIcon(null);
         lb0_2.setIcon(null);
@@ -1765,5 +1769,5 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
         lb7_6.setIcon(null);
         lb7_7.setIcon(null);
     }
-    
+
 }
