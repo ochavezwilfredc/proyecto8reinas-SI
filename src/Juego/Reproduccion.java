@@ -68,38 +68,6 @@ public class Reproduccion {
         this.configuracionesF2F3F4();
         
         System.out.println("Recibo - > " + Arrays.toString(auxCruceHijos));
-        
-
-        // System.out.println("Recibo - > "+Arrays.toString(auxCruceHijos));
-        
-        /**
-         * Aqui empieza la mutacion
-         */
-            // *********************** de inversion de Genes ***********************
-            // ------------> auxMutacionHijos = mutacion.inversionGenes(auxCruceHijos);
-
-            // *********************** de cambio de orden ***********************
-            // ------------> auxMutacionHijos = mutacion.intercambiarOrden(auxCruceHijos);
-
-            // *********************** de modificacion de genes ***********************
-            // ------------> auxMutacionHijos = mutacion.modificacionGenes(auxCruceHijos);
-        
-        /**
-         * Aqui empieza seleccion para la nueva generacion
-         */
-            // *********************** de aceptacion total ***********************
-            // ------------> siguientePoblacion.aceptacionTotal(auxMutacionHijos);
-
-            // *********************** de mejora ***********************
-            // ------------> siguientePoblacion.deMejora(auxMutacionHijos);
-
-            // *********************** por torneo ***********************
-            // ------------> siguientePoblacion.porTorneo(auxMutacionHijos);
-        
-        /**
-         * Aqui se agrega agrega el numero de hijos
-         */
-        
                 
         // Aqui se agrega agrega el numero de hijos
 

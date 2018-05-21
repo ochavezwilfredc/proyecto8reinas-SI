@@ -59,17 +59,11 @@ public class Seleccion implements Icondiciones {
 
     public void torneo() {
 
-
-        int posIndividuosTorneo[] = new int[CANT_INDIVIDUOS_TORNEO];
-
         int excepto = -1;
-
         int menorConflic[] = new int[CANT_PADRES];
         int posMenConflic[] = new int[CANT_PADRES];
         Cromosoma posIndivMenConflic[] = new Cromosoma[CANT_PADRES];
         int vecPosicionesCromo[] = new int[CANT_INDIVIDUOS_TORNEO];
-        int posPadres[] = new int[CANT_PADRES];
-        int posIndivMenConflicAux[] = new int[2];
 
 
         ArrayList<Cromosoma> individuosTorneo = new ArrayList<>();
@@ -147,9 +141,9 @@ public class Seleccion implements Icondiciones {
      * http://sabia.tic.udc.es/mgestal/cv/AAGGtutorial/node11.html
      */
     public void elitista() {
-        //ordeno la lista de mayor a menor por el valor
+        //ordeno la lista de menor a mayor por el valor
         Collections.sort(poblacion, (Cromosoma c, Cromosoma c1) -> {
-            return new Integer(c1.getConflictos()).compareTo(new Integer(c.getConflictos()));
+            return new Integer(c.getConflictos()).compareTo(new Integer(c1.getConflictos()));
         });
 
         //seleccionamos los dos mejores

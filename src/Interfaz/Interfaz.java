@@ -8,10 +8,6 @@ package Interfaz;
 import Juego.Cromosoma;
 import Juego.Genetica;
 import Juego.Icondiciones;
-import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -1176,13 +1172,13 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
             //Se cálcula el tiempo
 
             this.lbl_tiempo.setText(((System.currentTimeMillis() - genetica.getTiempoInicial()) / 1000) + " seg");
-
+/*
             long diferencia_tiempo = (System.currentTimeMillis() - genetica.getTiempoInicial());
             Date date = new Date(diferencia_tiempo);
             SimpleDateFormat sd2 = new SimpleDateFormat("mm:ss");
             String tiempo = sd2.format(date);
             this.lbl_tiempo.setText(tiempo);
-
+*/
 
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar todas las opcionsiones", "8-reinas", JOptionPane.INFORMATION_MESSAGE);
