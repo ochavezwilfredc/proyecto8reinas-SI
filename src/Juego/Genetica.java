@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author mendoza
  */
-public class Genetica implements Icondiciones {
+public class Genetica implements Icondiciones{
 
     // numero de mutaciones
     public static int numMutaciones = 0;
@@ -34,16 +34,30 @@ public class Genetica implements Icondiciones {
 
     private Cromosoma cromoResult;
 
-    public Genetica() {
+    //Vector para la configuracion
+    int[] vecConfig;
+
+    //Tiempo
+    private long tiempoInicial;
+
+    public Genetica(int v[]) {
         this.recursos = new Recursos();
         this.seleccion = new Seleccion();
         this.fitness = new Fitness();
         this.cruce = new Cruce();
         this.mutacion = new Mutacion();
         this.nuevaPoblacion = new SiguientePoblacion();
-        this.reproduccion = new Reproduccion();
+
+        //recibo el vector de configuracion de la prueba desde la interfaz
+        this.reproduccion = new Reproduccion(v);
+        this.vecConfig = v;
+        
+        //Tiempo inicial de referencia
+        this.tiempoInicial= System.currentTimeMillis();
     }
 
+    
+    
     /**
      * Método principal para la simulación AG
      *
@@ -68,11 +82,8 @@ public class Genetica implements Icondiciones {
 
             if (!esFinal) {
 
-                /**
-                 * Aqui se genera la seleccion
-                 */
-                // se utiliza la ruleta como algoritmo de seleccion 
-                seleccion.torneo();
+                //Método que evalua la condición de la fase 1 = selección
+                this.condicionesPruebaSeleccion();
 
                 //Realiza el cruce parcial de los padres
                 reproduccion.generarReproduccion();
@@ -107,21 +118,22 @@ public class Genetica implements Icondiciones {
                 + "\tNro. Hijos Creados: " + numHijos + "\n"
                 + " #Poblacion  : " + poblacion.size());
         return this.cromoResult;
+        
     }
 
     /**
      * Método genera la población inicial
      */
     public void generarPoblacionInicial() {
-        
+
         Cromosoma nuevoCromosoma;
         int azar;
 
         for (int i = 0; i < POBLACION_INICIAL; i++) {
-            
+
             // se genera un cromosoma nuevo
             nuevoCromosoma = new Cromosoma(ANCHO_TABLERO);
-            
+
             for (int j = 0; j < ANCHO_TABLERO; j++) {
                 azar = recursos.getAleatorio(0, ANCHO_TABLERO - 1);
                 nuevoCromosoma.setVecSolucion(j, azar);
@@ -130,14 +142,145 @@ public class Genetica implements Icondiciones {
             nuevoCromosoma.calcularConflictos();
             // se agrega el cromosoma a la lista(población)
             poblacion.add(nuevoCromosoma);
-                      
 
         }
     }
 
-    public static void main(String[] args) {
-        Genetica reinas = new Genetica();
-        Cromosoma c = reinas.algoritmoGenetico();
+    /**
+     * Método que evalua la condiciones de la prueba
+     */
+    private void condicionesPruebaSeleccion() {
+        //Configuraciones Fase1 = selección
+        switch (vecConfig[0]) {
+            case 0://ruleta
+                this.seleccion.ruleta();
+                break;
+            case 1://torneo
+                this.seleccion.torneo();
+                break;
+            case 2://ranking
+
+                break;
+            case 3://Elitista
+
+                break;
+        }
     }
+    
+    //GET AND SET
+
+    public static int getNumMutaciones() {
+        return numMutaciones;
+    }
+
+    public static void setNumMutaciones(int numMutaciones) {
+        Genetica.numMutaciones = numMutaciones;
+    }
+
+    public static int getGeneracion() {
+        return generacion;
+    }
+
+    public static void setGeneracion(int generacion) {
+        Genetica.generacion = generacion;
+    }
+
+    public static int getNumHijos() {
+        return numHijos;
+    }
+
+    public static void setNumHijos(int numHijos) {
+        Genetica.numHijos = numHijos;
+    }
+
+    public Recursos getRecursos() {
+        return recursos;
+    }
+
+    public void setRecursos(Recursos recursos) {
+        this.recursos = recursos;
+    }
+
+    public Seleccion getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
+    }
+
+    public Fitness getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(Fitness fitness) {
+        this.fitness = fitness;
+    }
+
+    public Cromosoma getCromosoma() {
+        return cromosoma;
+    }
+
+    public void setCromosoma(Cromosoma cromosoma) {
+        this.cromosoma = cromosoma;
+    }
+
+    public Cruce getCruce() {
+        return cruce;
+    }
+
+    public void setCruce(Cruce cruce) {
+        this.cruce = cruce;
+    }
+
+    public Mutacion getMutacion() {
+        return mutacion;
+    }
+
+    public void setMutacion(Mutacion mutacion) {
+        this.mutacion = mutacion;
+    }
+
+    public SiguientePoblacion getNuevaPoblacion() {
+        return nuevaPoblacion;
+    }
+
+    public void setNuevaPoblacion(SiguientePoblacion nuevaPoblacion) {
+        this.nuevaPoblacion = nuevaPoblacion;
+    }
+
+    public Reproduccion getReproduccion() {
+        return reproduccion;
+    }
+
+    public void setReproduccion(Reproduccion reproduccion) {
+        this.reproduccion = reproduccion;
+    }
+
+    public Cromosoma getCromoResult() {
+        return cromoResult;
+    }
+
+    public void setCromoResult(Cromosoma cromoResult) {
+        this.cromoResult = cromoResult;
+    }
+
+    public int[] getVecConfig() {
+        return vecConfig;
+    }
+
+    public void setVecConfig(int[] vecConfig) {
+        this.vecConfig = vecConfig;
+    }
+
+    public long getTiempoInicial() {
+        return tiempoInicial;
+    }
+
+    public void setTiempoInicial(long tiempoInicial) {
+        this.tiempoInicial = tiempoInicial;
+    }
+    
+    
 
 }

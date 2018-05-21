@@ -36,11 +36,11 @@ public class Binario {
             }
 
         } else if (numero == 1) {
-        
+
             binario.add(0, Integer.toString(1));
             binario.add(0, Integer.toString(0));
             binario.add(0, Integer.toString(0));
-            
+
         } else if (numero == 0) {
             binario.add(0, Integer.toString(0));
             binario.add(0, Integer.toString(0));
@@ -53,20 +53,19 @@ public class Binario {
         }
         return binarioString;
     }
-    
-    public int binarioDecimal( int[] valorBinario, int index ) {
-        
+
+    public int binarioDecimal(int[] valorBinario, int index) {
+
         int acumulado = 0;
         int aux = index;
-        
+
         for (int i = 0; i < valorBinario.length; i++) {
-            
-            acumulado = (int) (acumulado + valorBinario[i] * (Math.pow(2, aux))) ;
+
+            acumulado = (int) (acumulado + valorBinario[i] * (Math.pow(2, aux)));
             aux--;
         }
 
         return acumulado;
-  }
+    }
 
-   
 }

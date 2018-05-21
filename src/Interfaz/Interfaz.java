@@ -8,31 +8,38 @@ package Interfaz;
 import Juego.Cromosoma;
 import Juego.Genetica;
 import Juego.Icondiciones;
+import java.awt.event.ActionEvent;
+import java.util.Arrays;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author cristobal
  */
-public class Interfaz extends javax.swing.JFrame implements Icondiciones{
+public class Interfaz extends javax.swing.JFrame implements Icondiciones {
 
     /**
      * Creates new form Interfaz
      */
+    int[] vecConfig;//VECTOR DE CONFIGURACIÓN - donde el indice reprecenta a la fase y el valor al método
+
     public Interfaz() {
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
+        this.vecConfig = new int[4];
+        this.inicalizarPruebaPorDefecto();//prueba por defecto
         this.limpiarTablero();
 
     }
-    
-    public void visualizarTablero (Cromosoma individuo) {
-    
+
+    public void visualizarTablero(Cromosoma individuo) {
+
         for (int i = 0; i < individuo.vec_solucion.length; i++) {
-            colocarIcono(individuo.vec_solucion[i] , i);
+            colocarIcono(individuo.vec_solucion[i], i);
         }
-        
+
     }
 
     /**
@@ -44,10 +51,10 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnG_seleccion = new javax.swing.ButtonGroup();
-        btnG_cruzamiento = new javax.swing.ButtonGroup();
-        btnG_mutacion = new javax.swing.ButtonGroup();
-        btnG_aceptacion = new javax.swing.ButtonGroup();
+        grupo_seleccion = new javax.swing.ButtonGroup();
+        grupo_cruzamiento = new javax.swing.ButtonGroup();
+        grupo_mutacion = new javax.swing.ButtonGroup();
+        grupo_aceptacion = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lb0_2 = new javax.swing.JLabel();
         lb0_0 = new javax.swing.JLabel();
@@ -116,29 +123,34 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
         jLabel2 = new javax.swing.JLabel();
         btn_iniciar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jrb_ruleta = new javax.swing.JRadioButton();
-        jrb_torneo = new javax.swing.JRadioButton();
-        jrb_ranking = new javax.swing.JRadioButton();
-        jrb_elitista = new javax.swing.JRadioButton();
+        rb_seleccion_ruleta = new javax.swing.JRadioButton();
+        rb_seleccion_torneo = new javax.swing.JRadioButton();
+        rb_seleccion_ranking = new javax.swing.JRadioButton();
+        rb_seleccion_elitista = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jrb_cruce_1punto = new javax.swing.JRadioButton();
-        jrb_cruce_2puntos = new javax.swing.JRadioButton();
-        jrb_cruce_uniforme = new javax.swing.JRadioButton();
-        jrb_cruce_arimetico = new javax.swing.JRadioButton();
+        rb_cruce_1punto = new javax.swing.JRadioButton();
+        rb_cruce_2puntos = new javax.swing.JRadioButton();
+        rb_cruce_uniforme = new javax.swing.JRadioButton();
+        rb_cruce_arimetico = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jrb_muta_inversion_genes = new javax.swing.JRadioButton();
-        jrb_muta_cambio_orden = new javax.swing.JRadioButton();
-        jrb_muta_modificacion_genes = new javax.swing.JRadioButton();
+        rb_muta_inversion_genes = new javax.swing.JRadioButton();
+        rb_muta_intercambio_orden = new javax.swing.JRadioButton();
+        rb_muta_modificacion_genes = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jrb_aceptacion_total = new javax.swing.JRadioButton();
-        jrb_aceptacion_mejora = new javax.swing.JRadioButton();
-        jrb_aceptacion_torneo = new javax.swing.JRadioButton();
+        rb_aceptacion_total = new javax.swing.JRadioButton();
+        rb_aceptacion_mejora = new javax.swing.JRadioButton();
+        rb_aceptacion_torneo = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lbl_tiempo = new javax.swing.JLabel();
+        btn_rest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("8 Reinas - Genética - Universidad Señor de Sipán");
+        setBackground(new java.awt.Color(204, 255, 204));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -761,8 +773,9 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
                 .addGap(52, 52, 52))
         );
 
-        btn_iniciar.setBackground(new java.awt.Color(0, 204, 102));
+        btn_iniciar.setBackground(new java.awt.Color(0, 51, 51));
         btn_iniciar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_iniciar.setForeground(new java.awt.Color(255, 255, 255));
         btn_iniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaz/iniciar.png"))); // NOI18N
         btn_iniciar.setText("INICIAR");
         btn_iniciar.addActionListener(new java.awt.event.ActionListener() {
@@ -774,25 +787,50 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
         jPanel2.setBackground(new java.awt.Color(204, 255, 153));
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
 
-        btnG_seleccion.add(jrb_ruleta);
-        jrb_ruleta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_ruleta.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_ruleta.setText("Ruleta");
+        grupo_seleccion.add(rb_seleccion_ruleta);
+        rb_seleccion_ruleta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_seleccion_ruleta.setForeground(new java.awt.Color(0, 0, 51));
+        rb_seleccion_ruleta.setText("Ruleta");
+        rb_seleccion_ruleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_seleccion_ruletaActionPerformed(evt);
+            }
+        });
 
-        btnG_seleccion.add(jrb_torneo);
-        jrb_torneo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_torneo.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_torneo.setText("Torneo");
+        grupo_seleccion.add(rb_seleccion_torneo);
+        rb_seleccion_torneo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_seleccion_torneo.setForeground(new java.awt.Color(0, 0, 51));
+        rb_seleccion_torneo.setText("Torneo");
+        rb_seleccion_torneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_seleccion_torneoActionPerformed(evt);
+            }
+        });
 
-        btnG_seleccion.add(jrb_ranking);
-        jrb_ranking.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_ranking.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_ranking.setText("Ranking");
+        grupo_seleccion.add(rb_seleccion_ranking);
+        rb_seleccion_ranking.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_seleccion_ranking.setForeground(new java.awt.Color(0, 0, 51));
+        rb_seleccion_ranking.setText("Ranking");
+        rb_seleccion_ranking.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rb_seleccion_rankingStateChanged(evt);
+            }
+        });
+        rb_seleccion_ranking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_seleccion_rankingActionPerformed(evt);
+            }
+        });
 
-        btnG_seleccion.add(jrb_elitista);
-        jrb_elitista.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_elitista.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_elitista.setText("Elitista");
+        grupo_seleccion.add(rb_seleccion_elitista);
+        rb_seleccion_elitista.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_seleccion_elitista.setForeground(new java.awt.Color(0, 0, 51));
+        rb_seleccion_elitista.setText("Elitista");
+        rb_seleccion_elitista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_seleccion_elitistaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
@@ -806,10 +844,10 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrb_ruleta)
-                    .addComponent(jrb_torneo)
-                    .addComponent(jrb_ranking)
-                    .addComponent(jrb_elitista))
+                    .addComponent(rb_seleccion_ruleta)
+                    .addComponent(rb_seleccion_torneo)
+                    .addComponent(rb_seleccion_ranking)
+                    .addComponent(rb_seleccion_elitista))
                 .addContainerGap(143, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -822,43 +860,58 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_ruleta)
+                .addComponent(rb_seleccion_ruleta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_torneo)
+                .addComponent(rb_seleccion_torneo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_ranking)
+                .addComponent(rb_seleccion_ranking)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_elitista)
+                .addComponent(rb_seleccion_elitista)
                 .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 102));
         jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
 
-        btnG_cruzamiento.add(jrb_cruce_1punto);
-        jrb_cruce_1punto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_cruce_1punto.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_cruce_1punto.setText("1 Punto");
-
-        btnG_cruzamiento.add(jrb_cruce_2puntos);
-        jrb_cruce_2puntos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_cruce_2puntos.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_cruce_2puntos.setText("2 Puntos");
-        jrb_cruce_2puntos.addActionListener(new java.awt.event.ActionListener() {
+        grupo_cruzamiento.add(rb_cruce_1punto);
+        rb_cruce_1punto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_cruce_1punto.setForeground(new java.awt.Color(0, 0, 51));
+        rb_cruce_1punto.setText("1 Punto");
+        rb_cruce_1punto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb_cruce_2puntosActionPerformed(evt);
+                rb_cruce_1puntoActionPerformed(evt);
             }
         });
 
-        btnG_cruzamiento.add(jrb_cruce_uniforme);
-        jrb_cruce_uniforme.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_cruce_uniforme.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_cruce_uniforme.setText("Uniforme");
+        grupo_cruzamiento.add(rb_cruce_2puntos);
+        rb_cruce_2puntos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_cruce_2puntos.setForeground(new java.awt.Color(0, 0, 51));
+        rb_cruce_2puntos.setText("2 Puntos");
+        rb_cruce_2puntos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_cruce_2puntosActionPerformed(evt);
+            }
+        });
 
-        btnG_cruzamiento.add(jrb_cruce_arimetico);
-        jrb_cruce_arimetico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_cruce_arimetico.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_cruce_arimetico.setText("Aritmetico (NADA EFICIENTE)");
+        grupo_cruzamiento.add(rb_cruce_uniforme);
+        rb_cruce_uniforme.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_cruce_uniforme.setForeground(new java.awt.Color(0, 0, 51));
+        rb_cruce_uniforme.setText("Uniforme");
+        rb_cruce_uniforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_cruce_uniformeActionPerformed(evt);
+            }
+        });
+
+        grupo_cruzamiento.add(rb_cruce_arimetico);
+        rb_cruce_arimetico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_cruce_arimetico.setForeground(new java.awt.Color(0, 0, 51));
+        rb_cruce_arimetico.setText("Aritmetico (Nada Eficiente)");
+        rb_cruce_arimetico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_cruce_arimeticoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 0, 0));
@@ -873,16 +926,16 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jrb_cruce_1punto)
-                            .addComponent(jrb_cruce_2puntos)
-                            .addComponent(jrb_cruce_uniforme))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(rb_cruce_arimetico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jrb_cruce_arimetico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addComponent(rb_cruce_1punto)
+                            .addComponent(rb_cruce_2puntos)
+                            .addComponent(rb_cruce_uniforme))
+                        .addGap(135, 135, 135))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -890,36 +943,46 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jrb_cruce_1punto)
+                .addComponent(rb_cruce_1punto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_cruce_2puntos)
+                .addComponent(rb_cruce_2puntos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_cruce_uniforme)
+                .addComponent(rb_cruce_uniforme)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_cruce_arimetico)
+                .addComponent(rb_cruce_arimetico)
                 .addContainerGap())
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 51));
         jPanel4.setBorder(new javax.swing.border.MatteBorder(null));
 
-        btnG_mutacion.add(jrb_muta_inversion_genes);
-        jrb_muta_inversion_genes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_muta_inversion_genes.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_muta_inversion_genes.setText("Inversión de genes ");
-
-        btnG_mutacion.add(jrb_muta_cambio_orden);
-        jrb_muta_cambio_orden.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_muta_cambio_orden.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_muta_cambio_orden.setText("Cambio de orden ");
-
-        btnG_mutacion.add(jrb_muta_modificacion_genes);
-        jrb_muta_modificacion_genes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_muta_modificacion_genes.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_muta_modificacion_genes.setText("Modificación de genes ");
-        jrb_muta_modificacion_genes.addActionListener(new java.awt.event.ActionListener() {
+        grupo_mutacion.add(rb_muta_inversion_genes);
+        rb_muta_inversion_genes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_muta_inversion_genes.setForeground(new java.awt.Color(0, 0, 51));
+        rb_muta_inversion_genes.setText("Inversión de genes ");
+        rb_muta_inversion_genes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb_muta_modificacion_genesActionPerformed(evt);
+                rb_muta_inversion_genesActionPerformed(evt);
+            }
+        });
+
+        grupo_mutacion.add(rb_muta_intercambio_orden);
+        rb_muta_intercambio_orden.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_muta_intercambio_orden.setForeground(new java.awt.Color(0, 0, 51));
+        rb_muta_intercambio_orden.setText("Cambio de orden ");
+        rb_muta_intercambio_orden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_muta_intercambio_ordenActionPerformed(evt);
+            }
+        });
+
+        grupo_mutacion.add(rb_muta_modificacion_genes);
+        rb_muta_modificacion_genes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_muta_modificacion_genes.setForeground(new java.awt.Color(0, 0, 51));
+        rb_muta_modificacion_genes.setText("Modificación de genes ");
+        rb_muta_modificacion_genes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_muta_modificacion_genesActionPerformed(evt);
             }
         });
 
@@ -935,9 +998,9 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrb_muta_inversion_genes)
-                    .addComponent(jrb_muta_cambio_orden)
-                    .addComponent(jrb_muta_modificacion_genes))
+                    .addComponent(rb_muta_inversion_genes)
+                    .addComponent(rb_muta_intercambio_orden)
+                    .addComponent(rb_muta_modificacion_genes))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -950,31 +1013,46 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jrb_muta_inversion_genes)
+                .addComponent(rb_muta_inversion_genes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_muta_cambio_orden)
+                .addComponent(rb_muta_intercambio_orden)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_muta_modificacion_genes)
+                .addComponent(rb_muta_modificacion_genes)
                 .addGap(33, 33, 33))
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 255, 0));
         jPanel5.setBorder(new javax.swing.border.MatteBorder(null));
 
-        btnG_aceptacion.add(jrb_aceptacion_total);
-        jrb_aceptacion_total.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_aceptacion_total.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_aceptacion_total.setText("Aceptación total ");
+        grupo_aceptacion.add(rb_aceptacion_total);
+        rb_aceptacion_total.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_aceptacion_total.setForeground(new java.awt.Color(0, 0, 51));
+        rb_aceptacion_total.setText("Aceptación total ");
+        rb_aceptacion_total.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_aceptacion_totalActionPerformed(evt);
+            }
+        });
 
-        btnG_aceptacion.add(jrb_aceptacion_mejora);
-        jrb_aceptacion_mejora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_aceptacion_mejora.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_aceptacion_mejora.setText("De mejora ");
+        grupo_aceptacion.add(rb_aceptacion_mejora);
+        rb_aceptacion_mejora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_aceptacion_mejora.setForeground(new java.awt.Color(0, 0, 51));
+        rb_aceptacion_mejora.setText("De mejora ");
+        rb_aceptacion_mejora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_aceptacion_mejoraActionPerformed(evt);
+            }
+        });
 
-        btnG_aceptacion.add(jrb_aceptacion_torneo);
-        jrb_aceptacion_torneo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jrb_aceptacion_torneo.setForeground(new java.awt.Color(0, 0, 51));
-        jrb_aceptacion_torneo.setText("Por torneo ");
+        grupo_aceptacion.add(rb_aceptacion_torneo);
+        rb_aceptacion_torneo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rb_aceptacion_torneo.setForeground(new java.awt.Color(0, 0, 51));
+        rb_aceptacion_torneo.setText("Por torneo ");
+        rb_aceptacion_torneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_aceptacion_torneoActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 0, 0));
@@ -988,9 +1066,9 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrb_aceptacion_total)
-                    .addComponent(jrb_aceptacion_mejora)
-                    .addComponent(jrb_aceptacion_torneo))
+                    .addComponent(rb_aceptacion_total)
+                    .addComponent(rb_aceptacion_mejora)
+                    .addComponent(rb_aceptacion_torneo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
@@ -1002,13 +1080,31 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_aceptacion_total)
+                .addComponent(rb_aceptacion_total)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_aceptacion_mejora)
+                .addComponent(rb_aceptacion_mejora)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jrb_aceptacion_torneo)
+                .addComponent(rb_aceptacion_torneo)
                 .addGap(33, 33, 33))
         );
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel6.setText("TIEMPO DE LA PRUEBA:");
+
+        lbl_tiempo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbl_tiempo.setForeground(new java.awt.Color(0, 0, 51));
+        lbl_tiempo.setText("1seg");
+
+        btn_rest.setBackground(new java.awt.Color(0, 51, 51));
+        btn_rest.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rest.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rest.setText("Restart");
+        btn_rest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_restActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1016,18 +1112,26 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_tiempo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_rest, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(135, 135, 135)
+                        .addComponent(btn_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1044,7 +1148,11 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(lbl_tiempo)
+                    .addComponent(btn_rest, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1053,23 +1161,120 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
 
     private void btn_iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciarActionPerformed
         // TODO add your handling code here:
-        this.limpiarTablero();
-        Genetica genetica = new Genetica();
-        Cromosoma c = genetica.algoritmoGenetico();
         
-        for (int i = 0; i < c.vec_solucion.length; i++) {
-            colocarIcono(c.vec_solucion[i],i);
+        if (todoOK()) {
+            this.limpiarTablero();
+            //System.out.println("Arreglo config\n" + Arrays.toString(vecConfig));
+            Genetica genetica = new Genetica(this.vecConfig);
+            Cromosoma c = genetica.algoritmoGenetico();
+
+            for (int i = 0; i < c.vec_solucion.length; i++) {
+                colocarIcono(c.vec_solucion[i], i);
+            }
+            //Se cálcula el tiempo
+            this.lbl_tiempo.setText(((System.currentTimeMillis() - genetica.getTiempoInicial()) / 1000) + " seg");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar todas las opcionsiones", "8-reinas", JOptionPane.INFORMATION_MESSAGE);
+
         }
-        
+
     }//GEN-LAST:event_btn_iniciarActionPerformed
 
-    private void jrb_cruce_2puntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_cruce_2puntosActionPerformed
+    private void rb_cruce_2puntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_cruce_2puntosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jrb_cruce_2puntosActionPerformed
+        this.vecConfig[1] = 1;
+    }//GEN-LAST:event_rb_cruce_2puntosActionPerformed
 
-    private void jrb_muta_modificacion_genesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_muta_modificacion_genesActionPerformed
+    private void rb_muta_modificacion_genesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_muta_modificacion_genesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jrb_muta_modificacion_genesActionPerformed
+        this.vecConfig[2] = 2;
+    }//GEN-LAST:event_rb_muta_modificacion_genesActionPerformed
+
+    private void rb_cruce_1puntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_cruce_1puntoActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[1] = 0;
+
+    }//GEN-LAST:event_rb_cruce_1puntoActionPerformed
+
+    private void rb_seleccion_ruletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_seleccion_ruletaActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[0] = 0;
+    }//GEN-LAST:event_rb_seleccion_ruletaActionPerformed
+
+    private void rb_seleccion_torneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_seleccion_torneoActionPerformed
+        this.vecConfig[0] = 1;
+    }//GEN-LAST:event_rb_seleccion_torneoActionPerformed
+
+    private void rb_seleccion_rankingStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rb_seleccion_rankingStateChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_rb_seleccion_rankingStateChanged
+
+    private void rb_seleccion_rankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_seleccion_rankingActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[0] = 2;
+    }//GEN-LAST:event_rb_seleccion_rankingActionPerformed
+
+    private void rb_seleccion_elitistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_seleccion_elitistaActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[0] = 3;
+    }//GEN-LAST:event_rb_seleccion_elitistaActionPerformed
+
+    private void rb_cruce_uniformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_cruce_uniformeActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[1] = 2;
+    }//GEN-LAST:event_rb_cruce_uniformeActionPerformed
+
+    private void rb_cruce_arimeticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_cruce_arimeticoActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[1] = 3;
+    }//GEN-LAST:event_rb_cruce_arimeticoActionPerformed
+
+    private void rb_muta_inversion_genesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_muta_inversion_genesActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[2] = 0;
+    }//GEN-LAST:event_rb_muta_inversion_genesActionPerformed
+
+    private void rb_muta_intercambio_ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_muta_intercambio_ordenActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[2] = 1;
+    }//GEN-LAST:event_rb_muta_intercambio_ordenActionPerformed
+
+    private void rb_aceptacion_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_aceptacion_totalActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[3] = 0;
+    }//GEN-LAST:event_rb_aceptacion_totalActionPerformed
+
+    private void rb_aceptacion_mejoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_aceptacion_mejoraActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[3] = 1;
+    }//GEN-LAST:event_rb_aceptacion_mejoraActionPerformed
+
+    private void rb_aceptacion_torneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_aceptacion_torneoActionPerformed
+        // TODO add your handling code here:
+        this.vecConfig[3] = 2;
+    }//GEN-LAST:event_rb_aceptacion_torneoActionPerformed
+
+    private void btn_restActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_restActionPerformed
+        // TODO add your handling code here:
+        /*
+         System.exit(0);
+
+        //System.exit(0);
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                Interfaz nueva = new Interfaz();
+                nueva.setVisible(true);
+            }
+        });
+        */
+        
+        
+       
+
+    }//GEN-LAST:event_btn_restActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1108,35 +1313,23 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btnG_aceptacion;
-    private javax.swing.ButtonGroup btnG_cruzamiento;
-    private javax.swing.ButtonGroup btnG_mutacion;
-    private javax.swing.ButtonGroup btnG_seleccion;
     private javax.swing.JButton btn_iniciar;
+    private javax.swing.JButton btn_rest;
+    private javax.swing.ButtonGroup grupo_aceptacion;
+    private javax.swing.ButtonGroup grupo_cruzamiento;
+    private javax.swing.ButtonGroup grupo_mutacion;
+    private javax.swing.ButtonGroup grupo_seleccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jrb_aceptacion_mejora;
-    private javax.swing.JRadioButton jrb_aceptacion_torneo;
-    private javax.swing.JRadioButton jrb_aceptacion_total;
-    private javax.swing.JRadioButton jrb_cruce_1punto;
-    private javax.swing.JRadioButton jrb_cruce_2puntos;
-    private javax.swing.JRadioButton jrb_cruce_arimetico;
-    private javax.swing.JRadioButton jrb_cruce_uniforme;
-    private javax.swing.JRadioButton jrb_elitista;
-    private javax.swing.JRadioButton jrb_muta_cambio_orden;
-    private javax.swing.JRadioButton jrb_muta_inversion_genes;
-    private javax.swing.JRadioButton jrb_muta_modificacion_genes;
-    private javax.swing.JRadioButton jrb_ranking;
-    private javax.swing.JRadioButton jrb_ruleta;
-    private javax.swing.JRadioButton jrb_torneo;
     private javax.swing.JLabel lb0_0;
     private javax.swing.JLabel lb0_1;
     private javax.swing.JLabel lb0_2;
@@ -1201,9 +1394,284 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
     private javax.swing.JLabel lb7_5;
     private javax.swing.JLabel lb7_6;
     private javax.swing.JLabel lb7_7;
+    private javax.swing.JLabel lbl_tiempo;
+    private javax.swing.JRadioButton rb_aceptacion_mejora;
+    private javax.swing.JRadioButton rb_aceptacion_torneo;
+    private javax.swing.JRadioButton rb_aceptacion_total;
+    private javax.swing.JRadioButton rb_cruce_1punto;
+    private javax.swing.JRadioButton rb_cruce_2puntos;
+    private javax.swing.JRadioButton rb_cruce_arimetico;
+    private javax.swing.JRadioButton rb_cruce_uniforme;
+    private javax.swing.JRadioButton rb_muta_intercambio_orden;
+    private javax.swing.JRadioButton rb_muta_inversion_genes;
+    private javax.swing.JRadioButton rb_muta_modificacion_genes;
+    private javax.swing.JRadioButton rb_seleccion_elitista;
+    private javax.swing.JRadioButton rb_seleccion_ranking;
+    private javax.swing.JRadioButton rb_seleccion_ruleta;
+    private javax.swing.JRadioButton rb_seleccion_torneo;
     // End of variables declaration//GEN-END:variables
 
+    public void colocarIcono(int f, int c) {
+        switch (f) {
+            case 0:
+                switch (c) {
+                    case 0:
+                        this.lb0_0.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 1:
+                        this.lb1_0.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 2:
+                        this.lb2_0.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 3:
+                        this.lb3_0.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 4:
+                        this.lb4_0.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 5:
+                        this.lb5_0.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 6:
+                        this.lb6_0.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 7:
+                        this.lb7_0.setIcon(new ImageIcon("reina.png"));
+                        break;
+                }
+                break;
+            case 1:
+                switch (c) {
+                    case 0:
+                        this.lb0_1.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 1:
+                        this.lb1_1.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 2:
+                        this.lb2_1.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 3:
+                        this.lb3_1.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 4:
+                        this.lb4_1.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 5:
+                        this.lb5_1.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 6:
+                        this.lb6_1.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 7:
+                        this.lb7_1.setIcon(new ImageIcon("reina.png"));
+                }
+                break;
+            case 2:
+                switch (c) {
+                    case 0:
+                        this.lb0_2.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 1:
+                        this.lb1_2.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 2:
+                        this.lb2_2.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 3:
+                        this.lb3_2.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 4:
+                        this.lb4_2.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 5:
+                        this.lb5_2.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 6:
+                        this.lb6_2.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 7:
+                        this.lb7_2.setIcon(new ImageIcon("reina.png"));
+                }
+                break;
+            case 3:
+                switch (c) {
+                    case 0:
+                        this.lb0_3.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 1:
+                        this.lb1_3.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 2:
+                        this.lb2_3.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 3:
+                        this.lb3_3.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 4:
+                        this.lb4_3.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 5:
+                        this.lb5_3.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 6:
+                        this.lb6_3.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 7:
+                        this.lb7_3.setIcon(new ImageIcon("reina.png"));
+                        break;
+                }
+                break;
+            case 4:
+                switch (c) {
+                    case 0:
+                        this.lb0_4.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 1:
+                        this.lb1_4.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 2:
+                        this.lb2_4.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 3:
+                        this.lb3_4.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 4:
+                        this.lb4_4.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 5:
+                        this.lb5_4.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 6:
+                        this.lb6_4.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 7:
+                        this.lb7_4.setIcon(new ImageIcon("reina.png"));
+                        break;
+                }
+                break;
+            case 5:
+                switch (c) {
+                    case 0:
+                        this.lb0_5.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 1:
+                        this.lb1_5.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 2:
+                        this.lb2_5.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 3:
+                        this.lb3_5.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 4:
+                        this.lb4_5.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 5:
+                        this.lb5_5.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 6:
+                        this.lb6_5.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 7:
+                        this.lb7_5.setIcon(new ImageIcon("reina.png"));
+                        break;
+                }
+                break;
+
+            case 6:
+                switch (c) {
+                    case 0:
+                        this.lb0_6.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 1:
+                        this.lb1_6.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 2:
+                        this.lb2_6.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 3:
+                        this.lb3_6.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 4:
+                        this.lb4_6.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 5:
+                        this.lb5_6.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 6:
+                        this.lb6_6.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 7:
+                        this.lb7_6.setIcon(new ImageIcon("reina.png"));
+                        break;
+                }
+                break;
+
+            case 7:
+                switch (c) {
+                    case 0:
+                        this.lb0_7.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 1:
+                        this.lb1_7.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 2:
+                        this.lb2_7.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 3:
+                        this.lb3_7.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 4:
+                        this.lb4_7.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 5:
+                        this.lb5_7.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 6:
+                        this.lb6_7.setIcon(new ImageIcon("reina.png"));
+                        break;
+                    case 7:
+                        this.lb7_7.setIcon(new ImageIcon("reina.png"));
+                        break;
+                }
+                break;
+
+        }
+    }
+
+    private void inicalizarPruebaPorDefecto() {
+        this.vecConfig[0] = 0;
+        this.vecConfig[1] = 1;
+        this.vecConfig[2] = 1;
+        this.vecConfig[3] = 0;
+        this.rb_seleccion_ruleta.setSelected(true);
+        this.rb_cruce_2puntos.setSelected(true);
+        this.rb_muta_intercambio_orden.setSelected(true);
+        this.rb_aceptacion_total.setSelected(true);
+    }
+
+    private boolean todoOK() {
+        if (rb_seleccion_torneo.isSelected() || rb_seleccion_ruleta.isSelected()
+                || rb_seleccion_ranking.isSelected() || rb_seleccion_elitista.isSelected()) {
+            if (rb_cruce_1punto.isSelected() || rb_cruce_2puntos.isSelected()
+                    || rb_cruce_arimetico.isSelected() || rb_cruce_uniforme.isSelected()) {
+                if (rb_muta_intercambio_orden.isSelected() || rb_muta_inversion_genes.isSelected()
+                        || rb_muta_modificacion_genes.isSelected()) {
+                    if (rb_aceptacion_mejora.isSelected() || rb_aceptacion_torneo.isSelected()
+                            || rb_aceptacion_total.isSelected()) {
+                        return true;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
     private void limpiarTablero() {
+        lbl_tiempo.setText("");
         lb0_0.setText("");
         lb0_1.setText("");
         lb0_2.setText("");
@@ -1268,8 +1736,8 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
         lb7_5.setText("");
         lb7_6.setText("");
         lb7_7.setText("");
-        
-         lb0_0.setIcon(null);
+
+        lb0_0.setIcon(null);
         lb0_1.setIcon(null);
         lb0_2.setIcon(null);
         lb0_3.setIcon(null);
@@ -1335,232 +1803,4 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones{
         lb7_7.setIcon(null);
     }
 
-    public void colocarIcono(int f, int c) {
-        switch (f) {
-            case 0:
-                switch (c) {
-                    case 0:
-                        this.lb0_0.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 1:
-                        this.lb1_0.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 2:
-                        this.lb2_0.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 3:
-                        this.lb3_0.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 4:
-                        this.lb4_0.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 5:
-                        this.lb5_0.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 6:
-                        this.lb6_0.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 7:
-                        this.lb7_0.setIcon(new ImageIcon("reina.png"));
-                        break;
-                }
-                break;
-            case 1:
-                switch (c) {
-                    case 0:
-                        this.lb0_1.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 1:
-                        this.lb1_1.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 2:
-                        this.lb2_1.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 3:
-                        this.lb3_1.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 4:
-                        this.lb4_1.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 5:
-                        this.lb5_1.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 6:
-                        this.lb6_1.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 7:
-                        this.lb7_1.setIcon(new ImageIcon("reina.png"));
-                }
-                break;
-            case 2:
-                switch (c) {
-                     case 0:
-                        this.lb0_2.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 1:
-                        this.lb1_2.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 2:
-                        this.lb2_2.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 3:
-                        this.lb3_2.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 4:
-                        this.lb4_2.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 5:
-                        this.lb5_2.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 6:
-                        this.lb6_2.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 7:
-                        this.lb7_2.setIcon(new ImageIcon("reina.png"));
-                }
-                break;
-            case 3:
-                switch (c) {
-                   case 0:
-                        this.lb0_3.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 1:
-                        this.lb1_3.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 2:
-                        this.lb2_3.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 3:
-                        this.lb3_3.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 4:
-                        this.lb4_3.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 5:
-                        this.lb5_3.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 6:
-                        this.lb6_3.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 7:
-                        this.lb7_3.setIcon(new ImageIcon("reina.png"));
-                        break;
-                }
-                break;
-            case 4:
-                switch (c) {
-                    case 0:
-                        this.lb0_4.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 1:
-                        this.lb1_4.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 2:
-                        this.lb2_4.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 3:
-                        this.lb3_4.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 4:
-                        this.lb4_4.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 5:
-                        this.lb5_4.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 6:
-                        this.lb6_4.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 7:
-                        this.lb7_4.setIcon(new ImageIcon("reina.png"));
-                        break;
-                }
-                break;
-            case 5:
-                switch (c) {
-                     case 0:
-                        this.lb0_5.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 1:
-                        this.lb1_5.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 2:
-                        this.lb2_5.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 3:
-                        this.lb3_5.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 4:
-                        this.lb4_5.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 5:
-                        this.lb5_5.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 6:
-                        this.lb6_5.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 7:
-                        this.lb7_5.setIcon(new ImageIcon("reina.png"));
-                        break;                }
-                break;
-
-            case 6:
-                switch (c) {
-                    case 0:
-                        this.lb0_6.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 1:
-                        this.lb1_6.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 2:
-                        this.lb2_6.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 3:
-                        this.lb3_6.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 4:
-                        this.lb4_6.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 5:
-                        this.lb5_6.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 6:
-                        this.lb6_6.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 7:
-                        this.lb7_6.setIcon(new ImageIcon("reina.png"));
-                        break;
-                }
-                break;
-                
-            case 7:
-                switch(c){
-                     case 0:
-                        this.lb0_7.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 1:
-                        this.lb1_7.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 2:
-                        this.lb2_7.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 3:
-                        this.lb3_7.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 4:
-                        this.lb4_7.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 5:
-                        this.lb5_7.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 6:
-                        this.lb6_7.setIcon(new ImageIcon("reina.png"));
-                        break;
-                    case 7:
-                        this.lb7_7.setIcon(new ImageIcon("reina.png"));
-                        break;
-                }
-                break;
-
-        }
-    }
 }
