@@ -1119,7 +1119,7 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel9.setText("Generaciones:");
+        jLabel9.setText("#Generaciones:");
 
         lbl_generaciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_generaciones.setForeground(new java.awt.Color(0, 0, 51));
@@ -1152,9 +1152,9 @@ public class Interfaz extends javax.swing.JFrame implements Icondiciones {
                         .addComponent(lbl_poblacion)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_generaciones)
-                        .addGap(15, 15, 15)
+                        .addGap(19, 19, 19)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_nro_hijos)
